@@ -594,7 +594,7 @@ if (isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"]
   $idhal = htmlspecialchars($_POST["idhal"]);
   $anneedeb = htmlspecialchars($_POST["anneedeb"]);
   $anneefin = htmlspecialchars($_POST["anneefin"]);
-  if (isset($_POST["apa"]) && $_POST["apa"] == "oui") {$apa = "oui";}else{$apa = "non";}
+  if ((isset($_POST["apa"]) && $_POST["apa"] == "oui")) {$apa = "oui";}else{$apa = "non";}
   if (!isset($increment)) {$increment = htmlspecialchars($_POST["increment"]);}
   $opt1 = "non";
   $opt2 = "non";
@@ -664,6 +664,9 @@ if (isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"]
     $iMin = htmlspecialchars($_POST["iMinRet"]);
     $iMax = htmlspecialchars($_POST["iMaxRet"]);
   }
+}
+if (!isset($_POST["valider"]) && !isset($_POST["apa"])) {
+	$apa = "oui";
 }
 if (isset($opt1) && $opt1 == "oui" && $increment >= 10) {$increment = 10;}
 if (isset($_POST["valider"])) {

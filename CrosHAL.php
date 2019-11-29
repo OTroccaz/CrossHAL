@@ -671,6 +671,7 @@ if (isset($_POST["valider"])) {
   $iMaxRet = $iMax;
 }
 if (isset($team) && $team != "") {$team1 = $team; $team2 = $team;}else{$team1 = "Entrez le code de votre collection"; $team2 = "";}
+if (isset($opt1) && $opt1 == "oui" && $increment >= 10) {$increment = 10;}
 ?>
 <input type="text" id="team" class="form-control" style="height: 25px; width: 300px;" name="team" value="<?php echo $team1;?>" onClick="this.value='<?php echo $team2;?>';" onkeydown="document.getElementById('idhal').value = '';">
 <h2><b><u>ou</u></b></h2>
@@ -729,7 +730,7 @@ if (isset($increment) && $increment == 200) {$dcn = "selected";}else{$dcn = "";}
 <option value="100" <?php echo $cen;?>>100</option>
 <option value="200" <?php echo $dcn;?>>200</option>
 </select>
--> Cette valeur correspond au pas des requêtes envoyées vers Crossref. Plus elle sera élevée et plus le risque de blocage de votre poste sera important.
+<font color='red'>-> Cette valeur correspond au pas des requêtes envoyées vers Crossref. Plus elle sera élevée et plus le risque de blocage de votre poste sera important. Par précaution, elle est volontairement forcée à un maximum de 10 pour l'étape 1.</font>
 <br><br>
 <?php
 if (isset($chkall) && $chkall == "oui") {$cka = " checked";}else{$cka = "";}
@@ -888,6 +889,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
     require_once('./CAS_connect.php');
   }
   $rows = 100000;//100000
+	//$increment = 10;//Pour éviter d'être blacklisté par Crossref
   //$entete = "Authorization: Basic ".$pass."\r\n".
   //          "On-Behalf-Of: ".$user."\r\n".
   //          "Content-Type: text/xml"."\r\n".
@@ -899,7 +901,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
   }
   if (isset($idhal) && $idhal != "") {$atester = "authIdHal_s"; $qui = $idhal;}else{$atester = "collCode_s"; $qui = $team;}
 	//Etape 1 sur les articles ou sur les conférences et chapitres ?
-	if ($ccTitconf == "non" && $ccPays == "non" && $ccDatedeb == "non" && $ccDatefin == "non" && $ccISBN == "non" && $ccTitchap == "non" && $ccTitlivr == "non" && $ccEditcom == "non") {//Etape 1 sur les articles 
+	if ($ccTitconf == "non" && $ccPays == "non" && $ccDatedeb == "non" && $ccDatefin == "non" && $ccISBN == "non" && $ccTitchap == "non" && $ccTitlivr == "non" && $ccEditcom == "non") {//Etape 1 sur les articles
 		//$urlHAL = "https://api.archives-ouvertes.fr/search/?q=collCode_s:%22".$team."%22".$txtApa."%20AND%20submitType_s:%22file%22&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:%22ART%22&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s&sort=halId_s%20asc";
 		//$urlHAL = "https://api.archives-ouvertes.fr/search/?q=halId_s:%22hal-01795811%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:%22ART%22&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s,submitType_s,docType_s&sort=halId_s%20asc";
 			if($ordinv == "oui") {$sort = "desc";}else{$sort = "asc";}

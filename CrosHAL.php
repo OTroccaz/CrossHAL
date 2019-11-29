@@ -665,13 +665,13 @@ if (isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"]
     $iMax = htmlspecialchars($_POST["iMaxRet"]);
   }
 }
+if (isset($opt1) && $opt1 == "oui" && $increment >= 10) {$increment = 10;}
 if (isset($_POST["valider"])) {
   $iMax = $iMin + $increment - 1;
   $iMinRet = $iMin;
   $iMaxRet = $iMax;
 }
 if (isset($team) && $team != "") {$team1 = $team; $team2 = $team;}else{$team1 = "Entrez le code de votre collection"; $team2 = "";}
-if (isset($opt1) && $opt1 == "oui" && $increment >= 10) {$increment = 10;}
 ?>
 <input type="text" id="team" class="form-control" style="height: 25px; width: 300px;" name="team" value="<?php echo $team1;?>" onClick="this.value='<?php echo $team2;?>';" onkeydown="document.getElementById('idhal').value = '';">
 <h2><b><u>ou</u></b></h2>
@@ -889,7 +889,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
     require_once('./CAS_connect.php');
   }
   $rows = 100000;//100000
-	//$increment = 10;//Pour éviter d'être blacklisté par Crossref
+	if ($increment >= 10) {$increment = 10;}//Pour éviter d'être blacklisté par Crossref
   //$entete = "Authorization: Basic ".$pass."\r\n".
   //          "On-Behalf-Of: ".$user."\r\n".
   //          "Content-Type: text/xml"."\r\n".

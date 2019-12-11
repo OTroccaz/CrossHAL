@@ -3173,7 +3173,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
   }else{
     if ($vIdHAL != "oui") {
 			if ($ctrTrs == "oui") {//Contrôle des tiers
-				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,producedDate_s,docid,label_xml,authIdHalFullName_fs,authIdHasStructure_fs,authIdHal_s,label_xml&sort=halId_s%20desc";
+				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,producedDate_s,docid,label_xml,authIdHalFullName_fs,authIdHasStructure_fs,authIdHal_s,label_xml,pubmedId_s&sort=halId_s%20desc";
 			}else{//Repérer les formes IdHAL non valides
 				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22ART%22%20OR%20%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,label_xml,submittedDate_s,submitType_s,docType_s&sort=halId_s%20desc";
 			}
@@ -3271,6 +3271,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine(s) disciplinaire(s)</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Affiliations de type INCOMING ou OLD</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Actions</b></td>";
 	}
   echo "</tr>";
@@ -4680,6 +4681,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					$verifCtb = "non";//Test pour savoir s'il faut vérifier que le contributeur est "sûr"
 					$ctb = "";//Prénom nom du contributeur
 					$pcentAffil = "";//Affiliations de type INCOMING ou OLD
+					$pubmedAff = "";//Résultat interrogation FCGI si PMID
 					$actions = "";
 					$actMaj = "";
 					
@@ -4927,6 +4929,52 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						}
 					}
 					$textAff .= "<td style='text-align: center;'>".$pcentAffil."</td>";
+					
+					//FCGI et PMID
+					if (isset($arrayHAL["response"]["docs"][$cpt]["pubmedId_s"])) {
+						$testAffiMC = "no";
+						$pubmed = $arrayHAL["response"]["docs"][$cpt]["pubmedId_s"];
+						$urlPM = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=".$pubmed;
+						$fp = fopen("./PubMed.fcgi", "w");
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_URL, $urlPM);
+						curl_setopt($ch, CURLOPT_HEADER, 0);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+						curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
+						curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
+						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+						$resultat = curl_exec($ch);
+						fwrite($fp, $resultat);
+						
+						//Traitemant du fichier FCGI
+						include('./FCGI_import.php');
+						
+						//Recherche des affiliations
+						$affili = "";
+						$affiMC = array();
+						for ($k=0; $k<count($fcgiRes[0]['tabAff']); $k++) {
+							$affili .= $fcgiRes[0]['tabAff'][$k].';';
+							$motcle = explode(",", strtolower(wd_remove_accents(str_replace(array(';', '.'), array(',', ''), $fcgiRes[0]['tabAff'][$k]))));
+							for ($mc=0; $mc<count($motcle); $mc++) {
+								array_push($affiMC, trim($motcle[$mc]));
+							}
+						}
+						include('./CrosHAL_collections_motscles.php');
+						$collMC = explode(";", strtolower(wd_remove_accents($collectionsMC[$team])));
+						
+						$pubmedAff = "<img src='./img/pasok.png'>";
+						for ($mc=0; $mc<count($collMC); $mc++) {
+							if (array_search($collMC[$mc], $affiMC) !== false) {// Au moins une correspondance affiliation fcgi/"mot-clé HAL"
+								$pubmedAff = "";
+								$testAffiMC = "ok";
+								break;
+							}
+						}
+						//if ($testAffiMC == "no") {var_dump($collMC); var_dump($affiMC); $lignAff = "ok";}
+						if ($testAffiMC == "no") {$lignAff = "ok";}
+						
+					}
+					$textAff .= "<td style='text-align: center;'>".$pubmedAff."</td>";
 					
 					//Tampons
 					$actStp = "";

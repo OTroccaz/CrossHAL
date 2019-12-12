@@ -4753,6 +4753,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					
 					//Co-auteurs affiliés au laboratoire
 					$cptAut = 0;
+					$listecoAut = "~";
 					for($i=0; $i < $xml->getElementsByTagName("author")->length; $i++) {
 						$affil = "";
 						$aut = "";
@@ -4775,15 +4776,19 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 									if ($elts->childNodes->item($j)->nodeName == "affiliation") {
 										if ($elts->childNodes->item($j)->hasAttribute("ref")) {
 											$affil = $elts->childNodes->item($j)->getAttribute("ref");
-											if (array_key_exists($affil, $LABAFFSTR_LISTE)) {//Affiliation présente dans la liste
-												$affilTest = $LABAFFSTR_LISTE[$affil];
-												//Co-auteurs à mettre en évidence
-												if ($LABAFFSTR_LISTE[$affil] == $team && $aut != $premAut) {
-													if ($cptAut == 0) {$coAutAffil .= "<font color='red'>".$aut."</font>"; $cptAut++;}else{$coAutAffil .= ", <font color='red'>".$aut."</font>";}
-												}
-											}else{
-												if ($aut != $premAut) {
-													if ($cptAut == 0) {$coAutAffil .= $aut; $cptAut++;}else{$coAutAffil .= ", ".$aut;}
+											if (strpos($listecoAut, $aut) === false) {//Auteur non présent encore dans la liste
+												if (array_key_exists($affil, $LABAFFSTR_LISTE)) {//Affiliation présente dans la liste
+													$affilTest = $LABAFFSTR_LISTE[$affil];
+													//Co-auteurs à mettre en évidence
+													if ($LABAFFSTR_LISTE[$affil] == $team && $aut != $premAut) {
+														$listecoAut .= $aut."~";
+														if ($cptAut == 0) {$coAutAffil .= "<font color='red'>".$aut."</font>"; $cptAut++;}else{$coAutAffil .= ", <font color='red'>".$aut."</font>";}
+													}
+												}else{
+													if ($aut != $premAut) {
+														$listecoAut .= $aut."~";
+														if ($cptAut == 0) {$coAutAffil .= $aut; $cptAut++;}else{$coAutAffil .= ", ".$aut;}
+													}
 												}
 											}
 											//Vérification avec le listing ExtrHAL

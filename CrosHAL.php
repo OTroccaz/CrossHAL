@@ -4809,7 +4809,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 									//Récupération prénom nom du contributeur
 									if ($name->childNodes->item($k)->nodeName == "persName") {
 										$preCtb = prenomCompEntier($name->getElementsByTagName("forename")->item(0)->nodeValue);
-										$nomCtb = ucfirst(strtolower($name->getElementsByTagName("surname")->item(0)->nodeValue));
+										$nomCtb = ucfirst(mb_strtolower($name->getElementsByTagName("surname")->item(0)->nodeValue, 'UTF-8'));
 										$ctb = $preCtb." ".$nomCtb;
 									}
 									//Récupération domaine email du contributeur
@@ -4964,10 +4964,13 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						
 						$pubmedAff = "<img src='./img/pasok.png'>";
 						for ($mc=0; $mc<count($collMC); $mc++) {
-							if (array_search($collMC[$mc], $affiMC) !== false) {// Au moins une correspondance affiliation fcgi/"mot-clé HAL"
-								$pubmedAff = "";
-								$testAffiMC = "ok";
-								break;
+							for ($cm=0; $cm<count($affiMC); $cm++) {
+								//if (array_search($collMC[$mc], $affiMC) !== false) {// Au moins une correspondance affiliation fcgi/"mot-clé HAL"
+								if (stripos($affiMC[$cm], $collMC[$mc]) !== false) {// Au moins une correspondance affiliation fcgi/"mot-clé HAL"
+									$pubmedAff = "";
+									$testAffiMC = "ok";
+									break 2;
+								}
 							}
 						}
 						//if ($testAffiMC == "no") {var_dump($collMC); var_dump($affiMC); $lignAff = "ok";}

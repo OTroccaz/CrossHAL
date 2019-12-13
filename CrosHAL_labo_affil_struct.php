@@ -10,6 +10,7 @@ $LABAFFSTR_LISTE = array(
 '#struct-179899'=>'GR',
 '#struct-57111'=>'IPR',
 '#struct-194938'=>'ISCR',
+'#struct-2559'=>'ISCR',
 '#struct-25157'=>'LGCGM',
 '#struct-480855'=>'U835',
 '#struct-544521'=>'BIOSIT',

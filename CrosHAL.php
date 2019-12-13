@@ -4864,54 +4864,58 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						$affilOrg = "";
 						$actAffil = "";
 						$actMaj = "";
-						if (array_search($team , $LABAFFSTR_LISTE)) {
-							$affilAut = array_search($team , $LABAFFSTR_LISTE);
-							$affilOrg = str_replace("#", "", $affilAut);
-						}
 						
-						if ($affilAut != "") {
-							for($i=0; $i < $xml->getElementsByTagName("affiliation")->length; $i++) {
-								$elt = $xml->getElementsByTagName("affiliation")->item($i);
-								if ($elt->hasAttribute("ref") && $elt->getAttribute("ref") == $affilAut) {
-									$elt->parentNode->removeChild($elt);
-									$i--;
-									$xml->save($Fnm);
-									$actMaj = "ok";
-									$actAffilInit = "ok";
+						$tabAffil = array_keys($LABAFFSTR_LISTE, $team);
+						
+						for($ta=0; $ta < count($tabAffil); $ta++) {
+							$affilAut = $tabAffil[$ta];
+							$affilOrg = str_replace("#", "", $affilAut);
+												
+							if ($affilAut != "") {
+								for($i=0; $i < $xml->getElementsByTagName("affiliation")->length; $i++) {
+									$elt = $xml->getElementsByTagName("affiliation")->item($i);
+									if ($elt->hasAttribute("ref") && $elt->getAttribute("ref") == $affilAut) {
+										$elt->parentNode->removeChild($elt);
+										$i--;
+										$xml->save($Fnm);
+										$actMaj = "ok";
+										$actAffilInit = "ok";
+									}
 								}
-							}
-							
-							for($i=0; $i < $xml->getElementsByTagName("org")->length; $i++) {
-								$elt = $xml->getElementsByTagName("org")->item($i);
-								if ($elt->hasAttribute("xml:id") && $elt->getAttribute("xml:id") == $affilOrg) {
-									$elt->parentNode->removeChild($elt);
-									$i--;
-									$xml->save($Fnm);
-									$actMaj = "ok";
-									$actAffilInit = "ok";
+								
+								for($i=0; $i < $xml->getElementsByTagName("org")->length; $i++) {
+									$elt = $xml->getElementsByTagName("org")->item($i);
+									if ($elt->hasAttribute("xml:id") && $elt->getAttribute("xml:id") == $affilOrg) {
+										$elt->parentNode->removeChild($elt);
+										$i--;
+										$xml->save($Fnm);
+										$actMaj = "ok";
+										$actAffilInit = "ok";
+									}
 								}
-							}
-							
-							for($i=0; $i < $xml->getElementsByTagName("relation")->length; $i++) {
-								$elt = $xml->getElementsByTagName("relation")->item($i);
-								if ($elt->hasAttribute("active") && $elt->getAttribute("active") == $affilAut) {
-									$del = $elt->parentNode->parentNode;
-									$del->parentNode->removeChild($del);
-									$i--;
-									$xml->save($Fnm);
-									$actMaj = "ok";
-									$actAffilInit = "ok";
+								
+								for($i=0; $i < $xml->getElementsByTagName("relation")->length; $i++) {
+									$elt = $xml->getElementsByTagName("relation")->item($i);
+									if ($elt->hasAttribute("active") && $elt->getAttribute("active") == $affilAut) {
+										$del = $elt->parentNode->parentNode;
+										$del->parentNode->removeChild($del);
+										$i--;
+										$xml->save($Fnm);
+										$actMaj = "ok";
+										$actAffilInit = "ok";
+									}
 								}
 							}
 							//echo $ctb.' - '.$affilAut.' - '.$affilOrg.'<br>';
-							if ($actMaj == "ok") {
-								$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
-								$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
-							}else{
-								$actAffil .= "";
-							}
-							$actions .= $actAffil;
 						}
+
+						if ($actMaj == "ok") {
+							$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
+							$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+						}else{
+							$actAffil .= "";
+						}
+						$actions .= $actAffil;
 
 						
 						//Affichages initiaux

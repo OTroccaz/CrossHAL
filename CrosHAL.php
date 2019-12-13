@@ -5003,9 +5003,10 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							}
 						}
 						$Vu = 'UR1:OK '.$Vu;
-						$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
-						//$lienMAJ = "https://ecobio.univ-rennes1.fr/";
-						$textAff .= "<td style='text-align: center;'><span id='Vu".$halID."'><a style=\"cursor:pointer\" onclick='$.post(\"CrosHAL_vu_actions.php\", { Vu: \"".$Vu."\", halID: \"".$halID."\" }); majokVu(\"".$halID."\"); $.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_VU\" });majok(\"".$halID."\"); window.open(\"".$lienMAJ."\")'><img alt='MAJ' src='./img/MAJ.png'></a></span></td>";
+						//$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
+						$lienMAJ = "https://ecobio.univ-rennes1.fr/";
+						echo ("<script>function lienMAJ() {window.open(\"".$lienMAJ."\");}</script>");
+						$textAff .= "<td style='text-align: center;'><span id='Vu".$halID."'><a style=\"cursor:pointer\" onclick='$.post(\"CrosHAL_vu_actions.php\", { Vu: \"".$Vu."\", halID: \"".$halID."\" }); majokVu(\"".$halID."\"); $.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_VU\" }); majok(\"".$halID."\"); setTimeout(lienMAJ, 3000);'><img alt='MAJ' src='./img/MAJ.png'>3s</a></span></td>";
 
 						//Tampons
 						$actStp = "";

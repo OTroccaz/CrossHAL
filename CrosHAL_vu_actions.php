@@ -28,28 +28,37 @@ function insertNode($xml, $dueon, $amont, $aval, $tagName, $typAtt1, $valAtt1, $
   if ($noeud == "" && $dueon != "") {
     $bibl = $xml->getElementsByTagName($amont);
     foreach ($bibl as $elt) {
-      foreach($elt->childNodes as $item) { 
-        if ($item->hasChildNodes()) {
-          $childs = $item->childNodes;
-          foreach($childs as $i) {
-            $name = $i->parentNode->nodeName;
-            if ($name == $aval) {//insertion nvx noeuds
-              $bip = $xml->createElement($tagName);
-              $cTn = $xml->createTextNode($dueon);
-              if ($typAtt1 != "" && $valAtt1 != "") {$bip->setAttribute($typAtt1, $valAtt1);}
-              if ($valAtt2 != "") {$bip->setAttribute($typAtt2, $valAtt2);}
-              $bip->appendChild($cTn);
-              $biblStr = $xml->getElementsByTagName($amont)->item(0);
-              if ($methode == "iB") {//insertBefore
-                $biblStr->insertBefore($bip, $i->parentNode);
-              }else{
-                $biblStr->appendChild($bip);
-              }
-              break 2;
-            }
-          }
-        }
-      }
+			if ($elt->hasChildNodes()) {
+				foreach($elt->childNodes as $item) { 
+					if ($item->hasChildNodes()) {
+						$childs = $item->childNodes;
+						foreach($childs as $i) {
+							$name = $i->parentNode->nodeName;
+							if ($name == $aval) {//insertion nvx noeuds
+								$bip = $xml->createElement($tagName);
+								$cTn = $xml->createTextNode($dueon);
+								if ($typAtt1 != "" && $valAtt1 != "") {$bip->setAttribute($typAtt1, $valAtt1);}
+								if ($valAtt2 != "") {$bip->setAttribute($typAtt2, $valAtt2);}
+								$bip->appendChild($cTn);
+								$biblStr = $xml->getElementsByTagName($amont)->item(0);
+								if ($methode == "iB") {//insertBefore
+									$biblStr->insertBefore($bip, $i->parentNode);
+								}else{
+									$biblStr->appendChild($bip);
+								}
+								break 2;
+							}
+						}
+					}
+				}
+			}else{
+				//Il y a juste '<notesStmt/>'
+				$item0 = $xml->getElementsByTagName("notesStmt")->item(0);
+				$note = $xml->createElement($tagName);
+				$note->setAttribute($typAtt1, $valAtt1);
+				$note->nodeValue = $dueon;
+				$item0->appendChild($note);
+			}
     }
   }
 }

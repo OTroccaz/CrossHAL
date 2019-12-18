@@ -52,12 +52,14 @@ function insertNode($xml, $dueon, $amont, $aval, $tagName, $typAtt1, $valAtt1, $
 					}
 				}
 			}else{
+				/*
 				//Il y a juste '<notesStmt/>'
 				$item0 = $xml->getElementsByTagName("notesStmt")->item(0);
 				$note = $xml->createElement($tagName);
 				$note->setAttribute($typAtt1, $valAtt1);
 				$note->nodeValue = $dueon;
 				$item0->appendChild($note);
+				*/
 			}
     }
   }
@@ -100,6 +102,7 @@ $xml = new DOMDocument( "1.0", "UTF-8" );
 $xml->formatOutput = true;
 $xml->preserveWhiteSpace = false;
 $xml->loadXML($teiRes);
-insertNode($xml, $Vu, "notesStmt", "note", "note", "type", "commentary", "", "", "aC");
+//insertNode($xml, $Vu, "notesStmt", "note", "note", "type", "commentary", "", "", "aC");
+insertNode($xml, $Vu, "textClass", "classCode", "classCode", "scheme", "classification", "", "", "aC");
 $xml->save($Fnm);
 ?>

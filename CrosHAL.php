@@ -4667,7 +4667,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				$iMinTab = $iMin - 1;
 				$cptAff = 0;//Compteur de ligne(s) affichée(s)
 				for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
-					if (isset($arrayHAL["response"]["docs"][$cpt]["comment_s"]) && stripos($arrayHAL["response"]["docs"][$cpt]["comment_s"], "UR1:OK") !== false) {
+					if (isset($arrayHAL["response"]["docs"][$cpt]["comment_s"]) && stripos($arrayHAL["response"]["docs"][$cpt]["comment_s"], "Conforme") !== false) {
 					}else{
 						progression($cpt+1, $iMax, $iPro);
 						$lignAff = "ok";//Test affichage ou non de la ligne du tableau
@@ -4992,7 +4992,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						}
 						$textAff .= "<td style='text-align: center;'>".$pubmedAff."</td>";
 						
-						//Vu > UR1:OK
+						//Vu > Conforme
 						$Vu = "";
 						$elts = $xml->getElementsByTagName("note");
 						for($i=0; $i < $xml->getElementsByTagName("note")->length; $i++) {
@@ -5002,7 +5002,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								$Vu = $elt->nodeValue;
 							}
 						}
-						$Vu = 'UR1:OK '.$Vu;
+						$Vu = 'Conforme'.$Vu;
 						$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
 						//$lienMAJ = "https://ecobio.univ-rennes1.fr/";
 						echo ("<script>function lienMAJ() {window.open(\"".$lienMAJ."\");}</script>");

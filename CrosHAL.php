@@ -4756,6 +4756,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						
 						//Co-auteurs affiliés au laboratoire
 						$cptAut = 0;
+						$cptRed = 0;
 						$listecoAut = "~";
 						for($i=0; $i < $xml->getElementsByTagName("author")->length; $i++) {
 							$affil = "";
@@ -4785,7 +4786,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 														//Co-auteurs à mettre en évidence
 														if ($LABAFFSTR_LISTE[$affil] == $team && $aut != $premAut) {
 															$listecoAut .= $aut."~";
-															if ($cptAut == 0) {$coAutAffil .= "<font color='red'>".$aut."</font>"; $cptAut++;}else{$coAutAffil .= ", <font color='red'>".$aut."</font>";}
+															if ($cptAut == 0) {$coAutAffil .= "<font color='red'>".$aut."</font>"; $cptAut++; $cptRed++;}else{$coAutAffil .= ", <font color='red'>".$aut."</font>"; $cptRed++;}
 														}
 													}else{
 														if ($aut != $premAut) {
@@ -4803,9 +4804,10 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 										}
 									}
 								}
-								if ($actAut == "ok") {$actions .= "<font color='red'>".$aut." > ".$collHAL."</font><br>";}
+								if ($actAut == "ok") {$actions .= "<font color='red'>".$aut." > ".$collHAL."</font><br>"; }
 							}
 						}
+						if ($cptRed >= 3) {$lignAff = "no"; $domCont = "ok";}//Ne pas afficher la ligne s'il y a 3 ou + auteurs identifiés dans le listing ExtrHAL 
 						
 						//Domaine email + contributeur
 						$domCont = "no";//Quelle que soit la suite, bloquer l'affichage de la ligne si domaine email du contributeur contient "rennes" ou si c'est un contributeur sûr

@@ -4808,6 +4808,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						}
 						
 						//Domaine email + contributeur
+						$domCont = "no";//Quelle que soit la suite, bloquer l'affichage de la ligne si domaine email du contributeur contient "rennes" ou si c'est un contributeur sûr
 						for($i=0; $i < $xml->getElementsByTagName("respStmt")->length; $i++) {
 							$elts = $xml->getElementsByTagName("respStmt")->item($i);
 							for($j=0; $j < $elts->childNodes->length; $j++) {
@@ -4825,9 +4826,10 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 											if ($name->childNodes->item($k)->hasAttribute("type") && $name->childNodes->item($k)->getAttribute("type") == "domain") {
 												$domMel = $name->childNodes->item($k)->nodeValue;
 												if (stripos($domMel, "rennes") !== false) {
-													$lignAff = "no";//Ne pas afficher les publications dont le domaine email du contributeur contient "rennes" 
+													$lignAff = "no";//Ne pas afficher les publications dont le domaine email du contributeur contient "rennes"
+													$domCont = "ok";
 												}else{
-													if (in_array($ctb, $CTBSURS_LISTE)) {$lignAff = "no";}//Ne pas afficher les publications dont le contributeur est "sûr" + in_array sensible à la casse
+													if (in_array($ctb, $CTBSURS_LISTE)) {$lignAff = "no"; $domCont = "ok";}//Ne pas afficher les publications dont le contributeur est "sûr" + in_array sensible à la casse
 												}
 											}
 										}
@@ -4987,7 +4989,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								}
 							}
 							//if ($testAffiMC == "no") {var_dump($collMC); var_dump($affiMC); $lignAff = "ok";}
-							if ($testAffiMC == "no") {$lignAff = "ok";}
+							if ($testAffiMC == "no" && $domCont == "no") {$lignAff = "ok";}
 							
 						}
 						$textAff .= "<td style='text-align: center;'>".$pubmedAff."</td>";

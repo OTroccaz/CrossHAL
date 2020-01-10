@@ -67,7 +67,8 @@ function rechTitreDOI ($titreI, $nbTest, &$closest, &$shortest, &$rechDOI) {
   //var_dump($arrayTest["message"]["items"][0]["title"][0]);
 
   for($i = 0; $i < $nbTest; $i++) {
-    $titreC = $arrayTest["message"]["items"][$i]["title"][0];
+		$titreC = "";
+    if (isset( $arrayTest["message"]["items"][$i]["title"][0])) {$titreC = $arrayTest["message"]["items"][$i]["title"][0];}
     //echo $titreC;
     $lev = levenshtein($titreI, $titreC);
     //echo $lev.'<br>';

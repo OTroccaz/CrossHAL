@@ -2297,7 +2297,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							}
 							if ($embgModi == "ok") {
 								$actsMAJ = substr($actsMAJ, 0, (strlen($actsMAJ) - 1));
-								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 								$lienMAJgrpTot .= $lienMAJgrp;
 								$actsMAJgrpTot .= $actsMAJgrp;
 							}else{
@@ -2974,7 +2974,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				if ($lienMAJ != "") {
 					$textAff .= "<td style='text-align: center;'>";
 					if ($actMaj == "ok") {
-						$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+						$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 					}else{
 						$textAff .= "<center><img title=\"La(les) modification(s) n'est(ne sont) pas envisageables car une ou plusieurs métadonnées a(ont) été modifiée(s) depuis moins d'une semaine : ".$raisons."\" src='./img/MAJOK.png'></center>";
 					}
@@ -3272,7 +3272,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine(s) disciplinaire(s)</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Affiliations de type INCOMING ou OLD</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
-		//echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Vu</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Vu</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Actions</b></td>";
 	}
   echo "</tr>";
@@ -3532,7 +3532,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
               if (in_array($halID, $tab) && in_array("MAJ_AUT",$tab)) {$actMaj = "no";}
             }
             if ($actMaj == "ok") {
-              $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AUT\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+              $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AUT\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
             }else{
               $textAff .= "<center><img src='./img/MAJOK.png'></center>";
             }
@@ -3890,7 +3890,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 									}
 								}
 								if ($embgModi == "ok") {
-									$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PRE\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+									$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PRE\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 								}else{
 									$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
 								}
@@ -4468,7 +4468,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								}
 								if ($embgModi == "ok") {
 									$lignAff = "ok";
-									$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienIDH."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_IDH\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+									$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienIDH."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_IDH\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
 								}else{
 									$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
 								}
@@ -4666,8 +4666,10 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 
 				$iMinTab = $iMin - 1;
 				$cptAff = 0;//Compteur de ligne(s) affichée(s)
+				include("./CrosHAL_vu_halID.php");
+				$totCpt = 0;
 				for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
-					if (isset($arrayHAL["response"]["docs"][$cpt]["comment_s"]) && stripos($arrayHAL["response"]["docs"][$cpt]["comment_s"], "Conforme") !== false) {
+					if (in_array($arrayHAL["response"]["docs"][$cpt]["halId_s"], $HALID_VU)) {
 					}else{
 						progression($cpt+1, $iMax, $iPro);
 						$lignAff = "ok";//Test affichage ou non de la ligne du tableau
@@ -4915,7 +4917,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 
 						if ($actMaj == "ok") {
 							$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
-							$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+							$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\" });majok(\"".$halID."\"); majokVu(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 						}else{
 							$actAffil .= "";
 						}
@@ -4996,23 +4998,8 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						}
 						$textAff .= "<td style='text-align: center;'>".$pubmedAff."</td>";
 						
-						/*
 						//Vu > Conforme
-						$Vu = "";
-						$elts = $xml->getElementsByTagName("note");
-						for($i=0; $i < $xml->getElementsByTagName("note")->length; $i++) {
-							$elt = $xml->getElementsByTagName("note")->item($i);
-							//On récupère un éventuel commentaire déjà présent
-							if ($elt->hasAttribute("type") && $elt->getAttribute("type") == "commentary") {
-								$Vu = $elt->nodeValue;
-							}
-						}
-						$Vu = 'Conforme'.$Vu;
-						$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
-						//$lienMAJ = "https://ecobio.univ-rennes1.fr/";
-						echo ("<script>function lienMAJ() {window.open(\"".$lienMAJ."\");}</script>");
-						$textAff .= "<td style='text-align: center;'><span id='Vu".$halID."'><a style=\"cursor:pointer\" onclick='$.post(\"CrosHAL_vu_actions.php\", { Vu: \"".$Vu."\", halID: \"".$halID."\" }); majokVu(\"".$halID."\"); $.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_VU\" }); majok(\"".$halID."\"); setTimeout(lienMAJ, 3000);'><img alt='MAJ' src='./img/MAJ.png'>3s</a></span></td>";
-						*/
+						$textAff .= "<td style='text-align: center;'><span id='Vu".$halID."'><a style=\"cursor:pointer\" onclick='$.post(\"CrosHAL_vu_actions.php\", { halID: \"".$halID."\" }); majokVu(\"".$halID."\"); $.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_VU\" }); majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></td>";
 
 						//Tampons
 						$actStp = "";
@@ -5032,7 +5019,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						/*//En fait, il n'est pas possible (pour l'instant ?) de modifier les tampons via Sword
 						if ($actMaj == "ok") {
 							$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
-							$actStp .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_STAMP\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+							$actStp .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_STAMP\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 						}else{
 							$actStp .= "<center><img src='./img/MAJOK.png'></center>";
 						}
@@ -5045,14 +5032,16 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						if ($lignAff == "ok") {//Il y a des corrections à apporter > la ligne est à afficher
 							echo $textAff;
 							$cptAff++;
+							$totCpt++;
 						}
 					}
 				}
 				
-				echo "</table><br>";
+				echo "</table>";
 				echo "<script>";
 				echo "  document.getElementById('cpt').style.display = \"none\";";
 				echo "</script>";
+				echo "<b>".$totCpt." notice(s) remontée(s)</b><br><br>";
 				
 				if ($iMax != $numFound) {
 					echo "<form name='troli' id='etape2c' action='CrosHAL.php' method='post'>";
@@ -5481,7 +5470,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 						if ($condAct == "ok") {//Il y a une condition préalable au lancement de l'action
 							$textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/MAJOK.png'></span></center></td>";
 						}else{
-							$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+							$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
 						}
 					}else{
 						$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
@@ -5560,7 +5549,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 								}
 							}
 							if ($embgModi == "ok") {
-								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 							}else{
 								$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
 							}
@@ -5583,7 +5572,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
               $lignAff = "ok";
             }else{
               if ($actMaj == "ok") {
-                $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+                $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
                 $lignAff = "ok";
               }else{
                 $textAff .= "<center><img src='./img/MAJOK.png'></center>";

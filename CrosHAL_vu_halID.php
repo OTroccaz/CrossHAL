@@ -1,0 +1,1 @@
+<?php$HALID_VU = array();?>

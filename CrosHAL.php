@@ -83,6 +83,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $lanISTEX = "";
   $mocISTEX = "";
 	$DOIComm = "";
+	$PoPeer= "";
 	$ordinv = "";
 }
 
@@ -631,6 +632,7 @@ if (isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"]
   if (isset($_POST["lanISTEX"]) && $_POST["lanISTEX"] == "oui") {$lanISTEX = htmlspecialchars($_POST["lanISTEX"]);$opt1 = "oui";}else{$lanISTEX = "non";}
   if (isset($_POST["mocISTEX"]) && $_POST["mocISTEX"] == "oui") {$mocISTEX = htmlspecialchars($_POST["mocISTEX"]);$opt1 = "oui";}else{$mocISTEX = "non";}
 	if (isset($_POST["DOIComm"]) && $_POST["DOIComm"] == "oui") {$DOIComm = htmlspecialchars($_POST["DOIComm"]);$opt1 = "oui";}else{$DOIComm = "non";}
+	if (isset($_POST["PoPeer"]) && $_POST["PoPeer"] == "oui") {$PoPeer = htmlspecialchars($_POST["PoPeer"]);$opt1 = "oui";}else{$PoPeer = "non";}
 
   //option 2
   if (isset($_POST["ordAut"]) && $_POST["ordAut"] == "oui") {$ordAut = htmlspecialchars($_POST["ordAut"]);$opt2 = "oui";}else{$ordAut = "non";}
@@ -773,6 +775,8 @@ if (isset($lanISTEX) && $lanISTEX == "oui") {$lanI = " checked";}else{$lanI = ""
 if (isset($mocISTEX) && $mocISTEX == "oui") {$mocI = " checked";}else{$mocI = "";}
 if (isset($DOIComm) && $DOIComm == "non" || !isset($team)) {$DOICn = " checked";}else{$DOICn = "";}
 if (isset($DOIComm) && $DOIComm == "oui") {$DOICo = " checked";}else{$DOICo = "";}
+if (isset($PoPeer) && $PoPeer == "oui") {$Popo = " checked";}else{$Popo = "";}
+if (isset($PoPeer) && $PoPeer == "non" || !isset($team)) {$Popn = " checked";}else{$Popn = "";}
 
 ?>
 <p class="form-inline">
@@ -806,10 +810,13 @@ Via ISTEX :
 <input type="checkbox" id="chk14" class="form-control" style="height: 15px;" onclick="option1()" name="absISTEX" value="oui"<?php echo $absI;?>>&nbsp;<label for="chk14">Résumé</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="checkbox" id="chk15" class="form-control" style="height: 15px;" onclick="option1()" name="lanISTEX" value="oui"<?php echo $lanI;?>>&nbsp;<label for="chk15">Langue</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="checkbox" id="chk16" class="form-control" style="height: 15px;" onclick="option1()" name="mocISTEX" value="oui"<?php echo $mocI;?>>&nbsp;<label for="chk16">Mots-clés</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Vérifier la présence des champs popularLevel_s et peerReviewing_s (articles) :
+<input type="radio" id="chk48" class="form-control" style="height: 15px;" onclick="option1()" name="PoPeer" value="oui"<?php echo $Popo;?>>&nbsp;<label for="chk48">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" id="chk49" class="form-control" style="height: 15px;" onclick="option1()" name="PoPeer" value="non"<?php echo $Popn;?>>&nbsp;<label for="chk49">Non</label><br>
 Autoriser l'ajout d'un DOI aux dépôts HAL de type communication : 
 <input type="radio" id="chk37" class="form-control" style="height: 15px;" onclick="option1()" name="DOIComm" value="oui"<?php echo $DOICo;?>>&nbsp;<label for="chk37">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="radio" id="chk38" class="form-control" style="height: 15px;" onclick="option1()" name="DOIComm" value="non"<?php echo $DOICn;?>>&nbsp;<label for="chk38">Non</label><br>
-
+<br>
 <br><br>
 <b>Etape 2 : Compléter et corriger les auteurs :</b><br>
 <?php
@@ -909,7 +916,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		//$urlHAL = "https://api.archives-ouvertes.fr/search/?q=collCode_s:%22".$team."%22".$txtApa."%20AND%20submitType_s:%22file%22&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:%22ART%22&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s&sort=halId_s%20asc";
 		//$urlHAL = "https://api.archives-ouvertes.fr/search/?q=halId_s:%22hal-01795811%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:%22ART%22&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s,submitType_s,docType_s&sort=halId_s%20asc";
 			if($ordinv == "oui") {$sort = "desc";}else{$sort = "asc";}
-			$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22ART%22%20OR%20%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s,submitType_s,docType_s&sort=contributorFullName_s%20".$sort;
+			$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22ART%22%20OR%20%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s,submitType_s,docType_s,popularLevel_s,peerReviewing_s&sort=contributorFullName_s%20".$sort;
 		//echo $urlHAL.'<br>';
 		//$contents = file_get_contents($urlHAL);
 		//$results = json_decode($contents);
@@ -1818,6 +1825,20 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						if ($testMaj == "ok") {$actsMAJ .= "MAJ_DOI~"; $lienMAJgrp .= "~A_exclure:".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_DOI";}
 					}
 				}
+				
+				//Si article et champs popularLevel_s et peerReviewing_s absents > ajout des noeuds note type="popular" et note type="peer"
+				if ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "ART" && (!isset($arrayHAL["response"]["docs"][$cpt]["popularLevel_s"]) || !isset($arrayHAL["response"]["docs"][$cpt]["peerReviewing_s"]))) {
+					insertNode($xml, "No", "notesStmt", "note", "note", "type", "popular", "n", "0", "aC");
+					insertNode($xml, "Yes", "notesStmt", "note", "note", "type", "peer", "n", "1", "aC");
+					$xml->save($Fnm);
+					$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+					include "./CrosHAL_actions.php";
+					$testMaj = "ok";
+					foreach($ACTIONS_LISTE as $tab) {
+						if (in_array($halID, $tab) && in_array("MAJ_POP",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "DOI, "; }
+					}
+					if ($testMaj == "ok") {$actsMAJ .= "MAJ_POP~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_POP";}
+				}
 
 				//Si revue VALID trouvée alors qu'INCOMING à la base dans la notice
 				if ($revue == "oui" && ($docidCRIH != $docidHAL && $docidCRIH != "")) {
@@ -2433,6 +2454,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 			echo "<input type='hidden' value='".$lanISTEX."' name='lanISTEX'>";
 			echo "<input type='hidden' value='".$mocISTEX."' name='mocISTEX'>";
 			echo "<input type='hidden' value='".$DOIComm."' name='DOIComm'>";
+			echo "<input type='hidden' value='".$PoPeer."' name='PoPeer'>";
 			echo "<input type='hidden' value='".$manuaut."' name='manuaut'>";
 			echo "<input type='hidden' value='".$lienext."' name='lienext'>";
 			echo "<input type='hidden' value='".$noliene."' name='noliene'>";
@@ -2484,6 +2506,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 			echo "<input type='hidden' value='".$lanISTEX."' name='lanISTEX'>";
 			echo "<input type='hidden' value='".$mocISTEX."' name='mocISTEX'>";
 			echo "<input type='hidden' value='".$DOIComm."' name='DOIComm'>";
+			echo "<input type='hidden' value='".$PoPeer."' name='PoPeer'>";
 			echo "<input type='hidden' value='".$manuaut."' name='manuaut'>";
 			echo "<input type='hidden' value='".$lienext."' name='lienext'>";
 			echo "<input type='hidden' value='".$noliene."' name='noliene'>";
@@ -3050,6 +3073,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 			echo "<input type='hidden' value='".$lanISTEX."' name='lanISTEX'>";
 			echo "<input type='hidden' value='".$mocISTEX."' name='mocISTEX'>";
 			echo "<input type='hidden' value='".$DOIComm."' name='DOIComm'>";
+			echo "<input type='hidden' value='".$PoPeer."' name='PoPeer'>";
 			echo "<input type='hidden' value='".$manuaut."' name='manuaut'>";
 			echo "<input type='hidden' value='".$lienext."' name='lienext'>";
 			echo "<input type='hidden' value='".$noliene."' name='noliene'>";
@@ -3101,6 +3125,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 			echo "<input type='hidden' value='".$lanISTEX."' name='lanISTEX'>";
 			echo "<input type='hidden' value='".$mocISTEX."' name='mocISTEX'>";
 			echo "<input type='hidden' value='".$DOIComm."' name='DOIComm'>";
+			echo "<input type='hidden' value='".$PoPeer."' name='PoPeer'>";
 			echo "<input type='hidden' value='".$manuaut."' name='manuaut'>";
 			echo "<input type='hidden' value='".$lienext."' name='lienext'>";
 			echo "<input type='hidden' value='".$noliene."' name='noliene'>";
@@ -5706,6 +5731,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
     echo "<input type='hidden' value='".$lanISTEX."' name='lanISTEX'>";
     echo "<input type='hidden' value='".$mocISTEX."' name='mocISTEX'>";
 		echo "<input type='hidden' value='".$DOIComm."' name='DOIComm'>";
+		echo "<input type='hidden' value='".$PoPeer."' name='PoPeer'>";
     echo "<input type='hidden' value='".$manuaut."' name='manuaut'>";
     echo "<input type='hidden' value='".$lienext."' name='lienext'>";
     echo "<input type='hidden' value='".$noliene."' name='noliene'>";
@@ -5759,6 +5785,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
     echo "<input type='hidden' value='".$lanISTEX."' name='lanISTEX'>";
     echo "<input type='hidden' value='".$mocISTEX."' name='mocISTEX'>";
 		echo "<input type='hidden' value='".$DOIComm."' name='DOIComm'>";
+		echo "<input type='hidden' value='".$PoPeer."' name='PoPeer'>";
     echo "<input type='hidden' value='".$manuaut."' name='manuaut'>";
     echo "<input type='hidden' value='".$lienext."' name='lienext'>";
     echo "<input type='hidden' value='".$noliene."' name='noliene'>";

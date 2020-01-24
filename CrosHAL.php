@@ -2523,7 +2523,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		}
 	}else{//Etape 1 sur les conférences et chapitres
 		if($ordinv == "oui") {$sort = "desc";}else{$sort = "asc";}
-		$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,conferenceTitle_s,city_s,conferenceStartDateY_i,conferenceEndDateY_i,isbn_s,bookTitle_s,publisher_s,docType_s,label_xml&sort=halId_s%20".$sort;
+		$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,conferenceTitle_s,city_s,publicationDateY_i,conferenceStartDateY_i,conferenceEndDateY_i,isbn_s,bookTitle_s,publisher_s,docType_s,label_xml&sort=halId_s%20".$sort;
 		//echo $urlHAL.'<br>';
 		askCurl($urlHAL, $arrayHAL);
 		$numFound = $arrayHAL["response"]["numFound"];
@@ -2765,8 +2765,8 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 			//Date début
 			if ($ccDatedeb == "oui") {
 				if ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "COMM") {
-					if (isset($arrayHAL["response"]["docs"][$cpt]["conferenceStartDateY_i"]) && $arrayHAL["response"]["docs"][$cpt]["conferenceStartDateY_i"] != "" ) {
-						$dateDebHAL = $arrayHAL["response"]["docs"][$cpt]["conferenceStartDateY_i"];
+					if (isset($arrayHAL["response"]["docs"][$cpt]["publicationDateY_i"]) && $arrayHAL["response"]["docs"][$cpt]["publicationDateY_i"] != "" ) {
+						$dateDebHAL = $arrayHAL["response"]["docs"][$cpt]["publicationDateY_i"];
 					}
 					if (isset($arrayCR["message"]["start"]) && isset($doi) && $doi != "") {
 						$dateDebCR = $arrayCR["message"]["start"];

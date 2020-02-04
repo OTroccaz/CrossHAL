@@ -5830,5 +5830,9 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 */
 
 ?>
+<br>
+<?php
+include('./bas.php');
+?>
 </body>
 </html>

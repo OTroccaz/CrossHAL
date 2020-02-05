@@ -3302,9 +3302,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Co-auteurs affiliés au laboratoire</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Titre de la publication</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>";
-		/*Désactivations temporaires
+		/*Désactivation temporaire
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine(s) disciplinaire(s)</b></td>";
+		*/
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Affiliations de type INCOMING ou OLD</b></td>";
+		/*Désactivation temporaire
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
 		*/
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Vu</b></td>";
@@ -4906,7 +4908,6 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						$actions .= $actDom;
 						*/
 						
-						/*Désactivation temporaire du contrôle des affiliations
 						//Vérification présence affiliation code collection recherché parmi les auteurs et les organismes pour suppression selon supervision utilisateur
 						$affilAut = "";
 						$affilOrg = "";
@@ -4964,7 +4965,6 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							$actAffil .= "";
 						}
 						$actions .= $actAffil;
-						*/
 
 						
 						//Affichages initiaux
@@ -4979,6 +4979,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						/*Désactivations temporaires
 						//Domaine disciplinaire
 						$textAff .= "<td style='text-align: center;'>".$domDis."</td>";
+						*/
 						
 						//Affiliations de type INCOMING ou OLD
 						for($i=0; $i < $xml->getElementsByTagName("org")->length; $i++) {
@@ -4991,7 +4992,6 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							}
 						}
 						$textAff .= "<td style='text-align: center;'>".$pcentAffil."</td>";
-						*/
 						
 						/*Désactivation temporaire du contrôle Pubmed
 						//FCGI et PMID

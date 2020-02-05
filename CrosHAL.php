@@ -3302,9 +3302,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Co-auteurs affiliés au laboratoire</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Titre de la publication</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>";
+		/*Désactivations temporaires
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine(s) disciplinaire(s)</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Affiliations de type INCOMING ou OLD</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
+		*/
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Vu</b></td>";
 		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Actions</b></td>";
 	}
@@ -4879,6 +4881,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							}
 						}
 						
+						/*Désactivation temporaire du contrôle du domaine disciplinaire
 						//Domaine disciplinaire
 						$domDis = "-";//Domaine disciplinaire
 						$elts = $xml->getElementsByTagName("classCode");
@@ -4901,7 +4904,9 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							}
 						}
 						$actions .= $actDom;
+						*/
 						
+						/*Désactivation temporaire du contrôle des affiliations
 						//Vérification présence affiliation code collection recherché parmi les auteurs et les organismes pour suppression selon supervision utilisateur
 						$affilAut = "";
 						$affilOrg = "";
@@ -4959,6 +4964,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							$actAffil .= "";
 						}
 						$actions .= $actAffil;
+						*/
 
 						
 						//Affichages initiaux
@@ -4970,6 +4976,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						$textAff .= "<td style='text-align: center;'>".$titre."</td>";
 						//Domaine email
 						$textAff .= "<td style='text-align: center;'>".$domMel."</td>";
+						/*Désactivations temporaires
 						//Domaine disciplinaire
 						$textAff .= "<td style='text-align: center;'>".$domDis."</td>";
 						
@@ -4984,7 +4991,9 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							}
 						}
 						$textAff .= "<td style='text-align: center;'>".$pcentAffil."</td>";
+						*/
 						
+						/*Désactivation temporaire du contrôle Pubmed
 						//FCGI et PMID
 						if (isset($arrayHAL["response"]["docs"][$cpt]["pubmedId_s"])) {
 							$testAffiMC = "no";
@@ -5034,6 +5043,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							
 						}
 						$textAff .= "<td style='text-align: center;'>".$pubmedAff."</td>";
+						*/
 						
 						//Vu > Conforme
 						$textAff .= "<td style='text-align: center;'><span id='Vu".$halID."'><a style=\"cursor:pointer\" onclick='$.post(\"CrosHAL_vu_actions.php\", { halID: \"".$halID."\" }); majokVu(\"".$halID."\"); $.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_VU\" }); majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></td>";

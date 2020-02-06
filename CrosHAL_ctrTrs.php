@@ -1,0 +1,1 @@
+<?php$CTRTRS_LISTE = array(0 => array("halID"=>"hal-00000000", "proDate"=>"2019", "ctb"=>"toto", "domMel"=>"titi.fr", "quand"=>"1576663404"),1 => array("halID"=>"hal-01827712", "proDate"=>"2019", "ctb"=>"Catherine Cliquet", "domMel"=>"agrocampus-ouest.fr", "quand"=>"1580997930"));?>

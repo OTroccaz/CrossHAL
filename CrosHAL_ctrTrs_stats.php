@@ -41,6 +41,38 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 <br>
 
 <?php
+//Suppression de ligne demandée
+if (isset($_GET["id"])) {
+	$id = $_GET["id"] - 1;
+	include "./CrosHAL_ctrTrs.php";
+	unset($CTRTRS_LISTE[$id]);
+	//var_dump($CTRTRS_LISTE);
+	array_multisort($CTRTRS_LISTE);
+	$Fnm = "./CrosHAL_ctrTrs.php";
+	$total = count($CTRTRS_LISTE);
+	$inF = fopen($Fnm,"w");
+	fseek($inF, 0);
+	$chaine = "";
+	$chaine .= '<?php'.chr(13);
+	$chaine .= '$CTRTRS_LISTE = array('.chr(13);
+	fwrite($inF,$chaine);
+	foreach($CTRTRS_LISTE AS $i => $valeur) {
+		$chaine = $i.' => array("halID"=>"'.$CTRTRS_LISTE[$i]["halID"].'", ';
+		$chaine .= '"proDate"=>"'.$CTRTRS_LISTE[$i]["proDate"].'", ';
+		$chaine .= '"ctb"=>"'.$CTRTRS_LISTE[$i]["ctb"].'", ';
+		$chaine .= '"domMel"=>"'.$CTRTRS_LISTE[$i]["domMel"].'", ';
+		$chaine .= '"quand"=>"'.$CTRTRS_LISTE[$i]["quand"].'")';
+		if ($i != $total-1) {$chaine .= ',';}
+		$chaine .= chr(13);
+		fwrite($inF,$chaine);
+	}
+	$chaine = ');'.chr(13);
+	$chaine .= '?>';
+	fwrite($inF,$chaine);
+	fclose($inF);
+	header("Location:"."./CrosHAL_ctrTrs_stats.php");
+}
+
 //export results in a CSV file
 $Fnm = "./HAL/ctrTrs.csv"; 
 $inF = fopen($Fnm,"w"); 
@@ -59,6 +91,7 @@ echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Contributeur</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Modifié le</b></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Edition</b></td>");
 echo ("</tr>");
 
 include "./CrosHAL_ctrTrs.php";
@@ -68,7 +101,7 @@ foreach($CTRTRS_LISTE AS $i => $valeur) {
 	$j = $i + 1;
 	echo ("<tr style='text-align: center;'><td>".$j."</td>");
 	$chaine .= $j.';';
-	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["halID"]."</td>");
+	echo ("<td style='text-align: center;'><a target='_blank' href='https://hal.archives-ouvertes.fr/".$CTRTRS_LISTE[$i]["halID"]."'>".$CTRTRS_LISTE[$i]["halID"]."</a></td>");
 	$chaine .= $CTRTRS_LISTE[$i]["halID"].';';
 	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["proDate"]."</td>");
 	$chaine .= $CTRTRS_LISTE[$i]["proDate"].';';
@@ -78,6 +111,7 @@ foreach($CTRTRS_LISTE AS $i => $valeur) {
 	$chaine .= $CTRTRS_LISTE[$i]["domMel"].';';
 	echo ("<td style='text-align: center;'>".date("d/m/y", $CTRTRS_LISTE[$i]["quand"])."</td>");
 	$chaine .= date("d/m/y", $CTRTRS_LISTE[$i]["quand"]).';';
+	echo ("<td style='text-align: center;'><a href='?id=".$j."'>Supprimer</a></td>");
 	//Ajout au CSV
   fwrite($inF, $chaine.chr(13).chr(10));
 }

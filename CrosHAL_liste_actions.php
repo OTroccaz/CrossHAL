@@ -3,12 +3,14 @@ $halID = $_POST["halID"];
 $action = $_POST["action"];
 
 //Stats contrôle des tiers
-$ctb = $_POST["ctb"];
-$domMel = $_POST["domMel"];
-$proDate = $_POST["proDate"];
-$Fnm1 = "./CrosHAL_ctrTrs.php";
-include $Fnm1;
-array_multisort($CTRTRS_LISTE);
+if (isset($_POST["ctb"])) {
+	$ctb = $_POST["ctb"];
+	$domMel = $_POST["domMel"];
+	$proDate = $_POST["proDate"];
+	$Fnm1 = "./CrosHAL_ctrTrs.php";
+	include $Fnm1;
+	array_multisort($CTRTRS_LISTE);
+}
 
 $Fnm = "./CrosHAL_actions.php";
 include $Fnm;
@@ -40,12 +42,14 @@ if (strpos($halID, "#") !== false) {
 		}
 	}
 	//Stats contrôle des tiers
-	$ajout = count($CTRTRS_LISTE);
-	$CTRTRS_LISTE[$ajout]["halID"] = $halID;
-	$CTRTRS_LISTE[$ajout]["proDate"] = $proDate;
-	$CTRTRS_LISTE[$ajout]["ctb"] = $ctb;
-	$CTRTRS_LISTE[$ajout]["domMel"] = $domMel;
-	$CTRTRS_LISTE[$ajout]["quand"] = time();
+	if (isset($_POST["ctb"])) {
+		$ajout = count($CTRTRS_LISTE);
+		$CTRTRS_LISTE[$ajout]["halID"] = $halID;
+		$CTRTRS_LISTE[$ajout]["proDate"] = $proDate;
+		$CTRTRS_LISTE[$ajout]["ctb"] = $ctb;
+		$CTRTRS_LISTE[$ajout]["domMel"] = $domMel;
+		$CTRTRS_LISTE[$ajout]["quand"] = time();
+	}
 }
 $total = count($ACTIONS_LISTE);
 
@@ -78,26 +82,28 @@ fclose($inF);
 array_multisort($ACTIONS_LISTE);
 
 //Stats contrôle des tiers
-$total = count($CTRTRS_LISTE);
-$inF = fopen($Fnm1,"w");
-fseek($inF, 0);
-$chaine = "";
-$chaine .= '<?php'.chr(13);
-$chaine .= '$CTRTRS_LISTE = array('.chr(13);
-fwrite($inF,$chaine);
-foreach($CTRTRS_LISTE AS $i => $valeur) {
-  $chaine = $i.' => array("halID"=>"'.$CTRTRS_LISTE[$i]["halID"].'", ';
-  $chaine .= '"proDate"=>"'.$CTRTRS_LISTE[$i]["proDate"].'", ';
-  $chaine .= '"ctb"=>"'.$CTRTRS_LISTE[$i]["ctb"].'", ';
-	$chaine .= '"domMel"=>"'.$CTRTRS_LISTE[$i]["domMel"].'", ';
-	$chaine .= '"quand"=>"'.$CTRTRS_LISTE[$i]["quand"].'")';
-  if ($i != $total-1) {$chaine .= ',';}
-  $chaine .= chr(13);
-  fwrite($inF,$chaine);
+if (isset($_POST["ctb"])) {
+	$total = count($CTRTRS_LISTE);
+	$inF = fopen($Fnm1,"w");
+	fseek($inF, 0);
+	$chaine = "";
+	$chaine .= '<?php'.chr(13);
+	$chaine .= '$CTRTRS_LISTE = array('.chr(13);
+	fwrite($inF,$chaine);
+	foreach($CTRTRS_LISTE AS $i => $valeur) {
+		$chaine = $i.' => array("halID"=>"'.$CTRTRS_LISTE[$i]["halID"].'", ';
+		$chaine .= '"proDate"=>"'.$CTRTRS_LISTE[$i]["proDate"].'", ';
+		$chaine .= '"ctb"=>"'.$CTRTRS_LISTE[$i]["ctb"].'", ';
+		$chaine .= '"domMel"=>"'.$CTRTRS_LISTE[$i]["domMel"].'", ';
+		$chaine .= '"quand"=>"'.$CTRTRS_LISTE[$i]["quand"].'")';
+		if ($i != $total-1) {$chaine .= ',';}
+		$chaine .= chr(13);
+		fwrite($inF,$chaine);
+	}
+	$chaine = ');'.chr(13);
+	$chaine .= '?>';
+	fwrite($inF,$chaine);
+	fclose($inF);
+	array_multisort($CTRTRS_LISTE);
 }
-$chaine = ');'.chr(13);
-$chaine .= '?>';
-fwrite($inF,$chaine);
-fclose($inF);
-array_multisort($CTRTRS_LISTE);
 ?>

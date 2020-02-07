@@ -4961,7 +4961,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						if ($actMaj == "ok") {
 							$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
 							$proDate = $arrayHAL["response"]["docs"][$cpt]["producedDate_s"];
-							$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\", ctb: \"".$ctb."\", domMel: \"".$domMel."\", proDate: \"".$proDate."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\"); '><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+							$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\", ctb: \"".$ctb."\", domMel: \"".$domMel."\", proDate: \"".$proDate."\", team: \"".$team."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\"); '><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 						}else{
 							$actAffil .= "";
 						}

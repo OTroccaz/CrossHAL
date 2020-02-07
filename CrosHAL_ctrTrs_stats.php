@@ -61,6 +61,7 @@ if (isset($_GET["id"])) {
 		$chaine .= '"proDate"=>"'.$CTRTRS_LISTE[$i]["proDate"].'", ';
 		$chaine .= '"ctb"=>"'.$CTRTRS_LISTE[$i]["ctb"].'", ';
 		$chaine .= '"domMel"=>"'.$CTRTRS_LISTE[$i]["domMel"].'", ';
+		$chaine .= '"team"=>"'.$CTRTRS_LISTE[$i]["team"].'", ';
 		$chaine .= '"quand"=>"'.$CTRTRS_LISTE[$i]["quand"].'")';
 		if ($i != $total-1) {$chaine .= ',';}
 		$chaine .= chr(13);
@@ -82,7 +83,7 @@ fwrite($inF,$chaine);
 
 $inF = fopen($Fnm,"a+"); 
 fseek($inF, 0);
-fwrite($inF, "ID;halID;Année de publication;Contributeur;Domaine email;Modifié le".chr(13).chr(10));
+fwrite($inF, "ID;halID;Année de publication;Contributeur;Domaine email;Code collection;Modifié le".chr(13).chr(10));
 
 echo ("<table class='table table-striped table-bordered table-hover;'><tr>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>");
@@ -90,6 +91,7 @@ echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Année de publication</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Contributeur</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Code collection</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Modifié le</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Edition</b></td>");
 echo ("</tr>");
@@ -109,6 +111,8 @@ foreach($CTRTRS_LISTE AS $i => $valeur) {
 	$chaine .= $CTRTRS_LISTE[$i]["ctb"].';';
 	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["domMel"]."</td>");
 	$chaine .= $CTRTRS_LISTE[$i]["domMel"].';';
+	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["team"]."</td>");
+	$chaine .= $CTRTRS_LISTE[$i]["team"].';';
 	echo ("<td style='text-align: center;'>".date("d/m/y", $CTRTRS_LISTE[$i]["quand"])."</td>");
 	$chaine .= date("d/m/y", $CTRTRS_LISTE[$i]["quand"]).';';
 	echo ("<td style='text-align: center;'><a href='?id=".$j."'>Supprimer</a></td>");

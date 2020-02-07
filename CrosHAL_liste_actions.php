@@ -7,6 +7,7 @@ if (isset($_POST["ctb"])) {
 	$ctb = $_POST["ctb"];
 	$domMel = $_POST["domMel"];
 	$proDate = $_POST["proDate"];
+	$team = $_POST["team"];
 	$Fnm1 = "./CrosHAL_ctrTrs.php";
 	include $Fnm1;
 	array_multisort($CTRTRS_LISTE);
@@ -48,6 +49,7 @@ if (strpos($halID, "#") !== false) {
 		$CTRTRS_LISTE[$ajout]["proDate"] = $proDate;
 		$CTRTRS_LISTE[$ajout]["ctb"] = $ctb;
 		$CTRTRS_LISTE[$ajout]["domMel"] = $domMel;
+		$CTRTRS_LISTE[$ajout]["team"] = $team;
 		$CTRTRS_LISTE[$ajout]["quand"] = time();
 	}
 }
@@ -95,6 +97,7 @@ if (isset($_POST["ctb"])) {
 		$chaine .= '"proDate"=>"'.$CTRTRS_LISTE[$i]["proDate"].'", ';
 		$chaine .= '"ctb"=>"'.$CTRTRS_LISTE[$i]["ctb"].'", ';
 		$chaine .= '"domMel"=>"'.$CTRTRS_LISTE[$i]["domMel"].'", ';
+		$chaine .= '"team"=>"'.$CTRTRS_LISTE[$i]["team"].'", ';
 		$chaine .= '"quand"=>"'.$CTRTRS_LISTE[$i]["quand"].'")';
 		if ($i != $total-1) {$chaine .= ',';}
 		$chaine .= chr(13);

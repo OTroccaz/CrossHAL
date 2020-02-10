@@ -97,7 +97,7 @@ include "./CrosHAL_ctrTrs.php";
 //$ctb = array_column($CTRTRS_LISTE, 'ctb');//Uniquement si > PHP 5.5.0 >>> pb UR1
 //Si < PHP 5.5.0
 foreach ($CTRTRS_LISTE as $key => $row) {
-    $quand[$key]  = $row['quand'];
+    $quand[$key]  = date("d/m/y", $row['quand']);
     $ctb[$key] = $row['ctb'];
 }
 array_multisort($quand, SORT_DESC, $ctb, SORT_ASC, $CTRTRS_LISTE);

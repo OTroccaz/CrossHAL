@@ -1,5 +1,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <?php
+//Récupération de l'adresse IP du client (on cherche d'abord à savoir s'il est derrière un proxy)
+if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+  $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+  $ip = $_SERVER['HTTP_CLIENT_IP'];
+}else {
+  $ip = $_SERVER['REMOTE_ADDR'];
+}
+
+//Restriction IP
+include("./IP_list.php");
+if (!in_array($ip, $IP_aut)) {
+  echo "<br><br><center><font face='Corbel'><b>";
+  echo "Votre poste n'est pas autorisé à accéder à cette application.";
+  echo "</b></font></center>";
+  die;
+}
+
 header('Content-type: text/html; charset=UTF-8');
 
 if (isset($_GET['css']) && ($_GET['css'] != ""))
@@ -74,6 +92,16 @@ if (isset($_GET["id"])) {
 	header("Location:"."./CrosHAL_ctrTrs_stats.php");
 }
 
+include "./CrosHAL_ctrTrs.php";
+//$proDate  = array_column($CTRTRS_LISTE, 'proDate');//Uniquement si > PHP 5.5.0 >>> pb UR1
+//$ctb = array_column($CTRTRS_LISTE, 'ctb');//Uniquement si > PHP 5.5.0 >>> pb UR1
+//Si < PHP 5.5.0
+foreach ($CTRTRS_LISTE as $key => $row) {
+    $proDate[$key]  = $row['proDate'];
+    $ctb[$key] = $row['ctb'];
+}
+array_multisort($proDate, SORT_ASC, $ctb, SORT_ASC, $CTRTRS_LISTE);
+
 //export results in a CSV file
 $Fnm = "./HAL/ctrTrs.csv"; 
 $inF = fopen($Fnm,"w"); 
@@ -95,8 +123,6 @@ echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Modifié le</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Edition</b></td>");
 echo ("</tr>");
-
-include "./CrosHAL_ctrTrs.php";
 
 foreach($CTRTRS_LISTE AS $i => $valeur) {
 	$chaine = "";

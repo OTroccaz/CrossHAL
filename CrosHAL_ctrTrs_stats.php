@@ -93,14 +93,14 @@ if (isset($_GET["id"])) {
 }
 
 include "./CrosHAL_ctrTrs.php";
-//$proDate  = array_column($CTRTRS_LISTE, 'proDate');//Uniquement si > PHP 5.5.0 >>> pb UR1
+//$quand  = array_column($CTRTRS_LISTE, 'quand');//Uniquement si > PHP 5.5.0 >>> pb UR1
 //$ctb = array_column($CTRTRS_LISTE, 'ctb');//Uniquement si > PHP 5.5.0 >>> pb UR1
 //Si < PHP 5.5.0
 foreach ($CTRTRS_LISTE as $key => $row) {
-    $proDate[$key]  = $row['proDate'];
+    $quand[$key]  = $row['quand'];
     $ctb[$key] = $row['ctb'];
 }
-array_multisort($proDate, SORT_ASC, $ctb, SORT_ASC, $CTRTRS_LISTE);
+array_multisort($quand, SORT_DESC, $ctb, SORT_ASC, $CTRTRS_LISTE);
 
 //export results in a CSV file
 $Fnm = "./HAL/ctrTrs.csv"; 

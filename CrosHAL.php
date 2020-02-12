@@ -3206,7 +3206,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		if($ordinv == "oui") {$sort = "desc";}else{$sort = "asc";}
     if ($vIdHAL != "oui") {
 			if ($ctrTrs == "oui") {//Contrôle des tiers
-				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,producedDate_s,docid,label_xml,authIdHalFullName_fs,authIdHasStructure_fs,authIdHal_s,label_xml,pubmedId_s,comment_s&sort=halId_s%20".$sort;
+				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,producedDate_s,docid,label_xml,authIdHalFullName_fs,authIdHasStructure_fs,authIdHal_s,label_xml,pubmedId_s,comment_s,docType_s&sort=halId_s%20".$sort;
 			}else{//Repérer les formes IdHAL non valides
 				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22ART%22%20OR%20%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,label_xml,submittedDate_s,submitType_s,docType_s&sort=halId_s%20".$sort;
 			}
@@ -4710,7 +4710,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				include("./CrosHAL_vu_halID.php");
 				$totCpt = 0;
 				for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
-					if (in_array($arrayHAL["response"]["docs"][$cpt]["halId_s"], $HALID_VU)) {
+					if (in_array($arrayHAL["response"]["docs"][$cpt]["halId_s"], $HALID_VU) || $arrayHAL["response"]["docs"][$cpt]["docType_s"] == "THESE") {//Ne pas prendre en compte les halId déjà VU ou les thèses
 					}else{
 						progression($cpt+1, $iMax, $iPro);
 						$lignAff = "ok";//Test affichage ou non de la ligne du tableau
@@ -4850,10 +4850,10 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								if ($actAut == "ok") {$actions .= "<font color='red'>".$aut." > ".$collHAL."</font><br>"; }
 							}
 						}
-						if ($cptRed >= 3) {$lignAff = "no"; $domCont = "ok";}//Ne pas afficher la ligne s'il y a 3 ou + auteurs identifiés dans le listing ExtrHAL 
+						if ($cptRed > 1) {$lignAff = "no"; $domCont = "ok";}//Ne pas afficher la ligne s'il y a au moins 2 auteurs identifiés dans le listing ExtrHAL
 						
 						//Domaine email + contributeur
-						$domCont = "no";//Quelle que soit la suite, bloquer l'affichage de la ligne si domaine email du contributeur contient "rennes" ou si c'est un contributeur sûr
+						$domCont = "no";//Quelle que soit la suite, bloquer l'affichage de la ligne si domaine email du contributeur contient "rennes" ou "irisa.fr" ou si c'est un contributeur sûr
 						for($i=0; $i < $xml->getElementsByTagName("respStmt")->length; $i++) {
 							$elts = $xml->getElementsByTagName("respStmt")->item($i);
 							for($j=0; $j < $elts->childNodes->length; $j++) {
@@ -4870,7 +4870,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 										if ($name->childNodes->item($k)->nodeName == "email") {
 											if ($name->childNodes->item($k)->hasAttribute("type") && $name->childNodes->item($k)->getAttribute("type") == "domain") {
 												$domMel = $name->childNodes->item($k)->nodeValue;
-												if (stripos($domMel, "rennes") !== false) {
+												if (stripos($domMel, "rennes") !== false || stripos($domMel, "irisa.fr") !== false) {
 													$lignAff = "no";//Ne pas afficher les publications dont le domaine email du contributeur contient "rennes"
 													$domCont = "ok";
 												}else{

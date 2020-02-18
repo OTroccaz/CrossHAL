@@ -7,6 +7,7 @@ if (isset($_POST["ctb"])) {
 	$ctb = $_POST["ctb"];
 	$domMel = $_POST["domMel"];
 	$proDate = $_POST["proDate"];
+	$depDate = $_POST["depDate"];
 	$team = $_POST["team"];
 	$Fnm1 = "./CrosHAL_ctrTrs.php";
 	include $Fnm1;
@@ -47,6 +48,7 @@ if (strpos($halID, "#") !== false) {
 		$ajout = count($CTRTRS_LISTE);
 		$CTRTRS_LISTE[$ajout]["halID"] = $halID;
 		$CTRTRS_LISTE[$ajout]["proDate"] = $proDate;
+		$CTRTRS_LISTE[$ajout]["depDate"] = $depDate;
 		$CTRTRS_LISTE[$ajout]["ctb"] = $ctb;
 		$CTRTRS_LISTE[$ajout]["domMel"] = $domMel;
 		$CTRTRS_LISTE[$ajout]["team"] = $team;
@@ -95,6 +97,7 @@ if (isset($_POST["ctb"])) {
 	foreach($CTRTRS_LISTE AS $i => $valeur) {
 		$chaine = $i.' => array("halID"=>"'.$CTRTRS_LISTE[$i]["halID"].'", ';
 		$chaine .= '"proDate"=>"'.$CTRTRS_LISTE[$i]["proDate"].'", ';
+		$chaine .= '"depDate"=>"'.$CTRTRS_LISTE[$i]["depDate"].'", ';
 		$chaine .= '"ctb"=>"'.$CTRTRS_LISTE[$i]["ctb"].'", ';
 		$chaine .= '"domMel"=>"'.$CTRTRS_LISTE[$i]["domMel"].'", ';
 		$chaine .= '"team"=>"'.$CTRTRS_LISTE[$i]["team"].'", ';

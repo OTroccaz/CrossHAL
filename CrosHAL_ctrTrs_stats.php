@@ -77,6 +77,7 @@ if (isset($_GET["id"])) {
 	foreach($CTRTRS_LISTE AS $i => $valeur) {
 		$chaine = $i.' => array("halID"=>"'.$CTRTRS_LISTE[$i]["halID"].'", ';
 		$chaine .= '"proDate"=>"'.$CTRTRS_LISTE[$i]["proDate"].'", ';
+		$chaine .= '"depDate"=>"'.$CTRTRS_LISTE[$i]["depDate"].'", ';
 		$chaine .= '"ctb"=>"'.$CTRTRS_LISTE[$i]["ctb"].'", ';
 		$chaine .= '"domMel"=>"'.$CTRTRS_LISTE[$i]["domMel"].'", ';
 		$chaine .= '"team"=>"'.$CTRTRS_LISTE[$i]["team"].'", ';
@@ -111,12 +112,13 @@ fwrite($inF,$chaine);
 
 $inF = fopen($Fnm,"a+"); 
 fseek($inF, 0);
-fwrite($inF, "ID;halID;Année de publication;Contributeur;Domaine email;Code collection;Modifié le".chr(13).chr(10));
+fwrite($inF, "ID;halID;Année de publication;Date de dépôt;Contributeur;Domaine email;Code collection;Modifié le".chr(13).chr(10));
 
 echo ("<table class='table table-striped table-bordered table-hover;'><tr>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>halID</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Année de publication</b></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Date de dépôt</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Contributeur</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>");
 echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Code collection</b></td>");
@@ -133,6 +135,8 @@ foreach($CTRTRS_LISTE AS $i => $valeur) {
 	$chaine .= $CTRTRS_LISTE[$i]["halID"].';';
 	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["proDate"]."</td>");
 	$chaine .= $CTRTRS_LISTE[$i]["proDate"].';';
+	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["depDate"]."</td>");
+	$chaine .= $CTRTRS_LISTE[$i]["depDate"].';';
 	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["ctb"]."</td>");
 	$chaine .= $CTRTRS_LISTE[$i]["ctb"].';';
 	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["domMel"]."</td>");

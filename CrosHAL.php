@@ -3206,7 +3206,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		if($ordinv == "oui") {$sort = "desc";}else{$sort = "asc";}
     if ($vIdHAL != "oui") {
 			if ($ctrTrs == "oui") {//Contrôle des tiers
-				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,producedDate_s,docid,label_xml,authIdHalFullName_fs,authIdHasStructure_fs,authIdHal_s,label_xml,pubmedId_s,comment_s,docType_s&sort=halId_s%20".$sort;
+				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,producedDate_s,submittedDate_s,docid,label_xml,authIdHalFullName_fs,authIdHasStructure_fs,authIdHal_s,label_xml,pubmedId_s,comment_s,docType_s&sort=halId_s%20".$sort;
 			}else{//Repérer les formes IdHAL non valides
 				$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22ART%22%20OR%20%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,label_xml,submittedDate_s,submitType_s,docType_s&sort=halId_s%20".$sort;
 			}
@@ -4961,7 +4961,8 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						if ($actMaj == "ok") {
 							$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=2&Id=".$halID;
 							$proDate = $arrayHAL["response"]["docs"][$cpt]["producedDate_s"];
-							$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\", ctb: \"".$ctb."\", domMel: \"".$domMel."\", proDate: \"".$proDate."\", team: \"".$team."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\"); '><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+							$depDate = $arrayHAL["response"]["docs"][$cpt]["submittedDate_s"];
+							$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\", ctb: \"".$ctb."\", domMel: \"".$domMel."\", proDate: \"".$proDate."\", depDate: \"".$depDate."\", team: \"".$team."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\"); '><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
 						}else{
 							$actAffil .= "";
 						}

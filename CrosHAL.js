@@ -48,9 +48,10 @@ function option1() {
   document.getElementById("chk35").checked = false;
   document.getElementById("chk36").checked = false;
 	document.getElementById("chk47").checked = false;
+	document.getElementById("chk50").checked = false;
   document.getElementById("embargo").style.display = "none";
 	//Si un des éléments CrossRef (cc) est coché > en plus de décocher ceux des option 2 et 3, décocher tous les autres de l'option 1
-	for (ichk = 39; ichk < 50; ichk++) {
+	for (ichk = 39; ichk < 51; ichk++) {
     document.getElementById('chk'+ichk).onchange = function() {
       document.getElementById("chk0").checked = false;
 			document.getElementById("chk1").checked = false;
@@ -72,7 +73,7 @@ function option1() {
 		//if (ichk != 6 && ichk != 8 && ichk != 9 && ichk != 18 && ichk != 19 && ichk != 20 && ichk != 21 && ichk != 22 && ichk != 23) {
 			if (ichk != 6 && ichk != 8 && ichk != 9 && ichk != 18 && ichk != 19) {
 			document.getElementById('chk'+ichk).onchange = function() {
-				for (jchk = 39; jchk < 50; jchk++) {
+				for (jchk = 39; jchk < 51; jchk++) {
 					document.getElementById('chk'+jchk).checked = false;
 				}
 			}
@@ -116,15 +117,16 @@ function option2() {
 	document.getElementById("chk46").checked = false;
 	document.getElementById("chk48").checked = false;
 	document.getElementById("chk49").checked = false;
+	document.getElementById("chk50").checked = false;
   document.getElementById('chk18').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (ichk = 26; ichk < 50; ichk++) {
+    for (ichk = 26; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
   document.getElementById('chk19').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (ichk = 26; ichk < 50; ichk++) {
+    for (ichk = 26; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
@@ -145,19 +147,19 @@ function option2() {
   document.getElementById('chk36').onchange = function() {
     document.getElementById("chk18").checked = false;
     document.getElementById("chk19").checked = false;
-    for (ichk = 25; ichk < 50; ichk++) {
+    for (ichk = 25; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
 	document.getElementById('chk47').onchange = function() {
     document.getElementById("chk18").checked = false;
     document.getElementById("chk19").checked = false;
-    for (ichk = 25; ichk < 50; ichk++) {
+    for (ichk = 25; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
   
-  for (ichk = 26; ichk < 50; ichk++) {
+  for (ichk = 26; ichk < 51; ichk++) {
     document.getElementById('chk'+ichk).onchange = function() {
       document.getElementById("chk18").checked = false;
       document.getElementById("chk19").checked = false;
@@ -257,6 +259,7 @@ function chkall1() {
 	document.getElementById("chk45").checked = false;
 	document.getElementById("chk46").checked = false;
 	document.getElementById("chk47").checked = false;
+	document.getElementById("chk50").checked = false;
 }
 
 function verif() {

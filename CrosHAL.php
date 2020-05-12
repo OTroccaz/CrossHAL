@@ -877,7 +877,7 @@ if (isset($manuautOH) && $manuautOH == "oui") {$manOH = " checked";}else{$manOH 
 </p><p class="form-inline"><br>
 <input type="checkbox" id="chk10" class="form-control" style="height: 15px;" onclick="option3()" name="manuaut" value="oui"<?php echo $man;?>>&nbsp;<label for="chk10">Manuscrit auteurs (fichiers sous la forme doi_normalisé.pdf)</label> -> <label for="urlserveur">URL du serveur :</label>
 <input type="text" id="urlpdf" class="form-control" style="height: 25px; width: 300px;" name="urlServeur" value="<?php echo $urlServeur;?>" size="30"><span id="urlserveur" style="color:red;"></span><br>
-<input type="checkbox" id="chk50" class="form-control" style="height: 15px;" onclick="option3()" name="manuautOH" value="oui"<?php echo $manOH;?>>&nbsp;<label for="chk50">Manuscrit auteurs (via OverHAL)</label><br>
+<input type="checkbox" id="chk50" class="form-control" style="height: 15px;" onclick="option3()" name="manuautOH" value="oui"<?php echo $manOH;?>>&nbsp;<label for="chk50">Manuscrit auteurs (via OverHAL)</label> > Au préalable, vous devez procéder au <a target="_blank" href="./CSV_CrosHAL.php">chargement du fichier CSV des statistiques</a><br>
 <br><br>
 <!--<input type="submit" value="Vérifier les DOI" name="verifDOI">-->
 <input type="hidden" value="1" name="iMin">

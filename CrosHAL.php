@@ -5858,7 +5858,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 					$notice = $i+1;
 					echo "<td style='text-align: center;'>".$notice."</td>";
 					echo "<td style='text-align: center;'><a target='_blank' href='".$Stats_OH_Mails[$i]["Article"]."'><img title='DOI' src='./img/doi.jpg'></a></td>";
-					$lienHAL = "https://hal.archives-ouvertes.fr/".$arrayHAL["response"]["docs"][0]["halId_s"];
+					$lienHAL = "https://hal-univ-rennes1.archives-ouvertes.fr/".$arrayHAL["response"]["docs"][0]["halId_s"];
 					echo "<td style='text-align: center;'><a target='_blank' href='".$lienHAL."'><img title='HAL' src='./img/HAL.jpg'></a></td>";
 					echo "<td style='text-align: center;'>".$doi."</td>";
 					echo "<td style='text-align: center;'>".$Stats_OH_Mails[$i]["Destinataire"]."</td>";

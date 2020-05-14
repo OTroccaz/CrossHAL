@@ -5193,7 +5193,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 
 //Etape 3
 if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"])) && $opt3 == "oui") || $action == 3) {
-	if (isset($manuaut) && $manuaut == "oui") {//Etape 3 > Manuscrit auteurs (fichiers sous la forme doi_normalisé.pdf)
+	if (isset($manuaut) && $manuaut == "oui" || $lienext == "oui" || $noliene == "oui") {//Etape 3 > Manuscrit auteurs (fichiers sous la forme doi_normalisé.pdf)
 		$urlServeur = "";
 		if (isset($_POST["urlServeur"]) && $_POST["urlServeur"] != "") {$urlServeur = $_POST["urlServeur"];}
 		if (isset($_GET["urlServeur"]) && $_GET["urlServeur"] != "")  {$urlServeur = $_GET["urlServeur"];}

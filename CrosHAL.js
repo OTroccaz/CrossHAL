@@ -211,16 +211,31 @@ function option3() {
 	document.getElementById("chk49").checked = false;
   document.getElementById('chk20').onchange = function() {
     document.getElementById("chk21").checked = false;
+		document.getElementById("chk50").checked = false;
     if (document.getElementById("chk21").checked == false) {
       document.getElementById("embargo").style.display = "none";
     }
   };
   document.getElementById('chk21').onchange = function() {
     document.getElementById("chk20").checked = false;
+		document.getElementById("chk50").checked = false;
     if (document.getElementById("chk21").checked == false) {
       document.getElementById("embargo").style.display = "none";
     }
   };
+	document.getElementById('chk50').onchange = function() {
+		if (document.getElementById("chk50").checked == true) {
+			document.getElementById("chk20").checked = false;
+			document.getElementById("chk21").checked = false;
+			document.getElementById("chk10").checked = false;
+			document.getElementById("embargo").style.display = "none";
+		}
+	}
+	document.getElementById('chk10').onchange = function() {
+		if (document.getElementById("chk10").checked == true) {
+			document.getElementById("chk50").checked = false;
+		}
+	}
 }
 
 function chkall1() {

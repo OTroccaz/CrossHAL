@@ -71,6 +71,7 @@ if (strpos($_SERVER['HTTP_HOST'], 'halur1') !== false) {
 
   $url = "&opt3=oui";
   $url .= "&halID=".$_POST["halID"];
+	$url .= "&idhal=".$_POST["idhal"];
   $url .= "&iMin=".$_POST["iMin"];
   $url .= "&iMax=".$_POST["iMax"];
   $url .= "&iMinRet=".$_POST["iMinRet"];
@@ -81,10 +82,12 @@ if (strpos($_SERVER['HTTP_HOST'], 'halur1') !== false) {
   $url .= "&anneefin=".$_POST["anneefin"];
   $url .= "&apa=".$_POST["apa"];
   //$url .= "&pdfedit=".$_POST["pdfedit"];
-  $url .= "&manuaut=".$_POST["manuaut"];
+  if (isset($_POST["manuaut"])) {$url .= "&manuaut=".$_POST["manuaut"];}
+	if (isset($_POST["manuautOH"])) {$url .= "&manuautOH=".$_POST["manuautOH"];}
   $url .= "&lienext=".$_POST["lienext"];
   $url .= "&noliene=".$_POST["noliene"];
   $url .= "&embargo=".$_POST["embargo"];
+	$url .= "&urlServeur=".$_POST["urlServeur"];
   $url .= "&urlPDF3=".$urlPDF;
   $url .= "&cptTab=".$_POST["cptTab"];
   $url .= "&action=3";

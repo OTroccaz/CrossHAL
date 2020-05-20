@@ -50,12 +50,13 @@ if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $anneedeb = $_GET["anneedeb"];
   $anneefin = $_GET["anneefin"];
   $apa = $_GET["apa"];
-  $manuaut = $_GET["manuaut"];
-	$manuautOH = $_GET["manuautOH"];
+  if (isset($_GET["manuaut"])) {$manuaut = $_GET["manuaut"];}
+	if (isset($_GET["manuautOH"])) {$manuautOH = $_GET["manuautOH"];}
   $lienext = $_GET["lienext"];
   $noliene = $_GET["noliene"];
   $embargo = $_GET["embargo"];
   $urlServeur = $_GET["urlServeur"];
+  $urlPDF3 = $_GET["urlPDF3"];
   $cptTab = $_GET["cptTab"];
   $chkall = "";
   $doiCrossRef = "";
@@ -859,12 +860,13 @@ if (isset($rIdHALPub) && $rIdHALPub == "oui") {$idhpub = " checked";}else{$idhpu
 <br><br>
 <b>Etape 3 : Déposer le texte intégral des articles :</b><br>
 <?php
-if ((isset($lienext) && $lienext == "oui" || !isset($_POST["valider"])) && $noliene != "oui") {$ext = " checked";}else{$ext = "";}
+if (isset($manuautOH) && $manuautOH == "oui") {$manOH = " checked";}else{$manOH = "";}
+
+if ((isset($lienext) && $lienext == "oui" || !isset($_POST["valider"])) && $noliene != "oui" && $manOH != " checked") {$ext = " checked";}else{$ext = "";}
 if (isset($manuaut) && $manuaut == "oui") {$man = " checked";}else{$man = "";}
 if (isset($noliene) && $noliene == "oui") {$noe = " checked";}else{$noe = "";}
 if (isset($embargo) && $embargo == "6mois") {$m6 = " checked";}else{$m6 = "";}
 if (isset($embargo) && $embargo == "12mois") {$m12 = " checked";}else{$m12 = "";}
-if (isset($manuautOH) && $manuautOH == "oui") {$manOH = " checked";}else{$manOH = "";}
 ?>
 <b>Restreindre l'affichage aux notices&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
 <input type="checkbox" id="chk20" class="form-control" style="height: 15px;" onclick="option3()" name="lienext" value="oui"<?php echo $ext;?>>&nbsp;<label for="chk20">ayant un lien externe</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -5559,7 +5561,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 						$compSA = "";
 						//echo $halID;
 						if ($lienext == "oui") {//notice avec lien externe
-							genXMLPDF($halID, $doi, $targetPDF, $halID, $evd, $compNC, $compND, $compSA, $lienPDF, $urlPDF);
+							genXMLPDF($halID, $doi, $targetPDF, $halID, $evd, $compNC, $compND, $compSA, $lienPDF, $urlPDF3);
 							include "./CrosHAL_actions.php";
 							$actMaj = "ok";
 							foreach($ACTIONS_LISTE as $tab) {
@@ -5622,7 +5624,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 							//Utilisation détournée de paramètres de la fonction initiale pour l'inscription de l'embargo dans le TEI
 							$evd = "noliene";
 							$compNC = $embargo;
-							genXMLPDF($halID, $doi, $targetPDF, $halID, $evd, $compNC, $compND, $compSA, $lienPDF, $urlPDF);
+							genXMLPDF($halID, $doi, $targetPDF, $halID, $evd, $compNC, $compND, $compSA, $lienPDF, $urlPDF3);
 							include "./CrosHAL_actions.php";
 							$actMaj = "ok";
 							foreach($ACTIONS_LISTE as $tab) {
@@ -5660,7 +5662,6 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 							$textAff .= "<input type='hidden' value='".$anneefin."' name='anneefin'>";
 							$textAff .= "<input type='hidden' value='".$apa."' name='apa'>";
 							$textAff .= "<input type='hidden' value='".$manuaut."' name='manuaut'>";
-							$textAff .= "<input type='hidden' value='".$manuautOH."' name='manuautOH'>";
 							$textAff .= "<input type='hidden' value='".$lienext."' name='lienext'>";
 							$textAff .= "<input type='hidden' value='".$noliene."' name='noliene'>";
 							$textAff .= "<input type='hidden' value='".$embargo."' name='embargo'>";
@@ -5755,7 +5756,6 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			echo "<input type='hidden' value='".$DOIComm."' name='DOIComm'>";
 			echo "<input type='hidden' value='".$PoPeer."' name='PoPeer'>";
 			echo "<input type='hidden' value='".$manuaut."' name='manuaut'>";
-			echo "<input type='hidden' value='".$manuautOH."' name='manuautOH'>";
 			echo "<input type='hidden' value='".$lienext."' name='lienext'>";
 			echo "<input type='hidden' value='".$noliene."' name='noliene'>";
 			echo "<input type='hidden' value='".$embargo."' name='embargo'>";
@@ -5840,7 +5840,8 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Qui</b></td>";
 		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>OA</b></td>";
 		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Type</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action</b></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action 1 > ADD</b></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action 2 > Parcourir</b></td>";
 		echo "</tr>";
 		for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 			progression($i+1, count($Stats_OH_Mails), $iPro);
@@ -5869,8 +5870,69 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 					echo "<td style='text-align: center;'>".$oa."</td>";
 					if ($Stats_OH_Mails[$i]["Type"] == "P") {$type = "P";}else{$type = "MS";}
 					echo "<td style='text-align: center;'>".$type."</td>";
-					$action = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' src='./img/add.png'></a>";
-					echo "<td style='text-align: center;'>".$action."</td>";
+					//Action 1 > ADD
+					$actADD = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' src='./img/add.png'></a>";
+					echo "<td style='text-align: center;'>".$actADD."</td>";
+					//Action 2 > Parcourir
+					$textAff = "<td width='20%'>";
+					$halID = $arrayHAL["response"]["docs"][0]["halId_s"];
+					$getHalID = "";
+					if (isset($_GET["halID"])) {$getHalID = $_GET["halID"];}
+					if ($action == "3" && $halID == $getHalID) {
+						$urlPDF = $urlServeur;
+						$compND = "";
+						$compSA = "";
+						//Utilisation détournée de paramètres de la fonction initiale pour l'inscription de l'embargo dans le TEI
+						$evd = "noliene";
+						$compNC = "6mois";
+						genXMLPDF($halID, $doi, $targetPDF, $halID, $evd, $compNC, $compND, $compSA, $lienPDF, $urlPDF3);
+						include "./CrosHAL_actions.php";
+						$actMaj = "ok";
+						foreach($ACTIONS_LISTE as $tab) {
+							if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no";}
+						}
+						if ($lienPDF == "noDateEpub") {
+							$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/MAJEmbargo.png'></center>";
+							$lignAff = "ok";
+						}else{
+							if ($actMaj == "ok") {
+								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+								$lignAff = "ok";
+							}else{
+								$textAff .= "<center><img src='./img/MAJOK.png'></center>";
+							}
+						}
+					}else{
+						$lignAff = "ok";
+						//$textAff .= "<div id='formFilePDF'></div>";
+						$textAff .= "<form enctype='multipart/form-data' action='CrosHALPDF.php' method='post' accept-charset='UTF-8'>";
+						$textAff .= "<input type='hidden' name='MAX_FILE_SIZE' value='10000000' />";
+						$textAff .= "<p class='form-inline'><label for='pdf_file'>Envoyez le fichier PDF (10 Mo max) :</label><br />";
+						$textAff .= "<input class='form-control' style='font-size:90%; height:25px; padding: 0px;' id='pdf_file' name='pdf_file' type='file' /><br />";
+						$textAff .= "<input type='hidden' value='".$halID."' name='halID'>";
+						$textAff .= "<input type='hidden' value='' name='iMin'>";
+						$textAff .= "<input type='hidden' value='' name='iMax'>";
+						$textAff .= "<input type='hidden' value='' name='iMinRet'>";
+						$textAff .= "<input type='hidden' value='' name='iMaxRet'>";
+						$textAff .= "<input type='hidden' value='' name='increment'>";
+						$textAff .= "<input type='hidden' value='".$team."' name='team'>";
+						$textAff .= "<input type='hidden' value='' name='idhal'>";
+						$textAff .= "<input type='hidden' value='".$anneedeb."' name='anneedeb'>";
+						$textAff .= "<input type='hidden' value='' name='anneefin'>";
+						$textAff .= "<input type='hidden' value='' name='apa'>";
+						$textAff .= "<input type='hidden' value='".$manuautOH."' name='manuautOH'>";
+						$textAff .= "<input type='hidden' value='' name='lienext'>";
+						$textAff .= "<input type='hidden' value='' name='noliene'>";
+						$textAff .= "<input type='hidden' value='' name='embargo'>";
+						$textAff .= "<input type='hidden' value='' name='urlServeur'>";
+						$textAff .= "<input type='hidden' value='' name='cptTab'>";
+						$textAff .= "<input class='form-control btn btn-md btn-primary' style='height: 25px; padding: 0px; width: 130px;'type='submit' value='Envoyer le fichier'>";
+						$textAff .= "</form>";
+					}
+					$textAff .= "</td>";
+					echo $textAff;
+					
+					
 					echo "</tr>";
 					ob_flush();
 					flush();

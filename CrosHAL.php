@@ -436,20 +436,32 @@ function testURL($url) {
 }
 
 //Nettoyage des dossiers de création de fichiers
-function suppression($dossier, $age) {
-  $repertoire = opendir($dossier);
-    while(false !== ($fichier = readdir($repertoire)))
-    {
-      $chemin = $dossier."/".$fichier;
-      $infos = pathinfo($chemin);
-      $age_fichier = time() - filemtime($chemin);
-      if ($fichier != "." && $fichier != ".." && !is_dir($fichier) && $age_fichier > $age)
-      {
-      unlink($chemin);
-      //echo $chemin." - ".date ("F d Y H:i:s.", filemtime($chemin))."<br>";
-      }
-    }
-  closedir($repertoire);
+function suppression($dir, $age) {
+	
+	$handle = opendir($dir);
+	while($elem = readdir($handle)) {//ce while vide tous les répertoires et sous répertoires
+		$ageElem = time() - filemtime($dir.'/'.$elem);
+		if ($ageElem > $age) {
+			if(is_dir($dir.'/'.$elem) && substr($elem, -2, 2) !== '..' && substr($elem, -1, 1) !== '.') {//si c'est un répertoire
+				suppression($dir.'/'.$elem, $age);
+			}else{
+				if(substr($elem, -2, 2) !== '..' && substr($elem, -1, 1) !== '.')	{
+					unlink($dir.'/'.$elem);
+				}
+			}
+		}			
+	}
+	
+	$handle = opendir($dir);
+	while($elem = readdir($handle)) {//ce while efface tous les dossiers
+		$ageElem = time() - filemtime($dir.'/'.$elem);
+		if ($ageElem > $age) {
+			if(is_dir($dir.'/'.$elem) && substr($elem, -2, 2) !== '..' && substr($elem, -1, 1) !== '.') {//si c'est un repertoire
+				suppression($dir.'/'.$elem, $age);
+				rmdir($dir.'/'.$elem);
+			}    
+		}
+	}
 }
 suppression("./XML", 3600);//Suppression des fichiers du dossier XML créés il y a plus d'une heure
 

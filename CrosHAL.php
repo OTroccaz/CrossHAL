@@ -5986,12 +5986,13 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			$listDOICrossRef = "";
 			for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 				progression($i+1, count($Stats_OH_Mails), $iPro);
+				$doiCpt = $Stats_OH_Mails[$i]["Article"];
 				$doi = str_replace("https://doi.org/", "", $Stats_OH_Mails[$i]["Article"]);
 				$quand = $Stats_OH_Mails[$i]["Quand"];
 				$tabQuand = explode("/", $quand);
 				$quand = mktime(0, 0, 0, $tabQuand[1], $tabQuand[0], $tabQuand[2]);
 				$mois = 60 * 60 * 24 * 31;//2678400 secondes dans 1 mois
-				if ($doi != "" && ($Stats_OH_Mails[$i]["Type"] == "P" || $Stats_OH_Mails[$i]["Reponse"] == "MS") && ((time() - $quand) < $mois)) {
+				if ($doi != "" && ($Stats_OH_Mails[$i]["Type"] == "P" || $Stats_OH_Mails[$i]["Reponse"] == "MS") && ((time() - $quand) < $mois) && strpos($doiCpt, "https://doi.org/") !== false) {
 					$reqAPI = "https://api.archives-ouvertes.fr/search/univ-rennes1/?fq=producedDateY_i:".$anneedeb."%20AND%20docType_s:(ART OR COUV)%20AND%20submitType_s:notice%20AND%20doiId_s:%22".$doi."%22&fl=halId_s,docid,contributorFullName_s,linkExtId_s";
 					$reqAPI = str_replace('"', '%22', $reqAPI);
 					$reqAPI = str_replace(" ", "%20", $reqAPI);
@@ -6029,7 +6030,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			echo "<script>";
 			echo "document.getElementById('cpt').style.display = 'none'";
 			echo "</script>";
-			echo "Requêtes DOI :<br>";
+			echo "Requêtes DOI :<br><br>";
 			echo "<b>Wos</b> > ".$listDOIWos."<br><br>";
 			echo "<b>Pubmed</b> > ".$listDOIPubmed."<br><br>";
 			echo "<b>Scopus</b> > ".$listDOIScopus."<br><br>";

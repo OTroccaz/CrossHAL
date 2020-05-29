@@ -5991,13 +5991,14 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 				$quand = $Stats_OH_Mails[$i]["Quand"];
 				$tabQuand = explode("/", $quand);
 				$quand = mktime(0, 0, 0, $tabQuand[1], $tabQuand[0], $tabQuand[2]);
-				$limite = 60 * 60 * 24 * 10;//10 jours
+				$limite = 60 * 60 * 24 * 30;//30 jours
 				if ($doi != "" && ($Stats_OH_Mails[$i]["Type"] == "P" || $Stats_OH_Mails[$i]["Reponse"] == "MS") && ((time() - $quand) > $limite) && strpos($doiCpt, "https://doi.org/") !== false) {
 					$reqAPI = "https://api.archives-ouvertes.fr/search/univ-rennes1/?fq=producedDateY_i:".$anneedeb."%20AND%20docType_s:(ART OR COUV)%20AND%20submitType_s:notice%20AND%20doiId_s:%22".$doi."%22&fl=halId_s,docid,contributorFullName_s,linkExtId_s";
 					$reqAPI = str_replace('"', '%22', $reqAPI);
 					$reqAPI = str_replace(" ", "%20", $reqAPI);
 					//echo $reqAPI.'<br>';
 					askCurl($reqAPI, $arrayHAL);
+					$numFound = 0;
 					$numFound = $arrayHAL["response"]["numFound"];
 					//echo 'toto : '.$numFound.'<br>';
 					if ($numFound == 0) {

@@ -5991,8 +5991,8 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 				$quand = $Stats_OH_Mails[$i]["Quand"];
 				$tabQuand = explode("/", $quand);
 				$quand = mktime(0, 0, 0, $tabQuand[1], $tabQuand[0], $tabQuand[2]);
-				$mois = 60 * 60 * 24 * 31;//2678400 secondes dans 1 mois
-				if ($doi != "" && ($Stats_OH_Mails[$i]["Type"] == "P" || $Stats_OH_Mails[$i]["Reponse"] == "MS") && ((time() - $quand) < $mois) && strpos($doiCpt, "https://doi.org/") !== false) {
+				$limite = 60 * 60 * 24 * 10;//10 jours
+				if ($doi != "" && ($Stats_OH_Mails[$i]["Type"] == "P" || $Stats_OH_Mails[$i]["Reponse"] == "MS") && ((time() - $quand) > $limite) && strpos($doiCpt, "https://doi.org/") !== false) {
 					$reqAPI = "https://api.archives-ouvertes.fr/search/univ-rennes1/?fq=producedDateY_i:".$anneedeb."%20AND%20docType_s:(ART OR COUV)%20AND%20submitType_s:notice%20AND%20doiId_s:%22".$doi."%22&fl=halId_s,docid,contributorFullName_s,linkExtId_s";
 					$reqAPI = str_replace('"', '%22', $reqAPI);
 					$reqAPI = str_replace(" ", "%20", $reqAPI);
@@ -6012,7 +6012,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 						echo "<td style='text-align: center;'>".$type."</td>";
 						
 						$listDOIWos .= $ajout.$doi;
-						$listDOIPubmed .= $ajout.$doi."(Location ID)";
+						$listDOIPubmed .= $ajout.$doi."[Location ID]";
 						$listDOIScopus .= $ajout."DOI(".$doi.")";
 						$listDOICrossRef .= $ajout.$doi;
 						$ajout = " OR ";

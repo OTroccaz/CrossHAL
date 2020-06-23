@@ -5866,7 +5866,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			echo "</tr>";
 			for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 				progression($i+1, count($Stats_OH_Mails), $iPro);
-				$doi = str_replace("https://doi.org/", "", $Stats_OH_Mails[$i]["Article"]);
+				$doi = str_replace(array("https://doi.org/", "https://dx.doi.org/"), "", $Stats_OH_Mails[$i]["Article"]);
 				if ($doi != "" && ($Stats_OH_Mails[$i]["Type"] == "P" || $Stats_OH_Mails[$i]["Reponse"] == "MS")) {
 					$reqAPI = "https://api.archives-ouvertes.fr/search/univ-rennes1/?fq=producedDateY_i:".$anneedeb."%20AND%20docType_s:(ART OR COUV)%20AND%20submitType_s:notice%20AND%20doiId_s:%22".$doi."%22&fl=halId_s,docid,contributorFullName_s,linkExtId_s";
 					$reqAPI = str_replace('"', '%22', $reqAPI);

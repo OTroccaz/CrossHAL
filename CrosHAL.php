@@ -576,9 +576,9 @@ function proxyCURL($indice, $pause, $ipc, $iMax, &$iPro) {
   <script type="text/javascript" language="Javascript" src="./CrosHAL.js"></script>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <link rel="icon" type="type/ico" href="HAL_favicon.ico">
-  <link rel="stylesheet" href="./CrosHAL.css">
+  <link rel="stylesheet" href="https://halur1.univ-rennes1.fr/HAL_SCD.css">
 </head>
-<body>
+<body style="font-family: Corbel;">
 
 <noscript>
 <div align='center' id='noscript'><font color='red'><b>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</b></font><br>
@@ -587,8 +587,8 @@ function proxyCURL($indice, $pause, $ipc, $iMax, &$iPro) {
 
 <table width="100%">
 <tr>
-<td style="text-align: left;"><img alt="CrosHAL" title="CrosHAL" width="250px" src="./img/logo_Croshal.png"></td>
-<td style="text-align: right;"><img alt="Université de Rennes 1" title="Université de Rennes 1" width="150px" src="./img/logo_UR1_gris_petit.jpg"></td>
+<th scope="col" style="text-align: left;"><img alt="CrosHAL" title="CrosHAL" width="250px" src="./img/logo_Croshal.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enrichissez vos dépôts HAL</th>
+<th scope="col" style="text-align: right;"><img alt="Université de Rennes 1" title="Université de Rennes 1" width="150px" src="./img/logo_UR1_gris_petit.jpg"></th>
 </tr>
 </table>
 <hr style="color: #467666; height: 1px; border-width: 1px; border-top-color: #467666; border-style: inset;">

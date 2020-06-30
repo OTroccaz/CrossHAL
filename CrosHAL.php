@@ -229,7 +229,6 @@ function askCurl($url, &$arrayCurl) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
   curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   $json = curl_exec($ch);
   curl_close($ch);
   
@@ -422,7 +421,6 @@ function testURL($url) {
   curl_setopt($resURL, CURLOPT_TIMEOUT, 15);
   curl_setopt($resURL, CURLOPT_CONNECTTIMEOUT, 10);
   curl_setopt($resURL, CURLOPT_SSL_VERIFYHOST, FALSE);
-  curl_setopt($resURL, CURLOPT_SSL_VERIFYPEER, 0);
   curl_exec ($resURL);
   $intReturnCode = curl_getinfo($resURL, CURLINFO_HTTP_CODE);
   //echo $intReturnCode;
@@ -576,13 +574,13 @@ function proxyCURL($indice, $pause, $ipc, $iMax, &$iPro) {
   <script type="text/javascript" language="Javascript" src="./CrosHAL.js"></script>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <link rel="icon" type="type/ico" href="HAL_favicon.ico">
-  <link rel="stylesheet" href="https://halur1.univ-rennes1.fr/HAL_SCD.css">
+  <link rel="stylesheet" href="./CrosHAL.css">
 </head>
-<body style="font-family: Corbel;">
+<body style="font-family: Corbel, sans-serif;">
 
 <noscript>
 <div align='center' id='noscript'><font color='red'><b>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</b></font><br>
-<b>Pour modifier cette option, voir <a target='_blank' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</b></div><br>
+<b>Pour modifier cette option, voir <a target='_blank' rel='noopener noreferrer' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</b></div><br>
 </noscript>
 
 <table width="100%">
@@ -699,7 +697,7 @@ if (isset($team) && $team != "") {$team1 = $team; $team2 = $team;}else{$team1 = 
 <h2><b><u>ou</u></b></h2>
 <p class="form-inline"><b><label for="idhal">Identifiant alphabétique auteur HAL</label></b> <i>(IdHAL > olivier-troccaz, par exemple)</i> :
 <input type="text" id="idhal" name="idhal" class="form-control" style="height: 25px; width: 300px" value="<?php echo $idhal;?>" onkeydown="document.getElementById('team').value = '';">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://hal.archives-ouvertes.fr/page/mon-idhal">Créer mon IdHAL</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="https://hal.archives-ouvertes.fr/page/mon-idhal">Créer mon IdHAL</a>
 <br><br><table>
 <tr><td valign="top">Période :&nbsp;</td>
 <td>
@@ -5037,7 +5035,6 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 							curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
 							curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
-							curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 							$resultat = curl_exec($ch);
 							fwrite($fp, $resultat);
 							

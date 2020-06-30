@@ -64,8 +64,8 @@ function option1() {
 			document.getElementById("chk7").checked = false;
 			//document.getElementById("chk8").checked = false;
 			//document.getElementById("chk9").checked = false;
-			for (ichk = 10; jchk < 25; ichk++) {
-				document.getElementById('chk'+ichk).checked = false;
+			for (jchk = 10; jchk < 25; jchk++) {
+				document.getElementById('chk'+jchk).checked = false;
 			}
 		}
 	}

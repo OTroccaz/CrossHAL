@@ -12,9 +12,9 @@ if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 //Restriction IP
 include("./IP_list.php");
 if (!in_array($ip, $IP_aut)) {
-  echo "<br><br><center><font face='Corbel'><b>";
+  echo "<br><br><center><font face='Corbel'><strong>";
   echo "Votre poste n'est pas autorisé à accéder à cette application.";
-  echo "</b></font></center>";
+  echo "</strong></font></center>";
   die;
 }
 
@@ -43,14 +43,14 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 <body>
 
 <noscript>
-<div align='center' id='noscript'><font color='red'><b>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</b></font><br>
-<b>Pour modifier cette option, voir <a target='_blank' rel='noopener noreferrer' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</b></div><br>
+<div class='center, red' id='noscript'><strong>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</strong><br>
+<strong>Pour modifier cette option, voir <a target='_blank' rel='noopener noreferrer' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</strong></div><br>
 </noscript>
 
-<table width="100%">
+<table class="table100" aria-describedby="Entêtes">
 <tr>
-<td style="text-align: left;"><img alt="CrosHAL" title="CrosHAL" width="250px" src="./img/logo_Croshal.png"></td>
-<td style="text-align: right;"><img alt="Université de Rennes 1" title="Université de Rennes 1" width="150px" src="./img/logo_UR1_gris_petit.jpg"></td>
+<th scope="col" style="text-align: left;"><img alt="CrosHAL" title="CrosHAL" width="250px" src="./img/logo_Croshal.png"></th>
+<th scope="col" style="text-align: right;"><img alt="Université de Rennes 1" title="Université de Rennes 1" width="150px" src="./img/logo_UR1_gris_petit.jpg"></th>
 </tr>
 </table>
 <hr style="color: #467666; height: 1px; border-width: 1px; border-top-color: #467666; border-style: inset;">
@@ -115,15 +115,15 @@ fseek($inF, 0);
 fwrite($inF, "ID;halID;Année de publication;Date de dépôt;Contributeur;Domaine email;Code collection;Modifié le".chr(13).chr(10));
 
 echo ("<table class='table table-striped table-bordered table-hover;'><tr>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>halID</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Année de publication</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Date de dépôt</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Contributeur</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Code collection</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Modifié le</b></td>");
-echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Edition</b></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ID</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>halID</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Année de publication</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Date de dépôt</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Contributeur</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Domaine email</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Code collection</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Modifié le</strong></td>");
+echo ("<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Edition</strong></td>");
 echo ("</tr>");
 
 foreach($CTRTRS_LISTE AS $i => $valeur) {

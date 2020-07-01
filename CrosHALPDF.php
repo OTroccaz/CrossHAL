@@ -9,7 +9,7 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
   $css = "https://ecobio.univ-rennes1.fr/HAL_SCD.css";
 }
 ?>
-<html>
+<html lang="fr">
 <head>
   <title>CrosHAL</title>
   <meta name="Description" content="CrosHAL">
@@ -22,8 +22,8 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 <body>
 
 <noscript>
-<div align='center' id='noscript'><font color='red'><b>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</b></font><br>
-<b>Pour modifier cette option, voir <a target='_blank' rel='noopener noreferrer' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</b></div><br>
+<div class='center, red' id='noscript'><strong>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</strong><br>
+<strong>Pour modifier cette option, voir <a target='_blank' rel='noopener noreferrer' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</strong></div><br>
 </noscript>
 
 <?php

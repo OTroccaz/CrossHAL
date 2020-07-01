@@ -41,3 +41,15 @@ text-align: justify;
 font-weight: normal;
 padding:1px;
 }
+
+.red {
+	color: #ff0000;
+}
+
+.center {
+	text-align: center;
+}
+
+.table100{
+    width:100%;
+}

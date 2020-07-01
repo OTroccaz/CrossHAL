@@ -13,9 +13,9 @@ if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 //Restriction IP
 include("./IP_list.php");
 if (!in_array($ip, $IP_aut)) {
-  echo "<br><br><center><font face='Corbel'><b>";
+  echo "<br><br><center><font face='Corbel'><strong>";
   echo "Votre poste n'est pas autorisé à accéder à cette application.";
-  echo "</b></font></center>";
+  echo "</strong></font></center>";
   die;
 }
 */
@@ -26,7 +26,7 @@ register_shutdown_function(function() {
     $error = error_get_last();
 
     if ($error['type'] === E_ERROR && strpos($error['message'], 'Maximum execution time of') === 0) {
-        echo "<br><b><font color='red'>Le script a été arrêté car son temps d'exécution dépasse la limite maximale autorisée.</font></b><br>";
+        echo "<br><strong><font color='red'>Le script a été arrêté car son temps d'exécution dépasse la limite maximale autorisée.</font></strong><br>";
     }
 });
 
@@ -237,7 +237,7 @@ function askCurl($url, &$arrayCurl) {
   $memory = intval(ini_get('memory_limit')) * 1024 * 1024;
   $limite = strlen($json)*1;
   if ($limite > $memory) {
-    die ('<b><font color="red">Désolé ! La collection et/ou la période choisie génère(nt) trop de résultats pour être traités correctement.</font></b>');
+    die ('<strong><font color="red">Désolé ! La collection et/ou la période choisie génère(nt) trop de résultats pour être traités correctement.</font></strong>');
   }else{
     $parsed_json = json_decode($json, true);
     $arrayCurl = objectToArray($parsed_json);
@@ -556,7 +556,7 @@ function progression($indice, $iMax, &$iPro) {
 function proxyCURL($indice, $pause, $ipc, $iMax, &$iPro) {
 	echo "<script>";
 	echo "var txtinit = 'Traitement référence $indice sur $iMax<br>';";
-	echo "var txtplus = '<b><font color=\"red\">Référence $indice - Blocage proxy et CURL - Essai n°$ipc</font></b><br>';";
+	echo "var txtplus = '<strong><font color=\"red\">Référence $indice - Blocage proxy et CURL - Essai n°$ipc</font></strong><br>';";
 	echo "document.getElementById('cpt').innerHTML = txtinit + txtplus";
 	echo "</script>";
 	ob_flush();
@@ -582,11 +582,11 @@ function proxyCURL($indice, $pause, $ipc, $iMax, &$iPro) {
 <body style="font-family: Corbel, sans-serif;">
 
 <noscript>
-<div align='center' id='noscript'><font color='red'><b>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</b></font><br>
-<b>Pour modifier cette option, voir <a target='_blank' rel='noopener noreferrer' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</b></div><br>
+<div class='center, red' id='noscript'><strong>ATTENTION !!! JavaScript est désactivé ou non pris en charge par votre navigateur : cette procédure ne fonctionnera pas correctement.</strong><br>
+<strong>Pour modifier cette option, voir <a target='_blank' rel='noopener noreferrer' href='http://www.libellules.ch/browser_javascript_activ.php'>ce lien</a>.</strong></div><br>
 </noscript>
 
-<table width="100%">
+<table class="table100" aria-describedby="Entêtes">
 <tr>
 <th scope="col" style="text-align: left;"><img alt="CrosHAL" title="CrosHAL" width="250px" src="./img/logo_Croshal.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enrichissez vos dépôts HAL</th>
 <th scope="col" style="text-align: right;"><img alt="Université de Rennes 1" title="Université de Rennes 1" width="150px" src="./img/logo_UR1_gris_petit.jpg"></th>
@@ -598,7 +598,7 @@ function proxyCURL($indice, $pause, $ipc, $iMax, &$iPro) {
 
 <form name="troli" action="CrosHAL.php" method="post" onsubmit="return verif ();">
 <p class="form-inline"><label for="team">Code collection HAL</label> <a class='info' onclick='return false' href="#">(qu'est-ce que c’est ?)<span>Code visible dans l’URL d’une collection.
-Exemple : IPR-MOL est le code de la collection http://hal.archives-ouvertes.fr/<b>IPR-PMOL</b> de l’équipe Physique moléculaire
+Exemple : IPR-MOL est le code de la collection http://hal.archives-ouvertes.fr/<strong>IPR-PMOL</strong> de l’équipe Physique moléculaire
 de l’unité IPR UMR CNRS 6251</span></a> :
 
 <?php
@@ -697,13 +697,13 @@ if (isset($_POST["valider"])) {
 if (isset($team) && $team != "") {$team1 = $team; $team2 = $team;}else{$team1 = "Entrez le code de votre collection"; $team2 = "";}
 ?>
 <input type="text" id="team" class="form-control" style="height: 25px; width: 300px;" name="team" value="<?php echo $team1;?>" onClick="this.value='<?php echo $team2;?>';" onkeydown="document.getElementById('idhal').value = '';">
-<h2><b><u>ou</u></b></h2>
-<p class="form-inline"><b><label for="idhal">Identifiant alphabétique auteur HAL</label></b> <i>(IdHAL > olivier-troccaz, par exemple)</i> :
+<h2><strong><u>ou</u></strong></h2>
+<p class="form-inline"><strong><label for="idhal">Identifiant alphabétique auteur HAL</label></strong> <em>(IdHAL > olivier-troccaz, par exemple)</em> :
 <input type="text" id="idhal" name="idhal" class="form-control" style="height: 25px; width: 300px" value="<?php echo $idhal;?>" onkeydown="document.getElementById('team').value = '';">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="https://hal.archives-ouvertes.fr/page/mon-idhal">Créer mon IdHAL</a>
-<br><br><table>
-<tr><td valign="top">Période :&nbsp;</td>
-<td>
+<br><br><table aria-describedby="Période">
+<tr><th scope="col" valign="top">Période :&nbsp;</th>
+<th scope="col" >
 <p class="form-inline">
 <label for="anneedeb">Depuis</label>
 <select id="anneedeb" class="form-control" style="height: 25px; width: 60px; padding: 0px;" name="anneedeb">
@@ -729,13 +729,13 @@ while ($i >= date('Y', time()) - 30) {
   $i--;
 }
 ?>
-</select></td></tr></table>
+</select></th></tr></table>
 <?php
 if (isset($apa) && $apa == "oui") {$pap = " checked";}else{$pap = "";}
 if (isset($ordinv) && $ordinv == "oui") {$ordi = " checked";}else{$ordi = "";}
 ?>
 <p class="form-inline">
-<input type="checkbox" id="apa" class="form-control" style="height: 15px;" name="apa" value="oui"<?php echo $pap;?>> <label for="apa">Inclure les articles <i>"A paraître"</i></label><br/>
+<input type="checkbox" id="apa" class="form-control" style="height: 15px;" name="apa" value="oui"<?php echo $pap;?>> <label for="apa">Inclure les articles <em>"A paraître"</em></label><br/>
 <input type="checkbox" id="ordinv" class="form-control" style="height: 15px;" name="ordinv" value="oui"<?php echo $ordi;?>> <label for="ordinv">Traiter les notices dans l'ordre inverse de recherche</label><br/>
 <br>
 <label for="increment">Incrément :</label>
@@ -755,12 +755,12 @@ if (isset($increment) && $increment == 200) {$dcn = "selected";}else{$dcn = "";}
 <option value="100" <?php echo $cen;?>>100</option>
 <option value="200" <?php echo $dcn;?>>200</option>
 </select>
-<font color='red'>-> Cette valeur correspond au pas des requêtes envoyées vers Crossref. Plus elle sera élevée et plus le risque de blocage de votre poste sera important. Par précaution, elle est volontairement forcée à un maximum de 10 pour l'étape 1.</font>
+<span class='red'>-> Cette valeur correspond au pas des requêtes envoyées vers Crossref. Plus elle sera élevée et plus le risque de blocage de votre poste sera important. Par précaution, elle est volontairement forcée à un maximum de 10 pour l'étape 1.</span>
 <br><br>
 <?php
 if (isset($chkall) && $chkall == "oui") {$cka = " checked";}else{$cka = "";}
 ?>
-<b>Etape 1 : Compléter et corriger les métadonnées HAL</b> <input type="checkbox" id="chkall" class="form-control" style="height: 15px;" onclick="chkall1()" name="chkall" value="oui"<?php echo $cka;?>>&nbsp;<label for="chkall">Cocher tout (Articles - Pubmed prioritaire)</label><br>
+<strong>Etape 1 : Compléter et corriger les métadonnées HAL</strong> <input type="checkbox" id="chkall" class="form-control" style="height: 15px;" onclick="chkall1()" name="chkall" value="oui"<?php echo $cka;?>>&nbsp;<label for="chkall">Cocher tout (Articles - Pubmed prioritaire)</label><br>
 <?php
 if (isset($doiCrossRef) && $doiCrossRef == "oui") {$iod = " checked";}else{$iod = "";}
 if (isset($revue) && $revue == "oui") {$rev = " checked";}else{$rev = "";}
@@ -835,7 +835,7 @@ Autoriser l'ajout d'un DOI aux dépôts HAL de type communication :
 <input type="radio" id="chk38" class="form-control" style="height: 15px;" onclick="option1()" name="DOIComm" value="non"<?php echo $DOICn;?>>&nbsp;<label for="chk38">Non</label><br>
 <br>
 <br><br>
-<b>Etape 2 : Compléter et corriger les auteurs :</b><br>
+<strong>Etape 2 : Compléter et corriger les auteurs :</strong><br>
 <?php
 if (isset($ordAut) && $ordAut == "oui") {$tua = " checked";}else{$tua = "";}
 if (isset($iniPre) && $iniPre == "oui") {$erp = " checked";}else{$erp = "";}
@@ -872,7 +872,7 @@ if (isset($rIdHALPub) && $rIdHALPub == "oui") {$idhpub = " checked";}else{$idhpu
 <br>
 <input type="checkbox" id="chk47" class="form-control" style="height: 15px;" onclick="option2()" name="ctrTrs" value="oui"<?php echo $ctr;?>>&nbsp;<label for="chk47">Contrôle des tiers</label>
 <br><br>
-<b>Etape 3 : Déposer le texte intégral des articles :</b><br>
+<strong>Etape 3 : Déposer le texte intégral des articles :</strong><br>
 <?php
 if (isset($manuautOH) && $manuautOH == "oui") {$manOH = " checked";}else{$manOH = "";}
 if (isset($manuautNR) && $manuautNR == "oui") {$manNR = " checked";}else{$manNR = "";}
@@ -883,11 +883,11 @@ if (isset($noliene) && $noliene == "oui") {$noe = " checked";}else{$noe = "";}
 if (isset($embargo) && $embargo == "6mois") {$m6 = " checked";}else{$m6 = "";}
 if (isset($embargo) && $embargo == "12mois") {$m12 = " checked";}else{$m12 = "";}
 ?>
-<b>Restreindre l'affichage aux notices&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+<strong>Restreindre l'affichage aux notices&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 <input type="checkbox" id="chk20" class="form-control" style="height: 15px;" onclick="option3()" name="lienext" value="oui"<?php echo $ext;?>>&nbsp;<label for="chk20">ayant un lien externe</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="checkbox" id="chk21" class="form-control" style="height: 15px;" onclick="option3();affich_form();" name="noliene" value="oui"<?php echo $noe;?>>&nbsp;<label for="chk21">sans lien externe</label><br>
 <p class="form-inline" id="embargo" style="display: block;">
-<b>Embargo :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+<strong>Embargo :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 <input type="radio" id="chk22" class="form-control" style="height: 15px;" onclick="option3()" name="embargo" value="6mois"<?php echo $m6;?>>&nbsp;<label for="chk22">6 mois</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="radio" id="chk23" class="form-control" style="height: 15px;" onclick="option3()" name="embargo" value="12mois"<?php echo $m12;?>>&nbsp;<label for="chk22">12 mois</label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;←──────────────┘
@@ -946,11 +946,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		askCurl($urlHAL, $arrayHAL);
 		//$numFound = $results->response->numFound;
 		$numFound = $arrayHAL["response"]["numFound"];
-		if ($numFound == 0) {die ('<b>Aucune référence</b><br><br>');}
+		if ($numFound == 0) {die ('<strong>Aucune référence</strong><br><br>');}
 		if ($iMax > $numFound) {$iMax = $numFound;}
-		echo '<b>Total de '.$numFound.' référence(s)' ;
+		echo '<strong>Total de '.$numFound.' référence(s)' ;
 		if ($numFound != 0) {
-			 if ($numFound != 0) {echo " : affichage de ".$iMin." à ".$iMax."</b>&nbsp;<i>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</i><br><br>";}
+			 if ($numFound != 0) {echo " : affichage de ".$iMin." à ".$iMax."</strong>&nbsp;<em>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</em><br><br>";}
 		}
 		//var_dump($resHAL);
 		//print_r($results);
@@ -958,152 +958,152 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		echo "<div id='cpt'></div>";
 		echo "<table class='table table-striped table-bordered table-hover;'><tr>";
 		//echo "<table style='border-collapse: collapse; width: 100%' border='1px' bordercolor='#999999' cellpadding='5px' cellspacing='5px'><tr>";
-		echo "<td rowspan='2' bordercolor='#808080' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>";
-		echo "<td colspan='3' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Liens</b></td>";
+		echo "<td rowspan='2' bordercolor='#808080' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ID</strong></td>";
+		echo "<td colspan='3' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Liens</strong></td>";
 		if ($apa == "oui") {
-			echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>AP</b></td>";
+			echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>AP</strong></td>";
 		}
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>1er auteur</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>1er auteur</strong></td>";
 		if ($revue == "oui") {
-			echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Revue</b></td>" ;
+			echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Revue</strong></td>" ;
 		}
 		if ($vnp == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Vol(n)pp</b></td>";
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Vol(n)pp</strong></td>";
 		}
 		if ($pmid == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>PMID</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>PMID</strong></td>" ;
 		}
 		if ($pmcid == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>PMCID</b></td>";
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>PMCID</strong></td>";
 		}
 		if ($anneepub == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Année de publication</b></td>";
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Année de publication</strong></td>";
 		}
 		if ($mel == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Date de mise en ligne</b></td>";
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Date de mise en ligne</strong></td>";
 		}
 		if ($mocPubmed == "oui") {//Seulement HAL et PM
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Mots-clés</b></td>";
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Mots-clés</strong></td>";
 		}else{
 			//if ($mocCrossRef == "oui") {
 				if ($mocISTEX == "oui") {
-					echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Mots-clés</b></td>";
+					echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Mots-clés</strong></td>";
 				}else{
-					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Mots-clés</b></td>" ;
+					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Mots-clés</strong></td>" ;
 				}
 			//}else{
 			//  if ($mocISTEX == "oui") {
-			//    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Mots-clés</b></td>";
+			//    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Mots-clés</strong></td>";
 			//  }else{
-			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Mots-clés</b></td>";
+			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Mots-clés</strong></td>";
 			//  }
 			//}
 		}
 		if ($absPubmed == "oui") {
 			if ($absISTEX == "oui") {
-				echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Résumé</b></td>";
+				echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Résumé</strong></td>";
 			}else{
-				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Résumé</b></td>";
+				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Résumé</strong></td>";
 			}
 		}else{
 			if ($absISTEX == "oui") {
-				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Résumé</b></td>";
+				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Résumé</strong></td>";
 			}
 		}
 		if ($lanPubmed == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Langue</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Langue</strong></td>";
 		}
 		if ($lanISTEX == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Langue</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Langue</strong></td>";
 		}
 		if ($lanCrossRef == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Langue</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Langue</strong></td>";
 		}
 		if ($financement == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Financement</b></td>";
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Financement</strong></td>";
 		}
 		if ($anr == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ANR</b></td>";
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ANR</strong></td>";
 		}
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action</strong></td>";
 		echo "</tr><tr>";
 		//echo "<td bordercolor='#808080'></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>DOI</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
-		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b></b></td>";
-		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>DOI</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
+		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong></strong></td>";
+		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		if ($vnp == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($pmid == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pubmed</strong></td>";
 		}
 		//if ($pmcid == "oui") {
-			//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
+			//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pubmed</strong></td>";
 		//}
 		if ($anneepub == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($mel == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($mocPubmed == "oui") {//Seulement HAL et PM
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pubmed</strong></td>";
 		}else{
 			//if ($mocCrossRef == "oui") {
 				if ($mocISTEX == "oui") {
-					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ISTEX</b></td>";
+					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ISTEX</strong></td>";
 				}else{
-					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
+					echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
 				}
 			//}else{
 			//  if ($mocISTEX == "oui") {
-			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ISTEX</b></td>";
+			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ISTEX</strong></td>";
 			//  }else{
-			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
+			//    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
 			//  }
 			//}
 		}
 		if ($absPubmed == "oui") {
 			if ($absISTEX == "oui") {
-				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
-				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ISTEX</b></td>";
+				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pubmed</strong></td>";
+				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ISTEX</strong></td>";
 			}else{
-				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
+				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pubmed</strong></td>";
 			}
 		}else{
 			if ($absISTEX == "oui") {
-				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ISTEX</b></td>";
+				echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ISTEX</strong></td>";
 			}
 		}
 		if ($lanPubmed == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pubmed</strong></td>";
 		}
 		if ($lanISTEX == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ISTEX</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ISTEX</strong></td>";
 		}
 		if ($lanCrossRef == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($financement == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($anr == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
-		//echo "<td style='text-align: center;'><b></b></td>";
+		//echo "<td style='text-align: center;'><strong></strong></td>";
 		echo "</tr>";
 		$lienMAJgrpTot = "";
 		$actsMAJgrpTot = "";
@@ -1333,13 +1333,13 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					$fin = "";
 					if ($volCR."(".$numCR.")".$pagCR != "()") {
 						if ($volHAL == "" && $volCR != "") {
-							$deb = "<b>";$fin = "</b>";        }
+							$deb = "<strong>";$fin = "</strong>";        }
 						if ($numHAL == "" && $numCR != "") {
-							$deb = "<b>";$fin = "</b>";
+							$deb = "<strong>";$fin = "</strong>";
 						}
 						//On complète la pagination HAL par CR sauf si les champs vol et num sont déjà complétés dans HAL
 						if ($pagCR != "" && $volHAL == "" && $numHAL == "") {
-							$deb = "<b>";$fin = "</b>";
+							$deb = "<strong>";$fin = "</strong>";
 						}
 						$textAff .= "<td style='text-align: center; background-color: #eeeeee;'>".$deb.$volCR."(".$numCR.")".$pagCR.$fin."</td>";
 					}else{
@@ -1367,7 +1367,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						}
 						$deb = "";
 						$fin = "";
-						if ($pmiHAL != $pmiPM) {$deb = "<b>";$fin = "</b>";}
+						if ($pmiHAL != $pmiPM) {$deb = "<strong>";$fin = "</strong>";}
 						$textAff .= "<td style='text-align: center;'>".$pmiHAL."</td>";
 						$textAff .= "<td style='text-align : center; background-color: #eeeeee;'>".$deb.$pmiPM.$fin."</td>";
 					}else{
@@ -1427,7 +1427,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4))) {
 							//Modification que si AAAA-CR > AAAA-HAL
 							if (intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) {
-								$deb = "<b>";$fin = "</b>";
+								$deb = "<strong>";$fin = "</strong>";
 							}
 						}
 					}
@@ -1455,7 +1455,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					if (isset($melCR[0])) {
 						$testMelCR = $melCR[0];
 						if (($testMelCR == substr($melHAL, 0, 4) && (strlen($txtMelCR) > strlen($melHAL))) || (substr($melHAL, 0, 4) != substr($txtMelCR, 0, 4) && substr($txtMelCR, 0, 4) != "" && substr($melHAL, 5, 2) != substr($txtMelCR, 5, 2) && substr($txtMelCR, 5, 2) != "" && substr($melHAL, 8, 2) != substr($txtMelCR, 8, 2) && substr($txtMelCR, 8, 2) != "" )) {
-							$deb = "<b>";$fin = "</b>";
+							$deb = "<strong>";$fin = "</strong>";
 						}
 					}
 					if ($arrayHAL["response"]["docs"][$cpt]["docType_s"] != "COMM") {
@@ -2553,80 +2553,80 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 		//echo $urlHAL.'<br>';
 		askCurl($urlHAL, $arrayHAL);
 		$numFound = $arrayHAL["response"]["numFound"];
-		if ($numFound == 0) {die ('<b>Aucune référence</b><br><br>');}
+		if ($numFound == 0) {die ('<strong>Aucune référence</strong><br><br>');}
 		if ($iMax > $numFound) {$iMax = $numFound;}
-		echo '<b>Total de '.$numFound.' référence(s)' ;
+		echo '<strong>Total de '.$numFound.' référence(s)' ;
 		if ($numFound != 0) {
-			 if ($numFound != 0) {echo " : affichage de ".$iMin." à ".$iMax."</b>&nbsp;<i>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</i><br><br>";}
+			 if ($numFound != 0) {echo " : affichage de ".$iMin." à ".$iMax."</strong>&nbsp;<em>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</em><br><br>";}
 		}
 		echo "<div id='cpt'></div>";
 		echo "<table class='table table-striped table-bordered table-hover;'><tr>";
 		//echo "<table style='border-collapse: collapse; width: 100%' border='1px' bordercolor='#999999' cellpadding='5px' cellspacing='5px'><tr>";
-		echo "<td rowspan='2' bordercolor='#808080' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>";
-		echo "<td colspan='3' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Liens</b></td>";
+		echo "<td rowspan='2' bordercolor='#808080' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ID</strong></td>";
+		echo "<td colspan='3' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Liens</strong></td>";
 		if ($apa == "oui") {
-			echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>AP</b></td>";
+			echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>AP</strong></td>";
 		}
 		if ($ccTitconf == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Titre de la conférence</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Titre de la conférence</strong></td>" ;
 		}
 		if ($ccPays == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pays</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pays</strong></td>" ;
 		}
 		if ($ccDatedeb == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Date début</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Date début</strong></td>" ;
 		}
 		if ($ccDatefin == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Date fin</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Date fin</strong></td>" ;
 		}
 		if ($ccISBN == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ISBN</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ISBN</strong></td>" ;
 		}
 		if ($ccTitchap == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Titre chapitre</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Titre chapitre</strong></td>" ;
 		}
 		if ($ccTitlivr == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Titre livre</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Titre livre</strong></td>" ;
 		}
 		if ($ccEditcom == "oui") {
-			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Editeur commercial</b></td>" ;
+			echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Editeur commercial</strong></td>" ;
 		}
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action</strong></td>";
 		echo "</tr><tr>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>DOI</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>DOI</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		if ($ccTitconf == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($ccPays == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($ccDatedeb == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($ccDatefin == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($ccISBN == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($ccTitchap == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($ccTitlivr == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		if ($ccEditcom == "oui") {
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
 		}
 		echo "</tr>";
 		$iMinTab = $iMin - 1;
@@ -3268,98 +3268,98 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
   if (isset($arrayHAL["response"]["numFound"])) {
     $numFound = $arrayHAL["response"]["numFound"];
   }else{
-    die ('<b><font color="red">Désolé ! Le code collection '.$team.' ne permet pas de récupérer un docid HAL valide.</font></b><br><br>');
+    die ('<strong><font color="red">Désolé ! Le code collection '.$team.' ne permet pas de récupérer un docid HAL valide.</font></strong><br><br>');
   }
   if ($iMax > $numFound) {$iMax = $numFound;}
-  echo '<b>Total de '.$numFound.' référence(s)';
+  echo '<strong>Total de '.$numFound.' référence(s)';
   if ($numFound != 0) {
     if ($vIdHAL != "oui") {
-      echo " : affichage de ".$iMin." à ".$iMax."</b>&nbsp;<i>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</i><br><br>";
+      echo " : affichage de ".$iMin." à ".$iMax."</strong>&nbsp;<em>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</em><br><br>";
     }else{
-      echo " : affichage de ".$iMin." à ".$numFound."</b>&nbsp;<i>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</i><br><br>";
+      echo " : affichage de ".$iMin." à ".$numFound."</strong>&nbsp;<em>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</em><br><br>";
     }
   }
   echo "<div id='cpt'></div>";
   echo "<table class='table table-striped table-bordered table-hover;'>";
   //echo "<table style='border-collapse: collapse; width: 100%' border='1px' bordercolor='#999999' cellpadding='5px' cellspacing='5px'><tr>";
-  echo "<tr><td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>";
+  echo "<tr><td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ID</strong></td>";
   if ($rIdHAL == "oui") {
-    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Liens</b></td>";
+    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Liens</strong></td>";
   }else{
     if ($rIdHAL != "oui") {
       if ($vIdHAL != "oui") {
 				if ($ctrTrs != "oui") {
-					echo "<td colspan='3' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Liens</b></td>";
+					echo "<td colspan='3' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Liens</strong></td>";
 				}else{
-					echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Liens</b></td>";
+					echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Liens</strong></td>";
 				}
       }else{
-        //echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Prénom</b></td>";
-        //echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Nom</b></td>";
-        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Nom complet</b></td>";
-        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>IdHAL</b></td>";
-        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>AuréHAL</b></td>";
-        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Lien auteur HAL</b></td>";
+        //echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Prénom</strong></td>";
+        //echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Nom</strong></td>";
+        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Nom complet</strong></td>";
+        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>IdHAL</strong></td>";
+        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>AuréHAL</strong></td>";
+        echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Lien auteur HAL</strong></td>";
       }
     }
   }
   if ($apa == "oui") {
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>AP</b></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>AP</strong></td>";
   }
   if ($ordAut == "oui") {
-    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>10 premiers auteurs</b></td>";
-    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Nb auteurs</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action auteurs</b></td>";
+    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>10 premiers auteurs</strong></td>";
+    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Nb auteurs</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action auteurs</strong></td>";
   }
   if ($iniPre == "oui") {
-    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Premier prénom auteurs</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action prénoms</b></td>";
+    echo "<td colspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Premier prénom auteurs</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action prénoms</strong></td>";
   }
   if ($rIdHAL == "oui") {
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Formulaire HAL</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Nom</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Prénom</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>IdHAL suggéré</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>AuréHAL</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Nom de domaine</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>DocID</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>IdHAL</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Affiliation</b></td>";
-    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Année (de publication)</b></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Formulaire HAL</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Nom</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Prénom</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>IdHAL suggéré</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>AuréHAL</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Nom de domaine</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>DocID</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>IdHAL</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Affiliation</strong></td>";
+    echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Année (de publication)</strong></td>";
   }
 	if ($ctrTrs == "oui") {
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Contributeur</b></td>";
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Co-auteurs affiliés au laboratoire</b></td>";
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Titre de la publication</b></td>";
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine email</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Contributeur</strong></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Co-auteurs affiliés au laboratoire</strong></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Titre de la publication</strong></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Domaine email</strong></td>";
 		/*Désactivation temporaire
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Domaine(s) disciplinaire(s)</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Domaine(s) disciplinaire(s)</strong></td>";
 		*/
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Affiliations de type INCOMING ou OLD</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Affiliations de type INCOMING ou OLD</strong></td>";
 		/*Désactivation temporaire
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Pubmed</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Pubmed</strong></td>";
 		*/
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Vu</b></td>";
-		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Actions</b></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Vu</strong></td>";
+		echo "<td rowspan='2' style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Actions</strong></td>";
 	}
   echo "</tr>";
   echo "</tr><tr>";
   if ($vIdHAL != "oui") {
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>DOI</b></td>";
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>DOI</strong></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
   }
   if ($rIdHAL != "oui" && $vIdHAL != "oui" && $ctrTrs != "oui") {
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
   }
   if ($ordAut == "oui") {
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
   }
   if ($iniPre == "oui") {
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>CR</b></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+    echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>CR</strong></td>";
   }
   echo "</tr>";
   if ($rIdHAL != "oui" && $vIdHAL != "oui" && $ctrTrs != "oui") {
@@ -5121,7 +5121,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				echo "<script>";
 				echo "  document.getElementById('cpt').style.display = \"none\";";
 				echo "</script>";
-				echo "<b>".$totCpt." notice(s) remontée(s)</b><br><br>";
+				echo "<strong>".$totCpt." notice(s) remontée(s)</strong><br><br>";
 				
 				if ($iMax != $numFound) {
 					echo "<form name='troli' id='etape2c' action='CrosHAL.php' method='post'>";
@@ -5247,27 +5247,27 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 		askCurl($urlHAL, $arrayHAL);
 		//var_dump($arrayCurl);
 		$numFound = $arrayHAL["response"]["numFound"];
-		if ($numFound == 0) {die ('<b>Aucune référence</b><br><br>');}
+		if ($numFound == 0) {die ('<strong>Aucune référence</strong><br><br>');}
 		if ($iMax > $numFound) {$iMax = $numFound;}
-		echo '<b>Total de '.$numFound.' référence(s)';
-		if ($numFound != 0) {echo " : affichage de ".$iMin." à ".$iMax."</b>&nbsp;<i>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</i><br><br>";}
+		echo '<strong>Total de '.$numFound.' référence(s)';
+		if ($numFound != 0) {echo " : affichage de ".$iMin." à ".$iMax."</strong>&nbsp;<em>(Dans le cas où aucune action corrective n'est à apporter, la ligne n'est pas affichée.)</em><br><br>";}
 		
 		echo "<div id='cpt'></div>";
 		echo "<table class='table table-striped table-bordered table-hover;'><tr>";
 		//echo "<table style='border-collapse: collapse; width: 100%' border='1px' bordercolor='#999999' cellpadding='5px' cellspacing='5px'><tr>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>DOI</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>HAL</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Année pub.</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Titre</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Nom 1er auteur</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Licence</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Type</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>PDF</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Editeur</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action 1 > Déposer</b></td>";
-		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action 2 > Parcourir</b></td>";
-		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Statut</b></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ID</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>DOI</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>HAL</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Année pub.</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Titre</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Nom 1er auteur</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Licence</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Type</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>PDF</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Editeur</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action 1 > Déposer</strong></td>";
+		echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action 2 > Parcourir</strong></td>";
+		//echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Statut</strong></td>";
 		echo "</tr>";
 
 		$iMinTab = $iMin - 1;
@@ -5854,17 +5854,17 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			echo "<div id='cpt'></div>";
 			echo "<table class='table table-striped table-bordered table-hover;'>";
 			echo "<tr>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Lien DOI</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Lien HAL</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>DOI</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Mails</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Quand</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Qui</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>OA</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Type</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action 1 > ADD</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Action 2 > Parcourir</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ID</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Lien DOI</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Lien HAL</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>DOI</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Mails</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Quand</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Qui</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>OA</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Type</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action 1 > ADD</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action 2 > Parcourir</strong></td>";
 			echo "</tr>";
 			for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 				progression($i+1, count($Stats_OH_Mails), $iPro);
@@ -5974,12 +5974,12 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			echo "<div id='cpt'></div>";
 			echo "<table class='table table-striped table-bordered table-hover;'>";
 			echo "<tr>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>ID</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Lien DOI</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>DOI</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Mails</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Quand</b></td>";
-			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><b>Type</b></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>ID</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Lien DOI</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>DOI</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Mails</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Quand</strong></td>";
+			echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Type</strong></td>";
 			echo "</tr>";
 			$ajout = "";
 			$listDOIWos = "DO=(";
@@ -6034,10 +6034,10 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			echo "document.getElementById('cpt').style.display = 'none'";
 			echo "</script>";
 			echo "Requêtes DOI :<br><br>";
-			echo "<b>Wos</b> > ".$listDOIWos."<br><br>";
-			echo "<b>Pubmed</b> > ".$listDOIPubmed."<br><br>";
-			echo "<b>Scopus</b> > ".$listDOIScopus."<br><br>";
-			echo "<b>CrossRef</b> > ".$listDOICrossRef."<br><br>";
+			echo "<strong>Wos</strong> > ".$listDOIWos."<br><br>";
+			echo "<strong>Pubmed</strong> > ".$listDOIPubmed."<br><br>";
+			echo "<strong>Scopus</strong> > ".$listDOIScopus."<br><br>";
+			echo "<strong>CrossRef</strong> > ".$listDOICrossRef."<br><br>";
 		}
 	}
 }

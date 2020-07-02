@@ -229,8 +229,10 @@ function askCurl($url, &$arrayCurl) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
   curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-	curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+	if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+	}
   $json = curl_exec($ch);
   curl_close($ch);
   
@@ -422,8 +424,10 @@ function testURL($url) {
   curl_setopt($resURL, CURLINFO_HEADER_OUT, true);
   curl_setopt($resURL, CURLOPT_TIMEOUT, 15);
   curl_setopt($resURL, CURLOPT_CONNECTTIMEOUT, 10);
-	curl_setopt($resURL, CURLOPT_SSL_VERIFYPEER, true);
-	curl_setopt($resURL, CURLOPT_CAINFO, "cacert.pem");
+	if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
+		curl_setopt($resURL, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($resURL, CURLOPT_CAINFO, "cacert.pem");
+	}
   curl_exec ($resURL);
   $intReturnCode = curl_getinfo($resURL, CURLINFO_HTTP_CODE);
   //echo $intReturnCode;
@@ -5038,8 +5042,10 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 							curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
 							curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
-							curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-							curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+							if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
+								curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+								curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+							}
 							$resultat = curl_exec($ch);
 							fwrite($fp, $resultat);
 							

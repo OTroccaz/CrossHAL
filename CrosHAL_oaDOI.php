@@ -102,8 +102,10 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
   curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-	curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+	if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+	}
   $json = curl_exec($ch);
   //echo $json;
   curl_close($ch);
@@ -201,8 +203,10 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
           curl_setopt($doaj, CURLOPT_RETURNTRANSFER, 1);
           curl_setopt($doaj, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
           curl_setopt($doaj, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
-					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-					curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+					if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
+						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+						curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+					}
           $doajJson = curl_exec($doaj);
           //echo $doajJson;
           curl_close($doaj);
@@ -242,8 +246,10 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
       curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_NOBODY, true);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-			curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+			if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+				curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+			}
       curl_exec($ch);
       $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
       curl_close($ch);

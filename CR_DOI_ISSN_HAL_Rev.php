@@ -17,7 +17,10 @@ function askCurl($url, &$arrayCurl) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
   curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+	}
   $json = curl_exec($ch);
   curl_close($ch);
   $parsed_json = json_decode($json);

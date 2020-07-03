@@ -314,6 +314,24 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 			}
 		}
 	}
+	
+	//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+	$auts = $xml->getElementsByTagName("author");
+	foreach($auts as $aut) {
+		$tabAffil = array();
+		foreach($aut->childNodes as $elt) {
+			if($elt->nodeName == "affiliation") {
+				//Enregistrement de l'affiliation
+				$tabAffil[] = $elt;
+				//Suppression de l'affiliation
+				$elt->parentNode->removeChild($elt);
+			}
+		}
+		//Ajout des affiliations à la fin des noeuds
+		foreach($tabAffil as $aff) {
+			$aut->appendChild($aff);																		
+		}
+	}
   
   if ($evd == "noliene") {//notice sans lien externe
     $elts = $xml->getElementsByTagName('date');//recherche de dateEpub
@@ -1823,6 +1841,24 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					}
 				}
 				
+				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				$auts = $xml->getElementsByTagName("author");
+				foreach($auts as $aut) {
+					$tabAffil = array();
+					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "affiliation") {
+							//Enregistrement de l'affiliation
+							$tabAffil[] = $elt;
+							//Suppression de l'affiliation
+							$elt->parentNode->removeChild($elt);
+						}
+					}
+					//Ajout des affiliations à la fin des noeuds
+					foreach($tabAffil as $aff) {
+						$aut->appendChild($aff);																		
+					}
+				}
+				
 				// Si DOI HAL absent mais trouvé via CrossRef
 				// Si notice de type COMM, la modification du DOI est-elle autorisée ?
 				if ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "ART" || ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "COMM" && $DOIComm == "oui")) {
@@ -2931,6 +2967,24 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				}
 			}
 			
+			//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+			$auts = $xml->getElementsByTagName("author");
+			foreach($auts as $aut) {
+				$tabAffil = array();
+				foreach($aut->childNodes as $elt) {
+					if($elt->nodeName == "affiliation") {
+						//Enregistrement de l'affiliation
+						$tabAffil[] = $elt;
+						//Suppression de l'affiliation
+						$elt->parentNode->removeChild($elt);
+					}
+				}
+				//Ajout des affiliations à la fin des noeuds
+				foreach($tabAffil as $aff) {
+					$aut->appendChild($aff);																		
+				}
+			}
+			
 			//MAJ titre de la conférence
 			if ($ccTitconf == "oui" && $titConfCR != "" && $titConfCR != $titConfHAL) {
 				insertNode($xml, $titConfCR, "meeting", "date", "title", "", "", "", "", "iB");
@@ -3585,6 +3639,24 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						}
 					}
 				}
+				
+				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				$auts = $xml->getElementsByTagName("author");
+				foreach($auts as $aut) {
+					$tabAffil = array();
+					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "affiliation") {
+							//Enregistrement de l'affiliation
+							$tabAffil[] = $elt;
+							//Suppression de l'affiliation
+							$elt->parentNode->removeChild($elt);
+						}
+					}
+					//Ajout des affiliations à la fin des noeuds
+					foreach($tabAffil as $aff) {
+						$aut->appendChild($aff);																		
+					}
+				}
   
         if ($doi != "") {
           //echo normalize(strtolower(wd_remove_accents($autHALTot))).'<br>'.normalize(strtolower(wd_remove_accents($autCRTot))).'<br>';
@@ -3694,6 +3766,24 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								$newXml = $parent->removeChild($elt);
 							}
 						}
+					}
+				}
+				
+				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				$auts = $xml->getElementsByTagName("author");
+				foreach($auts as $aut) {
+					$tabAffil = array();
+					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "affiliation") {
+							//Enregistrement de l'affiliation
+							$tabAffil[] = $elt;
+							//Suppression de l'affiliation
+							$elt->parentNode->removeChild($elt);
+						}
+					}
+					//Ajout des affiliations à la fin des noeuds
+					foreach($tabAffil as $aff) {
+						$aut->appendChild($aff);																		
 					}
 				}
         
@@ -4368,6 +4458,24 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 											$newXml = $parent->removeChild($elt);
 										}
 									}
+								}
+							}
+							
+							//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+							$auts = $xml->getElementsByTagName("author");
+							foreach($auts as $aut) {
+								$tabAffil = array();
+								foreach($aut->childNodes as $elt) {
+									if($elt->nodeName == "affiliation") {
+										//Enregistrement de l'affiliation
+										$tabAffil[] = $elt;
+										//Suppression de l'affiliation
+										$elt->parentNode->removeChild($elt);
+									}
+								}
+								//Ajout des affiliations à la fin des noeuds
+								foreach($tabAffil as $aff) {
+									$aut->appendChild($aff);																		
 								}
 							}
 							
@@ -5501,6 +5609,24 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 								$newXml = $parent->removeChild($elt);
 							}
 						}
+					}
+				}
+				
+				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				$auts = $xml->getElementsByTagName("author");
+				foreach($auts as $aut) {
+					$tabAffil = array();
+					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "affiliation") {
+							//Enregistrement de l'affiliation
+							$tabAffil[] = $elt;
+							//Suppression de l'affiliation
+							$elt->parentNode->removeChild($elt);
+						}
+					}
+					//Ajout des affiliations à la fin des noeuds
+					foreach($tabAffil as $aff) {
+						$aut->appendChild($aff);																		
 					}
 				}
 				

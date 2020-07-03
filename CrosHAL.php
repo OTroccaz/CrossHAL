@@ -332,6 +332,21 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 			$aut->appendChild($aff);																		
 		}
 	}
+	
+	//Suppression (temporaire ?) des stamps
+	$stas = $xml->getElementsByTagName("idno");
+	$tabSta = array();
+	//Enregistrement des stamps dans un tableau
+	foreach($stas as $sta) {
+		if ($sta->hasAttribute("type") && $sta->getAttribute("type") == "stamp") {
+			$tabSta[] = $sta;
+		}
+	}
+	//Suppression des stamps
+	foreach($tabSta as $elt){ 
+		$elt->parentNode->removeChild($elt);
+	}
+	
   
   if ($evd == "noliene") {//notice sans lien externe
     $elts = $xml->getElementsByTagName('date');//recherche de dateEpub

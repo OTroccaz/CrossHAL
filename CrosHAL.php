@@ -5770,7 +5770,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 								}else{
 									$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
 								}
-								$txtAff = "ok";
+								$lignAff = "ok";
 							}else{
 								$textAff .= "<center><img src='./img/MAJOK.png'></center>";
 							}
@@ -5979,8 +5979,6 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 			echo "<script>";
 			echo "  document.getElementById(\"etape3\").submit(); ";
 			echo "</script>";
-		}else{
-			echo "Aucune notice concernée pour cette période.<br>";
 		}
 	}else{
 		if (isset($manuautOH) && $manuautOH == "oui") {//Etape 3 > Manuscrit auteurs (via OverHAL)

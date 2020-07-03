@@ -5360,6 +5360,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 		//$numFound = $resHAL["response"]["numFound"];
 		askCurl($urlHAL, $arrayHAL);
 		//var_dump($arrayCurl);
+		//var_dump($arrayHAL['response']['docs']);
 		$numFound = $arrayHAL["response"]["numFound"];
 		if ($numFound == 0) {die ('<strong>Aucune référence</strong><br><br>');}
 		if ($iMax > $numFound) {$iMax = $numFound;}
@@ -5974,10 +5975,12 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 				echo "<input type='submit' class='form-control btn btn-md btn-primary' value='Retour' style='width: 70px;' name='retour'>";
 			}
 		}
-		if ($cptAff == 0) {//Auto-soumission du formulaire
+		if ($cptAff == 0 && $iMax != $numFound) {//Auto-soumission du formulaire
 			echo "<script>";
 			echo "  document.getElementById(\"etape3\").submit(); ";
 			echo "</script>";
+		}else{
+			echo "Aucune notice concernée pour cette période.<br>";
 		}
 	}else{
 		if (isset($manuautOH) && $manuautOH == "oui") {//Etape 3 > Manuscrit auteurs (via OverHAL)

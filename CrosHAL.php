@@ -329,13 +329,11 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 		foreach($tabAffil as $aff){ 
 			$aut->removeChild($aff);
 		}
-		$xml->save($Fnm);
 		
 		//Ajout des affiliations à la fin des noeuds
 		foreach($tabAffil as $aff) {
 			$aut->appendChild($aff);																		
 		}
-		$xml->save($Fnm);
 	}
 	
 	//Suppression (temporaire ?) des stamps
@@ -1875,13 +1873,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					$xml->save($Fnm);
 					
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
 					}
-					$xml->save($Fnm);
 				}
 				
 				// Si DOI HAL absent mais trouvé via CrossRef
@@ -3006,13 +3002,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				foreach($tabAffil as $aff){ 
 					$aut->removeChild($aff);
 				}
-				$xml->save($Fnm);
 				
 				//Ajout des affiliations à la fin des noeuds
 				foreach($tabAffil as $aff) {
 					$aut->appendChild($aff);																		
 				}
-				$xml->save($Fnm);
 			}
 			
 			//MAJ titre de la conférence
@@ -3684,13 +3678,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					$xml->save($Fnm);
 					
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
 					}
-					$xml->save($Fnm);
 				}
   
         if ($doi != "") {
@@ -3818,13 +3810,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					$xml->save($Fnm);
 					
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
 					}
-					$xml->save($Fnm);
 				}
         
         $nbPreHAL = count(explode(",", $prenomsHAL));
@@ -4515,13 +4505,11 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								foreach($tabAffil as $aff){ 
 									$aut->removeChild($aff);
 								}
-								$xml->save($Fnm);
 								
 								//Ajout des affiliations à la fin des noeuds
 								foreach($tabAffil as $aff) {
 									$aut->appendChild($aff);																		
 								}
-								$xml->save($Fnm);
 							}
 							
 							//Modification noeud auteur avec ajout idhal
@@ -5671,13 +5659,11 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					$xml->save("./XML/".$halID.".xml");
 					
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
 					}
-					$xml->save("./XML/".$halID.".xml");
 				}
 						
 				//Action 1 > Déposer

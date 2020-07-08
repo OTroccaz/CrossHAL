@@ -52,7 +52,7 @@ function option1() {
 	document.getElementById("chk51").checked = false;
   document.getElementById("embargo").style.display = "none";
 	//Si un des éléments CrossRef (cc) est coché > en plus de décocher ceux des option 2 et 3, décocher tous les autres de l'option 1
-	for (ichk = 39; ichk < 51; ichk++) {
+	for (let ichk = 39; ichk < 51; ichk++) {
     document.getElementById('chk'+ichk).onchange = function() {
       document.getElementById("chk0").checked = false;
 			document.getElementById("chk1").checked = false;
@@ -64,17 +64,17 @@ function option1() {
 			document.getElementById("chk7").checked = false;
 			//document.getElementById("chk8").checked = false;
 			//document.getElementById("chk9").checked = false;
-			for (jchk = 10; jchk < 25; jchk++) {
+			for (let jchk = 10; jchk < 25; jchk++) {
 				document.getElementById('chk'+jchk).checked = false;
 			}
 		}
 	}
 	//Si un des éléments autre que CrossRef (cc) est coché > en plus de décocher ceux des option 2 et 3, décocher tous ceux de CrossRef (cc)
-	for (ichk = 0; ichk < 25; ichk++) {
+	for (let ichk = 0; ichk < 25; ichk++) {
 		//if (ichk != 6 && ichk != 8 && ichk != 9 && ichk != 18 && ichk != 19 && ichk != 20 && ichk != 21 && ichk != 22 && ichk != 23) {
 			if (ichk != 6 && ichk != 8 && ichk != 9 && ichk != 18 && ichk != 19) {
 			document.getElementById('chk'+ichk).onchange = function() {
-				for (jchk = 39; jchk < 52; jchk++) {
+				for (let jchk = 39; jchk < 52; jchk++) {
 					document.getElementById('chk'+jchk).checked = false;
 				}
 			}
@@ -122,13 +122,13 @@ function option2() {
 	document.getElementById("chk51").checked = false;
   document.getElementById('chk18').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (ichk = 26; ichk < 51; ichk++) {
+    for (let ichk = 26; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
   document.getElementById('chk19').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (ichk = 26; ichk < 51; ichk++) {
+    for (let ichk = 26; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
@@ -137,11 +137,11 @@ function option2() {
     document.getElementById("chk19").checked = false;
     document.getElementById("chk36").checked = false;
     if (document.getElementById("chk25").checked == true) {
-      for (ichk = 26; ichk < 47; ichk++) {
+      for (let ichk = 26; ichk < 47; ichk++) {
         document.getElementById('chk'+ichk).checked = true;
       }
     }else{
-      for (ichk = 26; ichk < 47; ichk++) {
+      for (let ichk = 26; ichk < 47; ichk++) {
         document.getElementById('chk'+ichk).checked = false;
       }
     }
@@ -149,19 +149,19 @@ function option2() {
   document.getElementById('chk36').onchange = function() {
     document.getElementById("chk18").checked = false;
     document.getElementById("chk19").checked = false;
-    for (ichk = 25; ichk < 52; ichk++) {
+    for (let ichk = 25; ichk < 52; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
 	document.getElementById('chk47').onchange = function() {
     document.getElementById("chk18").checked = false;
     document.getElementById("chk19").checked = false;
-    for (ichk = 25; ichk < 52; ichk++) {
+    for (let ichk = 25; ichk < 52; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
   
-  for (ichk = 26; ichk < 52; ichk++) {
+  for (let ichk = 26; ichk < 52; ichk++) {
     document.getElementById('chk'+ichk).onchange = function() {
       document.getElementById("chk18").checked = false;
       document.getElementById("chk19").checked = false;

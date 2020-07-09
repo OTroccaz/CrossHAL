@@ -336,6 +336,38 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 		}
 	}
 	
+	//Transformation des classCode VOCINRA en mots-clés
+	$tabClas = array();
+	$tabKeyw = array();
+	$clas = $xml->getElementsByTagName("classCode");
+	//Enregistrement des classCode
+	foreach($clas as $cla) {
+		if($cla->hasAttribute("scheme") && $cla->getAttribute("scheme") == "VOCINRA") {
+			$tabKeyw[] = $cla->getAttribute("n");
+			$tabClas[] = $cla;
+		}
+	}
+	//Suppression des classCode
+	foreach($tabClas as $cla) {
+		$cla->parentNode->removeChild($cla);
+	}
+	//Ajout des classCode aux mots-clés
+	$keys = $xml->getElementsByTagName("keywords");
+	$langKeyw = "";
+	//Récupération de la langue
+	foreach($keys as $key) {
+		foreach($key->childNodes as $elt) {
+			if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+		}
+	}
+	foreach($tabKeyw as $keyw){
+		$bimoc = $xml->createElement("term");
+		$moc = $xml->createTextNode($keyw);
+		$bimoc->setAttribute("xml:lang", $langKeyw);
+		$bimoc->appendChild($moc);
+		$key->appendChild($bimoc);																		
+	}
+	
 	//Suppression (temporaire ?) des stamps
 	$stas = $xml->getElementsByTagName("idno");
 	$tabSta = array();
@@ -1880,6 +1912,38 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					}
 				}
 				
+				//Transformation des classCode VOCINRA en mots-clés
+				$tabClas = array();
+				$tabKeyw = array();
+				$clas = $xml->getElementsByTagName("classCode");
+				//Enregistrement des classCode
+				foreach($clas as $cla) {
+					if($cla->hasAttribute("scheme") && $cla->getAttribute("scheme") == "VOCINRA") {
+						$tabKeyw[] = $cla->getAttribute("n");
+						$tabClas[] = $cla;
+					}
+				}
+				//Suppression des classCode
+				foreach($tabClas as $cla) {
+					$cla->parentNode->removeChild($cla);
+				}
+				//Ajout des classCode aux mots-clés
+				$keys = $xml->getElementsByTagName("keywords");
+				$langKeyw = "";
+				//Récupération de la langue
+				foreach($keys as $key) {
+					foreach($key->childNodes as $elt) {
+						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				foreach($tabKeyw as $keyw){
+					$bimoc = $xml->createElement("term");
+					$moc = $xml->createTextNode($keyw);
+					$bimoc->setAttribute("xml:lang", $langKeyw);
+					$bimoc->appendChild($moc);
+					$key->appendChild($bimoc);																		
+				}
+				
 				// Si DOI HAL absent mais trouvé via CrossRef
 				// Si notice de type COMM, la modification du DOI est-elle autorisée ?
 				if ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "ART" || ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "COMM" && $DOIComm == "oui")) {
@@ -3009,6 +3073,38 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				}
 			}
 			
+			//Transformation des classCode VOCINRA en mots-clés
+			$tabClas = array();
+			$tabKeyw = array();
+			$clas = $xml->getElementsByTagName("classCode");
+			//Enregistrement des classCode
+			foreach($clas as $cla) {
+				if($cla->hasAttribute("scheme") && $cla->getAttribute("scheme") == "VOCINRA") {
+					$tabKeyw[] = $cla->getAttribute("n");
+					$tabClas[] = $cla;
+				}
+			}
+			//Suppression des classCode
+			foreach($tabClas as $cla) {
+				$cla->parentNode->removeChild($cla);
+			}
+			//Ajout des classCode aux mots-clés
+			$keys = $xml->getElementsByTagName("keywords");
+			$langKeyw = "";
+			//Récupération de la langue
+			foreach($keys as $key) {
+				foreach($key->childNodes as $elt) {
+					if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+				}
+			}
+			foreach($tabKeyw as $keyw){
+				$bimoc = $xml->createElement("term");
+				$moc = $xml->createTextNode($keyw);
+				$bimoc->setAttribute("xml:lang", $langKeyw);
+				$bimoc->appendChild($moc);
+				$key->appendChild($bimoc);																		
+			}
+			
 			//MAJ titre de la conférence
 			if ($ccTitconf == "oui" && $titConfCR != "" && $titConfCR != $titConfHAL) {
 				insertNode($xml, $titConfCR, "meeting", "date", "title", "", "", "", "", "iB");
@@ -3684,6 +3780,38 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						$aut->appendChild($aff);																		
 					}
 				}
+				
+				//Transformation des classCode VOCINRA en mots-clés
+				$tabClas = array();
+				$tabKeyw = array();
+				$clas = $xml->getElementsByTagName("classCode");
+				//Enregistrement des classCode
+				foreach($clas as $cla) {
+					if($cla->hasAttribute("scheme") && $cla->getAttribute("scheme") == "VOCINRA") {
+						$tabKeyw[] = $cla->getAttribute("n");
+						$tabClas[] = $cla;
+					}
+				}
+				//Suppression des classCode
+				foreach($tabClas as $cla) {
+					$cla->parentNode->removeChild($cla);
+				}
+				//Ajout des classCode aux mots-clés
+				$keys = $xml->getElementsByTagName("keywords");
+				$langKeyw = "";
+				//Récupération de la langue
+				foreach($keys as $key) {
+					foreach($key->childNodes as $elt) {
+						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				foreach($tabKeyw as $keyw){
+					$bimoc = $xml->createElement("term");
+					$moc = $xml->createTextNode($keyw);
+					$bimoc->setAttribute("xml:lang", $langKeyw);
+					$bimoc->appendChild($moc);
+					$key->appendChild($bimoc);																		
+				}
   
         if ($doi != "") {
           //echo normalize(strtolower(wd_remove_accents($autHALTot))).'<br>'.normalize(strtolower(wd_remove_accents($autCRTot))).'<br>';
@@ -3815,6 +3943,38 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
 					}
+				}
+				
+				//Transformation des classCode VOCINRA en mots-clés
+				$tabClas = array();
+				$tabKeyw = array();
+				$clas = $xml->getElementsByTagName("classCode");
+				//Enregistrement des classCode
+				foreach($clas as $cla) {
+					if($cla->hasAttribute("scheme") && $cla->getAttribute("scheme") == "VOCINRA") {
+						$tabKeyw[] = $cla->getAttribute("n");
+						$tabClas[] = $cla;
+					}
+				}
+				//Suppression des classCode
+				foreach($tabClas as $cla) {
+					$cla->parentNode->removeChild($cla);
+				}
+				//Ajout des classCode aux mots-clés
+				$keys = $xml->getElementsByTagName("keywords");
+				$langKeyw = "";
+				//Récupération de la langue
+				foreach($keys as $key) {
+					foreach($key->childNodes as $elt) {
+						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				foreach($tabKeyw as $keyw){
+					$bimoc = $xml->createElement("term");
+					$moc = $xml->createTextNode($keyw);
+					$bimoc->setAttribute("xml:lang", $langKeyw);
+					$bimoc->appendChild($moc);
+					$key->appendChild($bimoc);																		
 				}
         
         $nbPreHAL = count(explode(",", $prenomsHAL));
@@ -4510,6 +4670,38 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								foreach($tabAffil as $aff) {
 									$aut->appendChild($aff);																		
 								}
+							}
+							
+							//Transformation des classCode VOCINRA en mots-clés
+							$tabClas = array();
+							$tabKeyw = array();
+							$clas = $xml->getElementsByTagName("classCode");
+							//Enregistrement des classCode
+							foreach($clas as $cla) {
+								if($cla->hasAttribute("scheme") && $cla->getAttribute("scheme") == "VOCINRA") {
+									$tabKeyw[] = $cla->getAttribute("n");
+									$tabClas[] = $cla;
+								}
+							}
+							//Suppression des classCode
+							foreach($tabClas as $cla) {
+								$cla->parentNode->removeChild($cla);
+							}
+							//Ajout des classCode aux mots-clés
+							$keys = $xml->getElementsByTagName("keywords");
+							$langKeyw = "";
+							//Récupération de la langue
+							foreach($keys as $key) {
+								foreach($key->childNodes as $elt) {
+									if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+								}
+							}
+							foreach($tabKeyw as $keyw){
+								$bimoc = $xml->createElement("term");
+								$moc = $xml->createTextNode($keyw);
+								$bimoc->setAttribute("xml:lang", $langKeyw);
+								$bimoc->appendChild($moc);
+								$key->appendChild($bimoc);																		
 							}
 							
 							//Modification noeud auteur avec ajout idhal
@@ -5665,7 +5857,39 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 						$aut->appendChild($aff);																		
 					}
 				}
-						
+				
+				//Transformation des classCode VOCINRA en mots-clés
+				$tabClas = array();
+				$tabKeyw = array();
+				$clas = $xml->getElementsByTagName("classCode");
+				//Enregistrement des classCode
+				foreach($clas as $cla) {
+					if($cla->hasAttribute("scheme") && $cla->getAttribute("scheme") == "VOCINRA") {
+						$tabKeyw[] = $cla->getAttribute("n");
+						$tabClas[] = $cla;
+					}
+				}
+				//Suppression des classCode
+				foreach($tabClas as $cla) {
+					$cla->parentNode->removeChild($cla);
+				}
+				//Ajout des classCode aux mots-clés
+				$keys = $xml->getElementsByTagName("keywords");
+				$langKeyw = "";
+				//Récupération de la langue
+				foreach($keys as $key) {
+					foreach($key->childNodes as $elt) {
+						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				foreach($tabKeyw as $keyw){
+					$bimoc = $xml->createElement("term");
+					$moc = $xml->createTextNode($keyw);
+					$bimoc->setAttribute("xml:lang", $langKeyw);
+					$bimoc->appendChild($moc);
+					$key->appendChild($bimoc);																		
+				}
+									
 				//Action 1 > Déposer
 				//PDF trouvé avec oaDOI ?
 				if ($lienPDF != "" && $evd != "noaction" && $urlPDF != "") {

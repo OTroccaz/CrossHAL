@@ -354,10 +354,17 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 	//Ajout des classCode aux mots-clés
 	$keys = $xml->getElementsByTagName("keywords");
 	$langKeyw = "";
-	//Récupération de la langue
+	//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 	foreach($keys as $key) {
 		foreach($key->childNodes as $elt) {
 			if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+		}
+	}
+	//Si présence d'une lettre accentuée pour un des mots-clés, c'est certainement du français
+	foreach($tabKeyw as $keyw) {
+		if (!ctype_alnum($keyw)) {
+			$langKeyw = "fr";
+			break;
 		}
 	}
 	foreach($tabKeyw as $keyw){
@@ -1930,10 +1937,17 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
 				$langKeyw = "";
-				//Récupération de la langue
+				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
 						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				//Si présence d'une lettre accentuée pour un des mots-clés, c'est certainement du français
+				foreach($tabKeyw as $keyw) {
+					if (!ctype_alnum($keyw)) {
+						$langKeyw = "fr";
+						break;
 					}
 				}
 				foreach($tabKeyw as $keyw){
@@ -3091,10 +3105,17 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 			//Ajout des classCode aux mots-clés
 			$keys = $xml->getElementsByTagName("keywords");
 			$langKeyw = "";
-			//Récupération de la langue
+			//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 			foreach($keys as $key) {
 				foreach($key->childNodes as $elt) {
 					if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+				}
+			}
+			//Si présence d'une lettre accentuée pour un des mots-clés, c'est certainement du français
+			foreach($tabKeyw as $keyw) {
+				if (!ctype_alnum($keyw)) {
+					$langKeyw = "fr";
+					break;
 				}
 			}
 			foreach($tabKeyw as $keyw){
@@ -3799,10 +3820,17 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
 				$langKeyw = "";
-				//Récupération de la langue
+				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
 						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				//Si présence d'une lettre accentuée pour un des mots-clés, c'est certainement du français
+				foreach($tabKeyw as $keyw) {
+					if (!ctype_alnum($keyw)) {
+						$langKeyw = "fr";
+						break;
 					}
 				}
 				foreach($tabKeyw as $keyw){
@@ -3963,10 +3991,17 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
 				$langKeyw = "";
-				//Récupération de la langue
+				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
 						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				//Si présence d'une lettre accentuée pour un des mots-clés, c'est certainement du français
+				foreach($tabKeyw as $keyw) {
+					if (!ctype_alnum($keyw)) {
+						$langKeyw = "fr";
+						break;
 					}
 				}
 				foreach($tabKeyw as $keyw){
@@ -4690,10 +4725,17 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							//Ajout des classCode aux mots-clés
 							$keys = $xml->getElementsByTagName("keywords");
 							$langKeyw = "";
-							//Récupération de la langue
+							//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 							foreach($keys as $key) {
 								foreach($key->childNodes as $elt) {
 									if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+								}
+							}
+							//Si présence d'une lettre accentuée pour un des mots-clés, c'est certainement du français
+							foreach($tabKeyw as $keyw) {
+								if (!ctype_alnum($keyw)) {
+									$langKeyw = "fr";
+									break;
 								}
 							}
 							foreach($tabKeyw as $keyw){
@@ -5876,10 +5918,17 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
 				$langKeyw = "";
-				//Récupération de la langue
+				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
 						if($elt->hasAttribute("xml:lang")) {$langKeyw = $elt->getAttribute("xml:lang");}
+					}
+				}
+				//Si présence d'une lettre accentuée pour un des mots-clés, c'est certainement du français
+				foreach($tabKeyw as $keyw) {
+					if (!ctype_alnum($keyw)) {
+						$langKeyw = "fr";
+						break;
 					}
 				}
 				foreach($tabKeyw as $keyw){

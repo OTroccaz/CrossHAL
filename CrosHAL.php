@@ -5724,6 +5724,15 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 					}
 					//Ne pas afficher le bouton Action si le lien ne contient pas la chaîne "pdf"
 					//if (stripos($lienPDF, ".pdf") === false) {$evd = "noaction";}
+					
+					//Si on a un point après le dernier slash du lien PDF, il doit être obligatoirement suivi de "pdf", autrement, ne pas afficher le bouton Action
+					//Recherche du dernier slash et extraction de la sous-chaîne
+					$extUrlPDF = strrchr ($urlPDF, "/");
+					//Tester la présence d'un point dans cette sous-chaîne, et, si c'est le cas, de la présence de '.pdf'
+					if (strpos($extUrlPDF, ".") !== false && stripos($extUrlPDF, ".pdf") === false) {
+						$evd = "noaction";
+					}
+					
 					if ($evd != "noaction" && stripos($urlPDF, "https://hal") === false) {//Le fichier PDF n'est pas un fichier auteur
 						genXMLPDF($halID, $doi, $targetPDF, $halID, $evd, $compNC, $compND, $compSA, $lienPDF, $urlPDF);
 					}
@@ -5780,6 +5789,14 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 								$ipc++;
 								proxyCURL($cpt+1, 2000000, $ipc, $iMax, $iPro);
 							}
+						}
+						
+						//Si on a un point après le dernier slash du lien PDF, il doit être obligatoirement suivi de "pdf", autrement, ne pas afficher le bouton Action
+						//Recherche du dernier slash et extraction de la sous-chaîne
+						$extUrlPDF = strrchr ($urlPDF, "/");
+						//Tester la présence d'un point dans cette sous-chaîne, et, si c'est le cas, de la présence de '.pdf'
+						if (strpos($extUrlPDF, ".") !== false && stripos($extUrlPDF, ".pdf") === false) {
+							$evd = "noaction";
 						}
 
 						if ($urlPDF != "" && $arrayHAL["response"]["docs"][$cpt]["halId_s"] != "" && $evd != "noaction")//Un fichier PDF OA a été trouvé, le DOI est défini et la revue est OA

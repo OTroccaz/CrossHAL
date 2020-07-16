@@ -14,6 +14,7 @@ echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'
 echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Qui</strong></td>";
 echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>OA</strong></td>";
 echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Type</strong></td>";
+echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Fwd</strong></td>";
 echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action 1 > ADD</strong></td>";
 echo "<td style='text-align: center; background-color: #eeeeee; color: #999999;'><strong>Action 2 > Parcourir</strong></td>";
 echo "</tr>";
@@ -44,6 +45,7 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 			echo "<td style='text-align: center;'>".$oa."</td>";
 			if ($Stats_OH_Mails[$i]["Type"] == "P") {$type = "P";}else{$type = "MS";}
 			echo "<td style='text-align: center;'>".$type."</td>";
+			echo "<td style='text-align: center;'>".$Stats_OH_Mails[$i]["Forward"]."</td>";
 			//Action 1 > ADD
 			$actADD = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' src='./img/add.png'></a>";
 			echo "<td style='text-align: center;'>".$actADD."</td>";

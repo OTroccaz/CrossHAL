@@ -95,7 +95,8 @@ if (isset($_FILES['CSV_CrosHAL']['name']) && $_FILES['CSV_CrosHAL']['name'] != "
         $chaine .= '"Langue"=>"'.$tab[5].'", ';
         $chaine .= '"Labo"=>"'.$tab[6].'", ';
         $chaine .= '"Reponse"=>"'.$tab[7].'", ';
-        $chaine .= '"Remarques"=>"'.$tab[8].'")';
+				$chaine .= '"Forward"=>"'.$tab[8].'", ';
+        $chaine .= '"Remarques"=>"'.$tab[9].'")';
 				if ($ligne != $total-1) {$chaine .= ',';}
 				$chaine .= chr(13);
 				fwrite($inF,$chaine);

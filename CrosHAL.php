@@ -339,6 +339,7 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 	//Transformation des classCode VOCINRA en mots-clés
 	$tabClas = array();
 	$tabKeyw = array();
+	$keys = array();
 	$clas = $xml->getElementsByTagName("classCode");
 	//Enregistrement des classCode
 	foreach($clas as $cla) {
@@ -347,13 +348,14 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 			$tabClas[] = $cla;
 		}
 	}
+	
 	//Suppression des classCode
 	foreach($tabClas as $cla) {
 		$cla->parentNode->removeChild($cla);
 	}
 	//Ajout des classCode aux mots-clés
 	$keys = $xml->getElementsByTagName("keywords");
-	$langKeyw = "";
+	$langKeyw = "en";//Anglais par défaut
 	//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 	foreach($keys as $key) {
 		foreach($key->childNodes as $elt) {
@@ -367,12 +369,45 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 			break;
 		}
 	}
-	foreach($tabKeyw as $keyw){
-		$bimoc = $xml->createElement("term");
-		$moc = $xml->createTextNode($keyw);
-		$bimoc->setAttribute("xml:lang", $langKeyw);
-		$bimoc->appendChild($moc);
-		$key->appendChild($bimoc);																		
+	
+	//Y-a-t-il déjà des mots-clés ?
+	if ($keys->length != 0) {//Oui > on ajoute les nouveaux à la suite
+		foreach($tabKeyw as $keyw){
+			$bimoc = $xml->createElement("term");
+			$moc = $xml->createTextNode($keyw);
+			$bimoc->setAttribute("xml:lang", $langKeyw);
+			$bimoc->appendChild($moc);
+			$key->appendChild($bimoc);																		
+		}
+	}else{//Non > il faut créer le noeud 'keywords'
+		$tabClasN = array();
+		$clas = $xml->getElementsByTagName("classCode");
+		$txtC = $xml->getElementsByTagName("textClass");
+		foreach($clas as $cla) {
+			$tabClasN[] = $cla;
+		}
+		//Suppression des classCode
+		foreach($tabClasN as $cla) {
+			$cla->parentNode->removeChild($cla);
+		}
+		//Création du noeud 'keywords'
+		$bimoc = $xml->createElement("keywords");
+		$bimoc->setAttribute("scheme", "author");
+		$txtC->item(0)->appendChild($bimoc);
+		//Ajout des mots-clés
+		$keys = $xml->getElementsByTagName("keywords");
+		foreach($tabKeyw as $keyw){
+			$bimoc = $xml->createElement("term");
+			$moc = $xml->createTextNode($keyw);
+			$bimoc->setAttribute("xml:lang", $langKeyw);
+			$bimoc->appendChild($moc);
+			$keys->item(0)->appendChild($bimoc);																		
+		}
+		
+		//Rajout des classCode
+		foreach($tabClasN as $cla) {
+			$txtC->item(0)->appendChild($cla);
+		}
 	}
 	
 	//Suppression (temporaire ?) des stamps
@@ -1922,6 +1957,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				//Transformation des classCode VOCINRA en mots-clés
 				$tabClas = array();
 				$tabKeyw = array();
+				$keys = array();
 				$clas = $xml->getElementsByTagName("classCode");
 				//Enregistrement des classCode
 				foreach($clas as $cla) {
@@ -1930,13 +1966,14 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						$tabClas[] = $cla;
 					}
 				}
+				
 				//Suppression des classCode
 				foreach($tabClas as $cla) {
 					$cla->parentNode->removeChild($cla);
 				}
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
-				$langKeyw = "";
+				$langKeyw = "en";//Anglais par défaut
 				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
@@ -1950,12 +1987,45 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						break;
 					}
 				}
-				foreach($tabKeyw as $keyw){
-					$bimoc = $xml->createElement("term");
-					$moc = $xml->createTextNode($keyw);
-					$bimoc->setAttribute("xml:lang", $langKeyw);
-					$bimoc->appendChild($moc);
-					$key->appendChild($bimoc);																		
+				
+				//Y-a-t-il déjà des mots-clés ?
+				if ($keys->length != 0) {//Oui > on ajoute les nouveaux à la suite
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$key->appendChild($bimoc);																		
+					}
+				}else{//Non > il faut créer le noeud 'keywords'
+					$tabClasN = array();
+					$clas = $xml->getElementsByTagName("classCode");
+					$txtC = $xml->getElementsByTagName("textClass");
+					foreach($clas as $cla) {
+						$tabClasN[] = $cla;
+					}
+					//Suppression des classCode
+					foreach($tabClasN as $cla) {
+						$cla->parentNode->removeChild($cla);
+					}
+					//Création du noeud 'keywords'
+					$bimoc = $xml->createElement("keywords");
+					$bimoc->setAttribute("scheme", "author");
+					$txtC->item(0)->appendChild($bimoc);
+					//Ajout des mots-clés
+					$keys = $xml->getElementsByTagName("keywords");
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$keys->item(0)->appendChild($bimoc);																		
+					}
+					
+					//Rajout des classCode
+					foreach($tabClasN as $cla) {
+						$txtC->item(0)->appendChild($cla);
+					}
 				}
 				
 				// Si DOI HAL absent mais trouvé via CrossRef
@@ -3090,6 +3160,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 			//Transformation des classCode VOCINRA en mots-clés
 			$tabClas = array();
 			$tabKeyw = array();
+			$keys = array();
 			$clas = $xml->getElementsByTagName("classCode");
 			//Enregistrement des classCode
 			foreach($clas as $cla) {
@@ -3098,13 +3169,14 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					$tabClas[] = $cla;
 				}
 			}
+			
 			//Suppression des classCode
 			foreach($tabClas as $cla) {
 				$cla->parentNode->removeChild($cla);
 			}
 			//Ajout des classCode aux mots-clés
 			$keys = $xml->getElementsByTagName("keywords");
-			$langKeyw = "";
+			$langKeyw = "en";//Anglais par défaut
 			//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 			foreach($keys as $key) {
 				foreach($key->childNodes as $elt) {
@@ -3118,12 +3190,45 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					break;
 				}
 			}
-			foreach($tabKeyw as $keyw){
-				$bimoc = $xml->createElement("term");
-				$moc = $xml->createTextNode($keyw);
-				$bimoc->setAttribute("xml:lang", $langKeyw);
-				$bimoc->appendChild($moc);
-				$key->appendChild($bimoc);																		
+			
+			//Y-a-t-il déjà des mots-clés ?
+			if ($keys->length != 0) {//Oui > on ajoute les nouveaux à la suite
+				foreach($tabKeyw as $keyw){
+					$bimoc = $xml->createElement("term");
+					$moc = $xml->createTextNode($keyw);
+					$bimoc->setAttribute("xml:lang", $langKeyw);
+					$bimoc->appendChild($moc);
+					$key->appendChild($bimoc);																		
+				}
+			}else{//Non > il faut créer le noeud 'keywords'
+				$tabClasN = array();
+				$clas = $xml->getElementsByTagName("classCode");
+				$txtC = $xml->getElementsByTagName("textClass");
+				foreach($clas as $cla) {
+					$tabClasN[] = $cla;
+				}
+				//Suppression des classCode
+				foreach($tabClasN as $cla) {
+					$cla->parentNode->removeChild($cla);
+				}
+				//Création du noeud 'keywords'
+				$bimoc = $xml->createElement("keywords");
+				$bimoc->setAttribute("scheme", "author");
+				$txtC->item(0)->appendChild($bimoc);
+				//Ajout des mots-clés
+				$keys = $xml->getElementsByTagName("keywords");
+				foreach($tabKeyw as $keyw){
+					$bimoc = $xml->createElement("term");
+					$moc = $xml->createTextNode($keyw);
+					$bimoc->setAttribute("xml:lang", $langKeyw);
+					$bimoc->appendChild($moc);
+					$keys->item(0)->appendChild($bimoc);																		
+				}
+				
+				//Rajout des classCode
+				foreach($tabClasN as $cla) {
+					$txtC->item(0)->appendChild($cla);
+				}
 			}
 			
 			//MAJ titre de la conférence
@@ -3805,6 +3910,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				//Transformation des classCode VOCINRA en mots-clés
 				$tabClas = array();
 				$tabKeyw = array();
+				$keys = array();
 				$clas = $xml->getElementsByTagName("classCode");
 				//Enregistrement des classCode
 				foreach($clas as $cla) {
@@ -3813,13 +3919,14 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						$tabClas[] = $cla;
 					}
 				}
+				
 				//Suppression des classCode
 				foreach($tabClas as $cla) {
 					$cla->parentNode->removeChild($cla);
 				}
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
-				$langKeyw = "";
+				$langKeyw = "en";//Anglais par défaut
 				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
@@ -3833,12 +3940,45 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						break;
 					}
 				}
-				foreach($tabKeyw as $keyw){
-					$bimoc = $xml->createElement("term");
-					$moc = $xml->createTextNode($keyw);
-					$bimoc->setAttribute("xml:lang", $langKeyw);
-					$bimoc->appendChild($moc);
-					$key->appendChild($bimoc);																		
+				
+				//Y-a-t-il déjà des mots-clés ?
+				if ($keys->length != 0) {//Oui > on ajoute les nouveaux à la suite
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$key->appendChild($bimoc);																		
+					}
+				}else{//Non > il faut créer le noeud 'keywords'
+					$tabClasN = array();
+					$clas = $xml->getElementsByTagName("classCode");
+					$txtC = $xml->getElementsByTagName("textClass");
+					foreach($clas as $cla) {
+						$tabClasN[] = $cla;
+					}
+					//Suppression des classCode
+					foreach($tabClasN as $cla) {
+						$cla->parentNode->removeChild($cla);
+					}
+					//Création du noeud 'keywords'
+					$bimoc = $xml->createElement("keywords");
+					$bimoc->setAttribute("scheme", "author");
+					$txtC->item(0)->appendChild($bimoc);
+					//Ajout des mots-clés
+					$keys = $xml->getElementsByTagName("keywords");
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$keys->item(0)->appendChild($bimoc);																		
+					}
+					
+					//Rajout des classCode
+					foreach($tabClasN as $cla) {
+						$txtC->item(0)->appendChild($cla);
+					}
 				}
   
         if ($doi != "") {
@@ -3976,6 +4116,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				//Transformation des classCode VOCINRA en mots-clés
 				$tabClas = array();
 				$tabKeyw = array();
+				$keys = array();
 				$clas = $xml->getElementsByTagName("classCode");
 				//Enregistrement des classCode
 				foreach($clas as $cla) {
@@ -3984,13 +4125,14 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						$tabClas[] = $cla;
 					}
 				}
+				
 				//Suppression des classCode
 				foreach($tabClas as $cla) {
 					$cla->parentNode->removeChild($cla);
 				}
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
-				$langKeyw = "";
+				$langKeyw = "en";//Anglais par défaut
 				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
@@ -4004,12 +4146,45 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 						break;
 					}
 				}
-				foreach($tabKeyw as $keyw){
-					$bimoc = $xml->createElement("term");
-					$moc = $xml->createTextNode($keyw);
-					$bimoc->setAttribute("xml:lang", $langKeyw);
-					$bimoc->appendChild($moc);
-					$key->appendChild($bimoc);																		
+				
+				//Y-a-t-il déjà des mots-clés ?
+				if ($keys->length != 0) {//Oui > on ajoute les nouveaux à la suite
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$key->appendChild($bimoc);																		
+					}
+				}else{//Non > il faut créer le noeud 'keywords'
+					$tabClasN = array();
+					$clas = $xml->getElementsByTagName("classCode");
+					$txtC = $xml->getElementsByTagName("textClass");
+					foreach($clas as $cla) {
+						$tabClasN[] = $cla;
+					}
+					//Suppression des classCode
+					foreach($tabClasN as $cla) {
+						$cla->parentNode->removeChild($cla);
+					}
+					//Création du noeud 'keywords'
+					$bimoc = $xml->createElement("keywords");
+					$bimoc->setAttribute("scheme", "author");
+					$txtC->item(0)->appendChild($bimoc);
+					//Ajout des mots-clés
+					$keys = $xml->getElementsByTagName("keywords");
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$keys->item(0)->appendChild($bimoc);																		
+					}
+					
+					//Rajout des classCode
+					foreach($tabClasN as $cla) {
+						$txtC->item(0)->appendChild($cla);
+					}
 				}
         
         $nbPreHAL = count(explode(",", $prenomsHAL));
@@ -4710,6 +4885,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 							//Transformation des classCode VOCINRA en mots-clés
 							$tabClas = array();
 							$tabKeyw = array();
+							$keys = array();
 							$clas = $xml->getElementsByTagName("classCode");
 							//Enregistrement des classCode
 							foreach($clas as $cla) {
@@ -4718,13 +4894,14 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 									$tabClas[] = $cla;
 								}
 							}
+							
 							//Suppression des classCode
 							foreach($tabClas as $cla) {
 								$cla->parentNode->removeChild($cla);
 							}
 							//Ajout des classCode aux mots-clés
 							$keys = $xml->getElementsByTagName("keywords");
-							$langKeyw = "";
+							$langKeyw = "en";//Anglais par défaut
 							//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 							foreach($keys as $key) {
 								foreach($key->childNodes as $elt) {
@@ -4738,12 +4915,45 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 									break;
 								}
 							}
-							foreach($tabKeyw as $keyw){
-								$bimoc = $xml->createElement("term");
-								$moc = $xml->createTextNode($keyw);
-								$bimoc->setAttribute("xml:lang", $langKeyw);
-								$bimoc->appendChild($moc);
-								$key->appendChild($bimoc);																		
+							
+							//Y-a-t-il déjà des mots-clés ?
+							if ($keys->length != 0) {//Oui > on ajoute les nouveaux à la suite
+								foreach($tabKeyw as $keyw){
+									$bimoc = $xml->createElement("term");
+									$moc = $xml->createTextNode($keyw);
+									$bimoc->setAttribute("xml:lang", $langKeyw);
+									$bimoc->appendChild($moc);
+									$key->appendChild($bimoc);																		
+								}
+							}else{//Non > il faut créer le noeud 'keywords'
+								$tabClasN = array();
+								$clas = $xml->getElementsByTagName("classCode");
+								$txtC = $xml->getElementsByTagName("textClass");
+								foreach($clas as $cla) {
+									$tabClasN[] = $cla;
+								}
+								//Suppression des classCode
+								foreach($tabClasN as $cla) {
+									$cla->parentNode->removeChild($cla);
+								}
+								//Création du noeud 'keywords'
+								$bimoc = $xml->createElement("keywords");
+								$bimoc->setAttribute("scheme", "author");
+								$txtC->item(0)->appendChild($bimoc);
+								//Ajout des mots-clés
+								$keys = $xml->getElementsByTagName("keywords");
+								foreach($tabKeyw as $keyw){
+									$bimoc = $xml->createElement("term");
+									$moc = $xml->createTextNode($keyw);
+									$bimoc->setAttribute("xml:lang", $langKeyw);
+									$bimoc->appendChild($moc);
+									$keys->item(0)->appendChild($bimoc);																		
+								}
+								
+								//Rajout des classCode
+								foreach($tabClasN as $cla) {
+									$txtC->item(0)->appendChild($cla);
+								}
 							}
 							
 							//Modification noeud auteur avec ajout idhal
@@ -5920,6 +6130,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 				//Transformation des classCode VOCINRA en mots-clés
 				$tabClas = array();
 				$tabKeyw = array();
+				$keys = array();
 				$clas = $xml->getElementsByTagName("classCode");
 				//Enregistrement des classCode
 				foreach($clas as $cla) {
@@ -5928,13 +6139,14 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 						$tabClas[] = $cla;
 					}
 				}
+				
 				//Suppression des classCode
 				foreach($tabClas as $cla) {
 					$cla->parentNode->removeChild($cla);
 				}
 				//Ajout des classCode aux mots-clés
 				$keys = $xml->getElementsByTagName("keywords");
-				$langKeyw = "";
+				$langKeyw = "en";//Anglais par défaut
 				//Récupération de la langue par défaut déjà présente pour les autres mots-clés
 				foreach($keys as $key) {
 					foreach($key->childNodes as $elt) {
@@ -5948,12 +6160,45 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 						break;
 					}
 				}
-				foreach($tabKeyw as $keyw){
-					$bimoc = $xml->createElement("term");
-					$moc = $xml->createTextNode($keyw);
-					$bimoc->setAttribute("xml:lang", $langKeyw);
-					$bimoc->appendChild($moc);
-					$key->appendChild($bimoc);																		
+				
+				//Y-a-t-il déjà des mots-clés ?
+				if ($keys->length != 0) {//Oui > on ajoute les nouveaux à la suite
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$key->appendChild($bimoc);																		
+					}
+				}else{//Non > il faut créer le noeud 'keywords'
+					$tabClasN = array();
+					$clas = $xml->getElementsByTagName("classCode");
+					$txtC = $xml->getElementsByTagName("textClass");
+					foreach($clas as $cla) {
+						$tabClasN[] = $cla;
+					}
+					//Suppression des classCode
+					foreach($tabClasN as $cla) {
+						$cla->parentNode->removeChild($cla);
+					}
+					//Création du noeud 'keywords'
+					$bimoc = $xml->createElement("keywords");
+					$bimoc->setAttribute("scheme", "author");
+					$txtC->item(0)->appendChild($bimoc);
+					//Ajout des mots-clés
+					$keys = $xml->getElementsByTagName("keywords");
+					foreach($tabKeyw as $keyw){
+						$bimoc = $xml->createElement("term");
+						$moc = $xml->createTextNode($keyw);
+						$bimoc->setAttribute("xml:lang", $langKeyw);
+						$bimoc->appendChild($moc);
+						$keys->item(0)->appendChild($bimoc);																		
+					}
+					
+					//Rajout des classCode
+					foreach($tabClasN as $cla) {
+						$txtC->item(0)->appendChild($cla);
+					}
 				}
 									
 				//Action 1 > Déposer

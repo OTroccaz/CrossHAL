@@ -315,21 +315,33 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 		}
 	}
 	
-	//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+	//Correction éventuelle de l'ordre des noeuds idno/orgName et affiliation pour les auteurs
 	$auts = $xml->getElementsByTagName("author");
 	foreach($auts as $aut) {
 		$tabAffil = array();
+		$tabOrg = array();
 		foreach($aut->childNodes as $elt) {
+			if($elt->nodeName == "orgName") {
+				//Enregistrement de l'organisme
+				$tabOrg[] = $elt;
+			}
 			if($elt->nodeName == "affiliation") {
 				//Enregistrement de l'affiliation
 				$tabAffil[] = $elt;
 			}
 		}
+		//Suppression des organismes
+		foreach($tabOrg as $org){ 
+			$aut->removeChild($org);
+		}
 		//Suppression des affiliations
 		foreach($tabAffil as $aff){ 
 			$aut->removeChild($aff);
 		}
-		
+		//Ajout des organismes à la fin des noeuds
+		foreach($tabOrg as $org){ 
+			$aut->appendChild($org);
+		}
 		//Ajout des affiliations à la fin des noeuds
 		foreach($tabAffil as $aff) {
 			$aut->appendChild($aff);																		
@@ -1933,21 +1945,33 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					}
 				}
 				
-				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				//Correction éventuelle de l'ordre des noeuds idno/orgName et affiliation pour les auteurs
 				$auts = $xml->getElementsByTagName("author");
 				foreach($auts as $aut) {
 					$tabAffil = array();
+					$tabOrg = array();
 					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "orgName") {
+							//Enregistrement de l'organisme
+							$tabOrg[] = $elt;
+						}
 						if($elt->nodeName == "affiliation") {
 							//Enregistrement de l'affiliation
 							$tabAffil[] = $elt;
 						}
 					}
+					//Suppression des organismes
+					foreach($tabOrg as $org){ 
+						$aut->removeChild($org);
+					}
 					//Suppression des affiliations
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					
+					//Ajout des organismes à la fin des noeuds
+					foreach($tabOrg as $org){ 
+						$aut->appendChild($org);
+					}
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
@@ -3136,21 +3160,33 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 				}
 			}
 			
-			//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+			//Correction éventuelle de l'ordre des noeuds idno/orgName et affiliation pour les auteurs
 			$auts = $xml->getElementsByTagName("author");
 			foreach($auts as $aut) {
 				$tabAffil = array();
+				$tabOrg = array();
 				foreach($aut->childNodes as $elt) {
+					if($elt->nodeName == "orgName") {
+						//Enregistrement de l'organisme
+						$tabOrg[] = $elt;
+					}
 					if($elt->nodeName == "affiliation") {
 						//Enregistrement de l'affiliation
 						$tabAffil[] = $elt;
 					}
 				}
+				//Suppression des organismes
+				foreach($tabOrg as $org){ 
+					$aut->removeChild($org);
+				}
 				//Suppression des affiliations
 				foreach($tabAffil as $aff){ 
 					$aut->removeChild($aff);
 				}
-				
+				//Ajout des organismes à la fin des noeuds
+				foreach($tabOrg as $org){ 
+					$aut->appendChild($org);
+				}
 				//Ajout des affiliations à la fin des noeuds
 				foreach($tabAffil as $aff) {
 					$aut->appendChild($aff);																		
@@ -3886,21 +3922,33 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					}
 				}
 				
-				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				//Correction éventuelle de l'ordre des noeuds idno/orgName et affiliation pour les auteurs
 				$auts = $xml->getElementsByTagName("author");
 				foreach($auts as $aut) {
 					$tabAffil = array();
+					$tabOrg = array();
 					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "orgName") {
+							//Enregistrement de l'organisme
+							$tabOrg[] = $elt;
+						}
 						if($elt->nodeName == "affiliation") {
 							//Enregistrement de l'affiliation
 							$tabAffil[] = $elt;
 						}
 					}
+					//Suppression des organismes
+					foreach($tabOrg as $org){ 
+						$aut->removeChild($org);
+					}
 					//Suppression des affiliations
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					
+					//Ajout des organismes à la fin des noeuds
+					foreach($tabOrg as $org){ 
+						$aut->appendChild($org);
+					}
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
@@ -4092,21 +4140,33 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 					}
 				}
 				
-				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				//Correction éventuelle de l'ordre des noeuds idno/orgName et affiliation pour les auteurs
 				$auts = $xml->getElementsByTagName("author");
 				foreach($auts as $aut) {
 					$tabAffil = array();
+					$tabOrg = array();
 					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "orgName") {
+							//Enregistrement de l'organisme
+							$tabOrg[] = $elt;
+						}
 						if($elt->nodeName == "affiliation") {
 							//Enregistrement de l'affiliation
 							$tabAffil[] = $elt;
 						}
 					}
+					//Suppression des organismes
+					foreach($tabOrg as $org){ 
+						$aut->removeChild($org);
+					}
 					//Suppression des affiliations
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					
+					//Ajout des organismes à la fin des noeuds
+					foreach($tabOrg as $org){ 
+						$aut->appendChild($org);
+					}
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		
@@ -4861,21 +4921,33 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 								}
 							}
 							
-							//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+							//Correction éventuelle de l'ordre des noeuds idno/orgName et affiliation pour les auteurs
 							$auts = $xml->getElementsByTagName("author");
 							foreach($auts as $aut) {
 								$tabAffil = array();
+								$tabOrg = array();
 								foreach($aut->childNodes as $elt) {
+									if($elt->nodeName == "orgName") {
+										//Enregistrement de l'organisme
+										$tabOrg[] = $elt;
+									}
 									if($elt->nodeName == "affiliation") {
 										//Enregistrement de l'affiliation
 										$tabAffil[] = $elt;
 									}
 								}
+								//Suppression des organismes
+								foreach($tabOrg as $org){ 
+									$aut->removeChild($org);
+								}
 								//Suppression des affiliations
 								foreach($tabAffil as $aff){ 
 									$aut->removeChild($aff);
 								}
-								
+								//Ajout des organismes à la fin des noeuds
+								foreach($tabOrg as $org){ 
+									$aut->appendChild($org);
+								}
 								//Ajout des affiliations à la fin des noeuds
 								foreach($tabAffil as $aff) {
 									$aut->appendChild($aff);																		
@@ -6106,21 +6178,34 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 						}
 					}
 				}
-				//Correction éventuelle de l'ordre des noeuds idno et affiliation pour les auteurs
+				
+				//Correction éventuelle de l'ordre des noeuds idno/orgName et affiliation pour les auteurs
 				$auts = $xml->getElementsByTagName("author");
 				foreach($auts as $aut) {
 					$tabAffil = array();
+					$tabOrg = array();
 					foreach($aut->childNodes as $elt) {
+						if($elt->nodeName == "orgName") {
+							//Enregistrement de l'organisme
+							$tabOrg[] = $elt;
+						}
 						if($elt->nodeName == "affiliation") {
 							//Enregistrement de l'affiliation
 							$tabAffil[] = $elt;
 						}
 					}
+					//Suppression des organismes
+					foreach($tabOrg as $org){ 
+						$aut->removeChild($org);
+					}
 					//Suppression des affiliations
 					foreach($tabAffil as $aff){ 
 						$aut->removeChild($aff);
 					}
-					
+					//Ajout des organismes à la fin des noeuds
+					foreach($tabOrg as $org){ 
+						$aut->appendChild($org);
+					}
 					//Ajout des affiliations à la fin des noeuds
 					foreach($tabAffil as $aff) {
 						$aut->appendChild($aff);																		

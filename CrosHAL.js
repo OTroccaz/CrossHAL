@@ -122,13 +122,13 @@ function option2() {
 	document.getElementById("chk51").checked = false;
   document.getElementById('chk18').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (let ichk = 26; ichk < 51; ichk++) {
+    for (let ichk = 25; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
   document.getElementById('chk19').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (let ichk = 26; ichk < 51; ichk++) {
+    for (let ichk = 25; ichk < 51; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
@@ -137,11 +137,11 @@ function option2() {
     document.getElementById("chk19").checked = false;
     document.getElementById("chk36").checked = false;
     if (document.getElementById("chk25").checked == true) {
-      for (let ichk = 26; ichk < 47; ichk++) {
+      for (let ichk = 26; ichk < 36; ichk++) {
         document.getElementById('chk'+ichk).checked = true;
       }
     }else{
-      for (let ichk = 26; ichk < 47; ichk++) {
+      for (let ichk = 26; ichk < 36; ichk++) {
         document.getElementById('chk'+ichk).checked = false;
       }
     }

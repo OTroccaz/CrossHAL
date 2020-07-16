@@ -6292,7 +6292,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 					include "./CrosHAL_actions.php";
 					$actMaj = "ok";
 					foreach($ACTIONS_LISTE as $tab) {
-						if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no";}
+						if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 					}
 					if ($actMaj == "ok") {
 						//"Embargo" > Interdit de modifier une notice si date "whenSubmitted" < n jours
@@ -6374,7 +6374,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 							include "./CrosHAL_actions.php";
 							$actMaj = "ok";
 							foreach($ACTIONS_LISTE as $tab) {
-								if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no";}
+								if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 							}
 							if ($actMaj == "ok") {
 								//"Embargo" > Interdit de modifier une notice si date "whenSubmitted" < n jours
@@ -6437,7 +6437,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 							include "./CrosHAL_actions.php";
 							$actMaj = "ok";
 							foreach($ACTIONS_LISTE as $tab) {
-								if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no";}
+								if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 							}
 							if ($lienPDF == "noDateEpub") {
 								$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/MAJEmbargo.png'></center>";
@@ -6700,7 +6700,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
 							include "./CrosHAL_actions.php";
 							$actMaj = "ok";
 							foreach($ACTIONS_LISTE as $tab) {
-								if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no";}
+								if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 							}
 							if ($lienPDF == "noDateEpub") {
 								$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/MAJEmbargo.png'></center>";

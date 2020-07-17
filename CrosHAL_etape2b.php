@@ -376,34 +376,36 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 						$bimoc->appendChild($moc);
 						$key->appendChild($bimoc);																		
 					}
-				}else{//Non > il faut créer le noeud 'keywords'
-					$tabClasN = array();
-					$clas = $xml->getElementsByTagName("classCode");
-					$txtC = $xml->getElementsByTagName("textClass");
-					foreach($clas as $cla) {
-						$tabClasN[] = $cla;
-					}
-					//Suppression des classCode
-					foreach($tabClasN as $cla) {
-						$cla->parentNode->removeChild($cla);
-					}
-					//Création du noeud 'keywords'
-					$bimoc = $xml->createElement("keywords");
-					$bimoc->setAttribute("scheme", "author");
-					$txtC->item(0)->appendChild($bimoc);
-					//Ajout des mots-clés
-					$keys = $xml->getElementsByTagName("keywords");
-					foreach($tabKeyw as $keyw){
-						$bimoc = $xml->createElement("term");
-						$moc = $xml->createTextNode($keyw);
-						$bimoc->setAttribute("xml:lang", $langKeyw);
-						$bimoc->appendChild($moc);
-						$keys->item(0)->appendChild($bimoc);																		
-					}
-					
-					//Rajout des classCode
-					foreach($tabClasN as $cla) {
-						$txtC->item(0)->appendChild($cla);
+				}else{//Non > il faut créer le noeud 'keywords' s'il y a réellement de nouveaux mots-clés à ajouter
+					if (!empty($tabKeyw)) {
+						$tabClasN = array();
+						$clas = $xml->getElementsByTagName("classCode");
+						$txtC = $xml->getElementsByTagName("textClass");
+						foreach($clas as $cla) {
+							$tabClasN[] = $cla;
+						}
+						//Suppression des classCode
+						foreach($tabClasN as $cla) {
+							$cla->parentNode->removeChild($cla);
+						}
+						//Création du noeud 'keywords'
+						$bimoc = $xml->createElement("keywords");
+						$bimoc->setAttribute("scheme", "author");
+						$txtC->item(0)->appendChild($bimoc);
+						//Ajout des mots-clés
+						$keys = $xml->getElementsByTagName("keywords");
+						foreach($tabKeyw as $keyw){
+							$bimoc = $xml->createElement("term");
+							$moc = $xml->createTextNode($keyw);
+							$bimoc->setAttribute("xml:lang", $langKeyw);
+							$bimoc->appendChild($moc);
+							$keys->item(0)->appendChild($bimoc);																		
+						}
+						
+						//Rajout des classCode
+						foreach($tabClasN as $cla) {
+							$txtC->item(0)->appendChild($cla);
+						}
 					}
 				}
 				

@@ -104,24 +104,7 @@ function askCurl($url, &$arrayCurl) {
   }
 }
 
-function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $compSA, &$lienPDF, $urlPDF) {
-  //echo 'Bingo ! > '.$halID.'<br>';
-  //Y a-t-il toujours une référence dans le document TEI de HAL?
-  $lienPDF = "";
-  $urlTEI = 'https://api.archives-ouvertes.fr/search/?q=halId_s:'.$halID.'&fl=label_xml';
-  //$contents = file_get_contents($urlTEI);
-  //$resTEI = json_decode($contents, true);
-  askCurl($urlTEI, $arrayTEI);
-  $valTEI = $arrayTEI["response"]["docs"][0]["label_xml"];
-	$valTEI = str_replace(array('<p>', '</p>'), '', $valTEI);
-	$valTEI = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $valTEI);
-  $teiPDF = '<?xml version="1.0" encoding="UTF-8"?>'.$valTEI;
-  $Fnm = "./XML/".$halID.".xml";
-  $xml = new DOMDocument( "1.0", "UTF-8" );
-  $xml->formatOutput = true;
-  $xml->preserveWhiteSpace = false;
-  $xml->loadXML($teiPDF);
-	
+function corrXML($xml) {
 	//suppression noeud <teiHeader>
 	$elts = $xml->documentElement;
 	if (is_object($elts->getElementsByTagName("teiHeader")->item(0))) {
@@ -152,20 +135,6 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 			if ($elt->hasAttribute("type")) {
 				$quoi = $elt->getAttribute("type");
 				if ($quoi == "references") {
-					$parent = $elt->parentNode; 
-					$newXml = $parent->removeChild($elt);
-				}
-			}
-		}
-	}
-	
-	//suppression éventuel noeud <ref type="externalLink"
-	if (is_object($xml->getElementsByTagName("ref"))) {
-		$elts = $xml->getElementsByTagName("ref");
-		foreach($elts as $elt) {
-			if ($elt->hasAttribute("type")) {
-				$quoi = $elt->getAttribute("type");
-				if ($quoi == "externalLink") {
 					$parent = $elt->parentNode; 
 					$newXml = $parent->removeChild($elt);
 				}
@@ -281,6 +250,38 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 			}
 		}
 	}
+}
+function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $compSA, &$lienPDF, $urlPDF) {
+  //echo 'Bingo ! > '.$halID.'<br>';
+  //Y a-t-il toujours une référence dans le document TEI de HAL?
+  $lienPDF = "";
+  $urlTEI = 'https://api.archives-ouvertes.fr/search/?q=halId_s:'.$halID.'&fl=label_xml';
+  //$contents = file_get_contents($urlTEI);
+  //$resTEI = json_decode($contents, true);
+  askCurl($urlTEI, $arrayTEI);
+  $valTEI = $arrayTEI["response"]["docs"][0]["label_xml"];
+	$valTEI = str_replace(array('<p>', '</p>'), '', $valTEI);
+	$valTEI = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $valTEI);
+  $teiPDF = '<?xml version="1.0" encoding="UTF-8"?>'.$valTEI;
+  $Fnm = "./XML/".$halID.".xml";
+  $xml = new DOMDocument( "1.0", "UTF-8" );
+  $xml->formatOutput = true;
+  $xml->preserveWhiteSpace = false;
+  $xml->loadXML($teiPDF);
+	
+	//suppression éventuel noeud <ref type="externalLink"
+	if (is_object($xml->getElementsByTagName("ref"))) {
+		$elts = $xml->getElementsByTagName("ref");
+		foreach($elts as $elt) {
+			if ($elt->hasAttribute("type")) {
+				$quoi = $elt->getAttribute("type");
+				if ($quoi == "externalLink") {
+					$parent = $elt->parentNode; 
+					$newXml = $parent->removeChild($elt);
+				}
+			}
+		}
+	}
 	
 	//Suppression (temporaire ?) des stamps
 	$stas = $xml->getElementsByTagName("idno");
@@ -296,6 +297,7 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 		$elt->parentNode->removeChild($elt);
 	}
 	
+	corrXML($xml);
   
   if ($evd == "noliene") {//notice sans lien externe
     $elts = $xml->getElementsByTagName('date');//recherche de dateEpub

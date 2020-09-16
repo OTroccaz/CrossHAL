@@ -1035,28 +1035,45 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						$valid = $resANR["response"]["docs"][0]["valid_s"];
 						
 						//Suppression éventuel noeud 'funder' ANR déjà présent
+						$nFunder = "non";
 						$funs = $xml->getElementsByTagName("funder");
 						foreach($funs as $fun) {
 							if (stripos($fun->nodeValue, $ref_s) !== false) {
 								$fun->parentNode->removeChild($fun);
 								$xml->save($Fnm);
-								break;
+							}else{
+								$nFunder = "oui";//Il y a au moins un noeud 'funder' autre que l'éventuel ANR
 							}
 						}
 						
 						//Insertion ANR comme noeud 'funder'
-						insertNode($xml, $ref_s, "titleStmt", "funder", "funder", "ref", "#".$ref, "", "", "aC");
-						$xml->save($Fnm);
+						if ($nFunder == "oui") {//Il y a au moins un noeud 'funder'
+							insertNode($xml, $ref_s, "titleStmt", "funder", "funder", "ref", "#".$ref, "", "", "aC");
+							$xml->save($Fnm);
+						}else{
+							$nEditor = "non";//Pour vérfier s'il y un noeud 'editor' pour insérer 'funder' juste après
+							$edts = $xml->getElementsByTagName("editor");
+							foreach($edts as $edt) {
+								$nEditor = "oui";
+							}
+							if ($nEditor == "oui") {
+								insertNode($xml, $ref_s, "titleStmt", "editor", "funder", "ref", "#".$ref, "", "", "aC");
+								$xml->save($Fnm);
+							}else{
+								insertNode($xml, $ref_s, "titleStmt", "author", "funder", "ref", "#".$ref, "", "", "aC");
+								$xml->save($Fnm);
+							}
+						}
 						
 						//Y-a-t-il déjà un noeud listOrg pour les projets ?
-						$listOrg = "non";
+						$nListOrg = "non";
 						$orgs = $xml->getElementsByTagName("listOrg");
 						foreach($orgs as $org) {
 							if ($org->hasAttribute("type") && $org->getAttribute("type") == "projects") {
-								$listOrg = "oui";
+								$nListOrg = "oui";
 							}
 						}
-						if ($listOrg == "non") {
+						if ($nListOrg == "non") {
 							$bacs = $xml->getElementsByTagName("back");
 							$bimoc = $xml->createElement("listOrg");
 							$bimoc->setAttribute("type", "projects");

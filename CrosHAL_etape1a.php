@@ -812,7 +812,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						$txtAnrCRtab = explode(",", $t);
 						foreach ($txtAnrCRtab as $ta) {
 							if (strpos($ta, "ANR-") !== false) {
-								$txtAnrCRAff = trim($ta)."; ";
+								$txtAnrCRAff = trim(strtoupper($ta))."; ";
 							}
 						}
 					}
@@ -1015,18 +1015,110 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		
 		//ANR
-		
+		$idANR = "";
 		if ($anr == "oui" && $txtAnrCRAff != $txtAnrHALAff && $txtAnrCRAff != "") {
 			$anrTab = explode(";", $txtAnrCRAff);
 			foreach ($anrTab as $a) {
-				if (substr($a, 0, 4) == "ANR-") {
-					$urlANR = "https://api.archives-ouvertes.fr/ref/anrproject/?q=reference_s:%22".trim($a)."%22&fl=title_s,valid_s,yearDate_s,docid,callTitle_s,acronym_s";
+				if (substr($a, 0, 4) == "ANR-" && strpos($a, "IDEX") === false) {
+					$urlANR = "https://api.archives-ouvertes.fr/ref/anrproject/?q=reference_sci:%22".trim($a)."%22&fl=title_s,valid_s,yearDate_s,docid,callTitle_s,acronym_s,reference_s";
 					$contANR = file_get_contents($urlANR);
 					$resANR = json_decode($contANR, true);
 					$numANR = $resANR["response"]["numFound"];
 					//echo 'toto : '.$numANR.' - '.trim($a).'<br>';
-					if ($numANR == 1) {
-						$idANR = $resANR["response"]["docs"][0]["docid"];
+					if ($numANR == 1) {//Projet ANR trouvé
+						$docid = $resANR["response"]["docs"][0]["docid"];
+						$ref = "projanr-".$docid;
+						$titre = $resANR["response"]["docs"][0]["title_s"];
+						$acron = $resANR["response"]["docs"][0]["acronym_s"];
+						$ref_s = $resANR["response"]["docs"][0]["reference_s"];
+						$annee = $resANR["response"]["docs"][0]["yearDate_s"];
+						$valid = $resANR["response"]["docs"][0]["valid_s"];
+						
+						//Suppression éventuel noeud 'funder' ANR déjà présent
+						$funs = $xml->getElementsByTagName("funder");
+						foreach($funs as $fun) {
+							if (stripos($fun->nodeValue, $ref_s) !== false) {
+								$fun->parentNode->removeChild($fun);
+								$xml->save($Fnm);
+								break;
+							}
+						}
+						
+						//Insertion ANR comme noeud 'funder'
+						insertNode($xml, $ref_s, "titleStmt", "funder", "funder", "ref", "#".$ref, "", "", "aC");
+						$xml->save($Fnm);
+						
+						//Y-a-t-il déjà un noeud listOrg pour les projets ?
+						$listOrg = "non";
+						$orgs = $xml->getElementsByTagName("listOrg");
+						foreach($orgs as $org) {
+							if ($org->hasAttribute("type") && $org->getAttribute("type") == "projects") {
+								$listOrg = "oui";
+							}
+						}
+						if ($listOrg == "non") {
+							$bacs = $xml->getElementsByTagName("back");
+							$bimoc = $xml->createElement("listOrg");
+							$bimoc->setAttribute("type", "projects");
+							$bacs->item(0)->appendChild($bimoc);
+							$xml->save($Fnm);
+						}
+						
+						//Positionnement au noeud <listOrg type="projects"> pour ajout des noeuds enfants
+						foreach($orgs as $org) {
+							if ($org->hasAttribute("type") && $org->getAttribute("type") == "projects") {
+								break;
+							}
+						}
+						$bimoc = $xml->createElement("org");
+						$moc = $xml->createTextNode("");
+						$bimoc->setAttribute("type", "anrProject");
+						$bimoc->setAttribute("xml:id", $ref);
+						$bimoc->setAttribute("status", $valid);
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$orgs = $xml->getElementsByTagName("org");
+						foreach($orgs as $org) {
+							if ($org->hasAttribute("xml:id") && $org->getAttribute("xml:id") == $ref) {
+								break;
+							}
+						}
+						$bimoc = $xml->createElement("idno");
+						$moc = $xml->createTextNode($ref_s);
+						$bimoc->setAttribute("type", "anr");
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$bimoc = $xml->createElement("orgName");
+						$moc = $xml->createTextNode($acron);
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$bimoc = $xml->createElement("desc");
+						$moc = $xml->createTextNode($titre);
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$bimoc = $xml->createElement("date");
+						$moc = $xml->createTextNode($annee);
+						$bimoc->setAttribute("type", "start");
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						
+						$lienMAJ = "./CrosHALModif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+						include "./CrosHAL_actions.php";
+						$testMaj = "ok";
+						foreach($ACTIONS_LISTE as $tab) {
+							if (in_array($halID, $tab) && in_array("MAJ_APA",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "'projet ANR', ";}
+						}
+						if ($testMaj == "ok") {$actsMAJ .= "MAJ_ANR~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_ANR";}
 					}
 				}
 			}

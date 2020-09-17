@@ -1034,16 +1034,11 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						$annee = $resANR["response"]["docs"][0]["yearDate_s"];
 						$valid = $resANR["response"]["docs"][0]["valid_s"];
 						
-						//Suppression éventuel noeud 'funder' ANR déjà présent
+						//SPour vérfier s'il y un noeud 'funder'
 						$nFunder = "non";
 						$funs = $xml->getElementsByTagName("funder");
 						foreach($funs as $fun) {
-							if (stripos($fun->nodeValue, $ref_s) !== false) {
-								$fun->parentNode->removeChild($fun);
-								$xml->save($Fnm);
-							}else{
-								$nFunder = "oui";//Il y a au moins un noeud 'funder' autre que l'éventuel ANR
-							}
+							$nFunder = "oui";
 						}
 						
 						//Insertion ANR comme noeud 'funder'

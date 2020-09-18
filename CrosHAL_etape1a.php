@@ -812,7 +812,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						$txtAnrCRtab = explode(",", $t);
 						foreach ($txtAnrCRtab as $ta) {
 							if (strpos($ta, "ANR-") !== false) {
-								$txtAnrCRAff = trim(strtoupper($ta))."; ";
+								$txtAnrCRAff = trim(strtoupper(strstr("ANR", $ta)))."; ";
 							}
 						}
 					}

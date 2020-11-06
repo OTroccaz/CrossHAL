@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <?php
 header('Content-type: text/html; charset=UTF-8');
 require_once('./CAS_connect.php');
@@ -101,6 +101,10 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
                                         <p class=" mb-2 text-justify">
                                             CrossHAL permet de vérifier la qualité des métadonnées des notices saisies dans HAL, de compléter et corriger les auteurs, et de déposer le texte intégral des articles. Ce script a été créé par Olivier Troccaz (conception-développement) et Laurent Jonchère (conception).
                                         </p>
+																				
+																				<p class="mb-4">
+                                            Contacts : <a target='_blank' rel='noopener noreferrer' href="https://openaccess.univ-rennes1.fr/interlocuteurs/laurent-jonchere">Laurent Jonchère</a> (Université de Rennes 1) / <a target='_blank' rel='noopener noreferrer' href="https://ecobio.univ-rennes1.fr/personnel.php?qui=Olivier_Troccaz">Olivier Troccaz</a> (CNRS ECOBIO/OSUR).
+                                        </p>
 
 
                                     </div> <!-- end card-body-->
@@ -112,13 +116,13 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
                                 <div class="card shadow-lg w-100">
                                     <div class="card-body">
                                         <h5 class="badge badge-primary badge-pill">Mode d'emploi</h5>
-                                        <p class=" mb-2">
+                                        <div class=" mb-2">
                                             <ul class="list-group">
                                                 <li class="list-group-item">
                                                     En préparation
                                                 </li>
                                             </ul> 
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- end card-->
@@ -132,23 +136,24 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
                                 <div class="card w-100 d-block shadow-lg">
                                     <div class="card-body">
 																		
-																			<h5 class="badge badge-primary badge-pill">Paramétrage</h5>
-																			
-																			Bonjour <strong><?php echo phpCAS::getUser();?></strong>,<br>
-																			La procédure de modification CrossHAL des notices n'étant pas pour l'instant complètement liée à l'authentification CAS du CCSD, nous avons besoin que vous resaisissiez le mot de passe de votre compte administrateur HAL.
-																			<form action="<?php echo $form; ?>" method="post">
-																			<input type ="password" name="password">
-																			<input type="submit" value="Envoyer">
-																			</form>
-																</div> <!-- end card-body-->
-																
-														</div> <!-- end card-->
+																				<h5 class="badge badge-primary badge-pill">Paramétrage</h5>
+																				
+																				<br>
+																				Bonjour <strong><?php echo phpCAS::getUser();?></strong>,<br>
+																				La procédure de modification CrossHAL des notices n'étant pas pour l'instant complètement liée à l'authentification CAS du CCSD, nous avons besoin que vous resaisissiez le mot de passe de votre compte administrateur HAL.
+																				<form action="<?php echo $form; ?>" method="post">
+																				<input type="password" name="password">
+																				<input type="submit" value="Envoyer">
+																				</form>
+																		</div> <!-- end card-body-->
+																		
+																</div> <!-- end card-->
 
-												</div> <!-- end col -->
-										</div>
-										<!-- end row -->
+														</div> <!-- end col -->
+												</div>
+												<!-- end row -->
 										
-								 </div> <!-- container -->
+										</div> <!-- container -->
 
                 </div>
                 <!-- content -->

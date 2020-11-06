@@ -1,8 +1,7 @@
 <?php
 header('Content-type: text/html; charset=UTF-8');
 ?>
-<html>
-<body>
+
 <?php
 //require_once('./CAS_connect.php')//authentification CAS ou autre ?
 if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
@@ -25,7 +24,10 @@ if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTT
     die();
   }
 }
-
+?>
+<html lang="fr">
+<body>
+<?php
 if (isset($_GET['Id']) && ($_GET['Id'] != ""))
 {
   //$halid = "hal-01179051";
@@ -140,7 +142,7 @@ curl_setopt($ch, CURLOPT_INFILE, $fp);
 curl_setopt($ch, CURLOPT_INFILESIZE, filesize($nomficFin));
 curl_setopt($ch, CURLOPT_UPLOAD, TRUE);
 
-//$return = curl_exec($ch);
+$return = curl_exec($ch);
 //var_dump($return);
 
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

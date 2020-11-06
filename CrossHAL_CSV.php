@@ -56,7 +56,7 @@ if (isset($_GET["erreur"]))
 }
 ?>
 
-<form enctype="multipart/form-data" action="CSV_CrossHAL_upload.php" method="post" accept-charset="UTF-8">
+<form enctype="multipart/form-data" action="CrossHAL_CSV_upload.php" method="post" accept-charset="UTF-8">
 <p class="form-inline">
 <label for="CSV_CrossHAL">CSV CrossHAL</label> : <input class="form-control" id="CSV_CrossHAL" style="height: 25px; font-size: 90%; padding: 0px;" name="CSV_CrossHAL" type="file" /><br/>
 <input type="submit" class="form-control btn btn-md btn-primary" value="Envoyer">

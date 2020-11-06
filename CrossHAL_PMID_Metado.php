@@ -12,6 +12,7 @@ function objectToArray($object) {
 */
 function rechMetadoPMID($pmid, &$abstract, &$mcMESH, &$langue, &$keywords, &$datepub) {
   $urlPM = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=".$pmid;
+	sleep(1);
 	if (testURL($urlPM)) {
 		$contents = simplexml_load_file($urlPM);
 		$resPM = objectToArray($contents);

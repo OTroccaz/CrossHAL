@@ -35,7 +35,6 @@ $action = "";//Variable pour identifier l'étape 1, 2 ou 3
 $urlServeur = "";//URL du PDF qui sera renseignée dans le TEI
 $nbjours = 1;//"Embargo" > Interdit de modifier une notice si date "whenSubmitted" < n jours
 $racine = "https://hal.archives-ouvertes.fr/";
-$periode = "";
 
 if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $action = $_GET["action"];
@@ -47,14 +46,9 @@ if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $iMaxRte = $_GET["iMaxRet"];
   $increment = $_GET["increment"];
   $team = $_GET["team"];
-	
-  if (isset($_GET['periode'])) {
-		$periode = $_GET['periode'];
-		$tabPer = explode(" - ", $periode);
-		$anneedeb = substr($tabPer[0], 6, 4);
-		$anneefin = substr($tabPer[1], 6, 4);
-	}
-
+  $idhal = $_GET["idhal"];
+  $anneedeb = $_GET["anneedeb"];
+  $anneefin = $_GET["anneefin"];
   $apa = $_GET["apa"];
   if (isset($_GET["manuaut"])) {$manuaut = $_GET["manuaut"];}
 	if (isset($_GET["manuautOH"])) {$manuautOH = $_GET["manuautOH"];}

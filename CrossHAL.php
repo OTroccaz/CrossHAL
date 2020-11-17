@@ -112,7 +112,7 @@ if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTT
   require_once('./CAS_connect.php');
 	$HAL_USER = phpCAS::getUser();
 	$HAL_QUOI = "CrossHAL";
-	include('./Stats_listes_HALUR1.php');
+	if($HAL_USER != "jonchere" && $HAL_USER != "otroccaz") {include('./Stats_listes_HALUR1.php');}
 }
 
 $root = 'http';

@@ -95,7 +95,7 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
                                         </h2>
                                         <h5 class="badge badge-primary badge-pill">Présentation</h5>
 																				
-																				<img src="./img/victor-grabarczyk-marbella-spain-unsplash.png" alt="Accueil CrossHAL" class="img-fluid"><br>
+																				<img src="./img/victor-grabarczyk-marbella-spain-unsplash.jpg" alt="Accueil CrossHAL" class="img-fluid"><br>
 																				<p class="font-italic">Photo : Marbella Spain by Victor Grabarczyk on Unsplash (détail)</p>
 
                                         <p class=" mb-2 text-justify">

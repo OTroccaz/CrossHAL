@@ -53,19 +53,21 @@ function option1() {
   document.getElementById("embargo").style.display = "none";
 	//Si un des éléments CrossRef (cc) est coché > en plus de décocher ceux des option 2 et 3, décocher tous les autres de l'option 1
 	for (let ichk = 39; ichk < 51; ichk++) {
-    document.getElementById('chk'+ichk).onchange = function() {
-      document.getElementById("chk0").checked = false;
-			document.getElementById("chk1").checked = false;
-			document.getElementById("chk2").checked = false;
-			document.getElementById("chk3").checked = false;
-			document.getElementById("chk4").checked = false;
-			document.getElementById("chk5").checked = false;
-			//document.getElementById("chk6").checked = false;
-			document.getElementById("chk7").checked = false;
-			//document.getElementById("chk8").checked = false;
-			//document.getElementById("chk9").checked = false;
-			for (let jchk = 10; jchk < 25; jchk++) {
-				document.getElementById('chk'+jchk).checked = false;
+		if (ichk != 48 && $ichk != 49) {
+			document.getElementById('chk'+ichk).onchange = function() {
+				document.getElementById("chk0").checked = false;
+				document.getElementById("chk1").checked = false;
+				document.getElementById("chk2").checked = false;
+				document.getElementById("chk3").checked = false;
+				document.getElementById("chk4").checked = false;
+				document.getElementById("chk5").checked = false;
+				//document.getElementById("chk6").checked = false;
+				document.getElementById("chk7").checked = false;
+				//document.getElementById("chk8").checked = false;
+				//document.getElementById("chk9").checked = false;
+				for (let jchk = 10; jchk < 25; jchk++) {
+					document.getElementById('chk'+jchk).checked = false;
+				}
 			}
 		}
 	}
@@ -278,7 +280,7 @@ function chkall1() {
   document.getElementById("chk21").checked = false;
   document.getElementById("chk22").checked = false;
   document.getElementById("chk23").checked = false;
-  document.getElementById("chk24").checked = false;
+  document.getElementById("chk24").checked = true;
 	document.getElementById("chk36").checked = false;
 	document.getElementById("chk39").checked = false;
 	document.getElementById("chk40").checked = false;

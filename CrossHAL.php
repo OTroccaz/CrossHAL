@@ -135,8 +135,8 @@ include("./Glob_normalize.php");
 	<meta charset="utf-8" />
 	<title>CrossHAL - HAL - UR1</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta content="" name="description" />
-	<meta content="Coderthemes + Lizuka" name="author" />
+	<meta content="CrossHAL permet de vérifier les métadonnées des notices saisies dans HAL, de les compléter et corriger, et de déposer le texte intégral des articles" name="description" />
+	<meta content="Coderthemes + Lizuka + OTroccaz + LJonchere" name="author" />
 	<!-- App favicon -->
 	<link rel="shortcut icon" href="favicon.ico">
 

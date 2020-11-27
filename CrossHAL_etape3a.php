@@ -319,10 +319,29 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					}
 				}
 				if ($embgModi == "ok") {
-					if ($condAct == "ok") {//Il y a une condition préalable au lancement de l'action
-						$textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/MAJOK.png'></span></center></td>";
+					//Recherche d'une éventuelle notice avec le même DOI ou le même titre dans HAL CRAC > PDF soumis en attente de validation
+					if (isset($arrayHAL["response"]["docs"][$cpt]["doiId_s"])) {
+						$reqCRAC = "https://api.archives-ouvertes.fr/crac/hal/?q=doiId_s:%22".$arrayHAL["response"]["docs"][$cpt]["doiId_s"]."%22%20AND%20status_i:%220%22&fl=submittedDate_s";
 					}else{
-						$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+						$reqCRAC = "https://api.archives-ouvertes.fr/crac/hal/?q=title_s:%22".$arrayHAL["response"]["docs"][$cpt]["title_s"][0]."%22%20AND%20status_i:%220%22&fl=submittedDate_s";
+					}
+					$reqCRAC = str_replace('"', '%22', $reqCRAC);
+					$reqCRAC = str_replace(" ", "%20", $reqCRAC);
+					//echo $reqCRAC;
+					
+					$contCRAC = file_get_contents($reqCRAC);
+					//$contCRAC = utf8_encode($contCRAC);
+					$resCRAC = json_decode($contCRAC);
+					$numFCRAC = 0;
+					if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
+					if ($numFCRAC != 0) {
+						$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a></span></center></td>";
+					}else{
+						if ($condAct == "ok") {//Il y a une condition préalable au lancement de l'action
+							$textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/MAJOK.png'></span></center></td>";
+						}else{
+							$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+						}
 					}
 				}else{
 					$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";

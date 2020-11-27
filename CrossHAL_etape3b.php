@@ -64,9 +64,9 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 			$numFCRAC = 0;
 			if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
 			if ($numFCRAC != 0) {
-				$actADD = "<a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a>";
+				$actADD = "<a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' style='width: 50px;' src='./img/dep_grand.png'></a>";
 			}else{
-				$actADD = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' src='./img/add.png'></a>";
+				$actADD = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' style='width: 50px;' src='./img/add_grand.png'></a>";
 			}
 			echo "<td style='text-align: center;'>".$actADD."</td>";
 			//Action 2 > Parcourir
@@ -88,7 +88,7 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 					if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 				}
 				if ($lienPDF == "noDateEpub") {
-					$textAff .= "<center><a href='#'><img alt='Pas de dateEpub' title='Pas de dateEpub' data-toggle=\"popover\" data-trigger='hover' data-content='La date de publication en ligne n’est pas renseignée !' data-original-title='' src='./img/addEmbargo.png'></a></center>";
+					$textAff .= "<center><a href='#'><img alt='Pas de dateEpub' title='Pas de dateEpub' data-toggle=\"popover\" data-trigger='hover' data-content='La date de publication en ligne n’est pas renseignée !' data-original-title='' style='width: 50px;' src='./img/addEmbargo_grand.png'></a></center>";
 					$lignAff = "ok";
 				}else{
 					if ($actMaj == "ok") {
@@ -108,13 +108,13 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 						$numFCRAC = 0;
 						if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
 						if ($numFCRAC != 0) {
-							$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a></span></center></td>";
+							$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' style='width: 50px;' src='./img/dep_grand.png'></a></span></center></td>";
 						}else{
-							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
+							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png'></a></span></center>";
 						}
 						$lignAff = "ok";
 					}else{
-						$textAff .= "<center><img src='./img/addOK.png'></center>";
+						$textAff .= "<center><img style='width: 50px;' src='./img/addOK_grand.png'></center>";
 					}
 				}
 			}else{

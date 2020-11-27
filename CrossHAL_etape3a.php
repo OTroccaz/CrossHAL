@@ -237,10 +237,10 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			$textAff .= "<td></td>";
 		}else{
 			if ($licEvd == "auteur") {//Si type doc "auteur", le bouton Action n'est activé que si on a cliqué sur "lien", i.e., on s'est assuré que le PDF était bien un manuscrit auteur
-				$textAff .= "<td><a target='_blank' href='".$urlPDF."' onclick='condActOk(\"".$halID."\",\"".$lienPDF."\", \"MAJ_PDF\");'>lien</a></td>";
+				$textAff .= "<td><a target='_blank' href='".$urlPDF."' onclick='condActOk(\"".$halID."\",\"".$lienPDF."\", \"MAJ_PDF\");'><img style='width: 50px;' src='./img/pdf_grand.png'></a></td>";
 				$condAct = "ok";
 			}else{
-				$textAff .= "<td><a target='_blank' href='".$urlPDF."'>lien</a></td>";
+				$textAff .= "<td><a target='_blank' href='".$urlPDF."'><img style='width: 50px;' src='./img/pdf_grand.png'></a></td>";
 			}
 		}
 		if (isset($arrayHAL["response"]["docs"][$cpt]["publisher_s"])) {
@@ -335,20 +335,20 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$numFCRAC = 0;
 					if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
 					if ($numFCRAC != 0) {
-						$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a></span></center></td>";
+						$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' style='width: 50px;' src='./img/dep_grand.png'></a></span></center></td>";
 					}else{
 						if ($condAct == "ok") {//Il y a une condition préalable au lancement de l'action
-							$textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/addOK.png'></span></center></td>";
+							$textAff .= "<td><center><span id='maj".$halID."'><img alt='Vérification nécessaire' title='Vérification nécessaire' data-toggle=\"popover\" data-trigger='hover' data-content='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' data-original-title='' style='width: 50px;' src='./img/addOK_grand.png'></span></center></td>";
 						}else{
-							$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center></td>";
+							$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png'></a></span></center></td>";
 						}
 					}
 				}else{
-					$textAff .= "<center><a href='#'><img alt='Modification impossible' title='Modification impossible' data-toggle=\"popover\" data-trigger='hover' data-content='Dépôt sous embargo' data-original-title='' src='./img/addEmbargo.png'></a></center>";
+					$textAff .= "<center><a href='#'><img alt='Modification impossible' title='Modification impossible' data-toggle=\"popover\" data-trigger='hover' data-content='Dépôt sous embargo' data-original-title='' style='width: 50px;' src='./img/addEmbargo_grand.png'></a></center>";
 				}
 				$lignAff = "ok";
 			}else{
-				$textAff .= "<td><center><img src='./img/addOK.png'></center></td>";
+				$textAff .= "<td><center><img style='width: 50px;' src='./img/addOK_grand.png'></center></td>";
 			}
 		}else{
 			$textAff .= "<td>&nbsp;</td>";
@@ -436,16 +436,16 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 							$numFCRAC = 0;
 							if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
 							if ($numFCRAC != 0) {
-								$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a></span></center></td>";
+								$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' style='width: 50px;' src='./img/dep_grand.png'></a></span></center></td>";
 							}else{
-								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
+								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png'></a></span></center>";
 							}
 						}else{
-							$textAff .= "<center><a href='#'><img alt='Modification impossible' title='Modification impossible' data-toggle=\"popover\" data-trigger='hover' data-content='Dépôt sous embargo' data-original-title='' src='./img/addEmbargo.png'></a></center>";
+							$textAff .= "<center><a href='#'><img alt='Modification impossible' title='Modification impossible' data-toggle=\"popover\" data-trigger='hover' data-content='Dépôt sous embargo' data-original-title='' style='width: 50px;' src='./img/addEmbargo_grand.png'></a></center>";
 						}
 						$lignAff = "ok";
 					}else{
-						$textAff .= "<center><img src='./img/addOK.png'></center>";
+						$textAff .= "<center><img style='width: 50px;' src='./img/addOK_grand.png'></center>";
 					}
 				}else{//Notice sans lien externe > embargo à mettre en place
 					//Utilisation détournée de paramètres de la fonction initiale pour l'inscription de l'embargo dans le TEI
@@ -458,7 +458,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 					}
 					if ($lienPDF == "noDateEpub") {
-						$textAff .= "<center><a href='#'><img alt='Pas de dateEpub' title='Pas de dateEpub' data-toggle=\"popover\" data-trigger='hover' data-content='La date de publication en ligne n’est pas renseignée !' data-original-title='' src='./img/addEmbargo.png'></a></center>";
+						$textAff .= "<center><a href='#'><img alt='Pas de dateEpub' title='Pas de dateEpub' data-toggle=\"popover\" data-trigger='hover' data-content='La date de publication en ligne n’est pas renseignée !' data-original-title='' style='width: 50px;' src='./img/addEmbargo_grand.png'></a></center>";
 						$lignAff = "ok";
 					}else{
 						if ($actMaj == "ok") {
@@ -478,13 +478,13 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 							$numFCRAC = 0;
 							if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
 							if ($numFCRAC != 0) {
-								$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a></span></center></td>";
+								$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' style='width: 50px;' src='./img/dep_grand.png'></a></span></center></td>";
 							}else{
-								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
+								$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png'></a></span></center>";
 							}
 							$lignAff = "ok";
 						}else{
-							$textAff .= "<center><img src='./img/addOK.png'></center>";
+							$textAff .= "<center><img style='width: 50px;' src='./img/addOK_grand.png'></center>";
 						}
 					}
 				}
@@ -534,7 +534,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		if ($nodoi != "") {
 			$textAff .= "<td>DOI à exclure</td>";
 		}else{
-			$textAff .= "<td>URL de fichier déjà mentionnée dans la notice : <a target='_blank' href='".$lienPDF."'>lien</a></td>";
+			$textAff .= "<td>URL de fichier déjà mentionnée dans la notice : <a target='_blank' href='".$lienPDF."'><img style='width: 50px;' src='./img/pdf_grand.png'></a></td>";
 		}
 		if (isset($arrayHAL["response"]["docs"][$cpt]["publisher_s"])) {
 			$textAff .= "<td>".$arrayHAL["response"]["docs"][$cpt]["publisher_s"][0]."</td>";

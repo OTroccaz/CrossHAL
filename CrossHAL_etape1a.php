@@ -1436,7 +1436,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		if ($colact == "ok") {
 			if ($lienMAJ != "") {
 				$textAff .= "<td>";
-				//if ($lienMAJ != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/add.png'></a></span>";}
+				//if ($lienMAJ != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='majok(\"".$doi."\")'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png'></a></span>";}
 				if ($actMaj == "ok") {
 					//"Embargo" > Interdit de modifier une notice si date "whenSubmitted" < n jours
 					$submDate = "";
@@ -1483,14 +1483,14 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					}
 					if ($embgModi == "ok") {
 						$actsMAJ = substr($actsMAJ, 0, (strlen($actsMAJ) - 1));
-						$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
+						$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png'></a></span></center>";
 						$lienMAJgrpTot .= $lienMAJgrp;
 						$actsMAJgrpTot .= $actsMAJgrp;
 					}else{
-						$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/addEmbargo.png'></center>";
+						$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' style='width: 50px;' src='./img/addEmbargo_grand.png'></center>";
 					}
 				}else{
-					$textAff .= "<center><img title=\"La(les) modification(s) n'est(ne sont) pas envisageables car une ou plusieurs métadonnées a(ont) été modifiée(s) depuis moins d'une semaine : ".$raisons."\" src='./img/addOK.png'></center>";
+					$textAff .= "<center><img title=\"La(les) modification(s) n'est(ne sont) pas envisageables car une ou plusieurs métadonnées a(ont) été modifiée(s) depuis moins d'une semaine : ".$raisons."\" style='width: 50px;' src='./img/addOK_grand.png'></center>";
 				}
 				$textAff .= "</td></tr>";
 				$lignAff = "ok";
@@ -1565,7 +1565,7 @@ if ($lienMAJgrpTot != "" && $increment == 10) {
 	$actionMA .= 'document.getElementById("actionMA").innerHTML = "<img src=./img/addOK.png>";';
 	$actionMA .= "'";
 	//echo $actionMA;
-	echo ("<span id='actionMA'><img alt='MAJ' src='./img/add.png' style='cursor:hand;' ".$actionMA."></span><br>");
+	echo ("<span id='actionMA'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png' style='cursor:hand;' ".$actionMA."></span><br>");
 }
 
 if ($iMax != $numFound) {

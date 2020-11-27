@@ -23,7 +23,7 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 	progression($i+1, count($Stats_OH_Mails), $iPro);
 	$doi = str_replace(array("https://doi.org/", "https://dx.doi.org/"), "", $Stats_OH_Mails[$i]["Article"]);
 	if ($doi != "" && ($Stats_OH_Mails[$i]["Type"] == "P" || $Stats_OH_Mails[$i]["Reponse"] == "MS")) {
-		$reqAPI = "https://api.archives-ouvertes.fr/search/univ-rennes1/?fq=producedDateY_i:".$anneedeb."%20AND%20docType_s:(ART OR COUV)%20AND%20submitType_s:notice%20AND%20doiId_s:%22".$doi."%22&fl=halId_s,docid,contributorFullName_s,linkExtId_s";
+		$reqAPI = "https://api.archives-ouvertes.fr/search/univ-rennes1/?fq=producedDateY_i:".$anneedeb."%20AND%20docType_s:(ART OR COUV)%20AND%20submitType_s:notice%20AND%20doiId_s:%22".$doi."%22&fl=halId_s,docid,contributorFullName_s,linkExtId_s,doiId_s,title_s";
 		$reqAPI = str_replace('"', '%22', $reqAPI);
 		$reqAPI = str_replace(" ", "%20", $reqAPI);
 		//echo $reqAPI.'<br>';				
@@ -48,7 +48,26 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 			echo "<td style='text-align: center;'>".$type."</td>";
 			echo "<td style='text-align: center;'>".$Stats_OH_Mails[$i]["Forward"]."</td>";
 			//Action 1 > ADD
-			$actADD = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' src='./img/add.png'></a>";
+			//Recherche d'une éventuelle notice avec le même DOI ou le même titre dans HAL CRAC > PDF soumis en attente de validation
+			if (isset($arrayHAL["response"]["docs"][0]["doiId_s"])) {
+				$reqCRAC = "https://api.archives-ouvertes.fr/crac/hal/?q=doiId_s:%22".$arrayHAL["response"]["docs"][0]["doiId_s"]."%22%20AND%20status_i:%220%22&fl=submittedDate_s";
+			}else{
+				$reqCRAC = "https://api.archives-ouvertes.fr/crac/hal/?q=title_s:%22".$arrayHAL["response"]["docs"][0]["title_s"][0]."%22%20AND%20status_i:%220%22&fl=submittedDate_s";
+			}
+			$reqCRAC = str_replace('"', '%22', $reqCRAC);
+			$reqCRAC = str_replace(" ", "%20", $reqCRAC);
+			//echo $reqCRAC;
+			
+			$contCRAC = file_get_contents($reqCRAC);
+			//$contCRAC = utf8_encode($contCRAC);
+			$resCRAC = json_decode($contCRAC);
+			$numFCRAC = 0;
+			if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
+			if ($numFCRAC != 0) {
+				$actADD = "<a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a>";
+			}else{
+				$actADD = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' src='./img/add.png'></a>";
+			}
 			echo "<td style='text-align: center;'>".$actADD."</td>";
 			//Action 2 > Parcourir
 			$textAff = "<td width='20%'>";
@@ -69,11 +88,30 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 					if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 				}
 				if ($lienPDF == "noDateEpub") {
-					$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/addEmbargo.png'></center>";
+					$textAff .= "<center><a href='#'><img alt='Pas de dateEpub' title='Pas de dateEpub' data-toggle=\"popover\" data-trigger='hover' data-content='La date de publication en ligne n’est pas renseignée !' data-original-title='' src='./img/addEmbargo.png'></a></center>";
 					$lignAff = "ok";
 				}else{
 					if ($actMaj == "ok") {
-						$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
+						//Recherche d'une éventuelle notice avec le même DOI ou le même titre dans HAL CRAC > PDF soumis en attente de validation
+						if (isset($arrayHAL["response"]["docs"][$cpt]["doiId_s"])) {
+							$reqCRAC = "https://api.archives-ouvertes.fr/crac/hal/?q=doiId_s:%22".$arrayHAL["response"]["docs"][$cpt]["doiId_s"]."%22%20AND%20status_i:%220%22&fl=submittedDate_s";
+						}else{
+							$reqCRAC = "https://api.archives-ouvertes.fr/crac/hal/?q=title_s:%22".$arrayHAL["response"]["docs"][$cpt]["title_s"][0]."%22%20AND%20status_i:%220%22&fl=submittedDate_s";
+						}
+						$reqCRAC = str_replace('"', '%22', $reqCRAC);
+						$reqCRAC = str_replace(" ", "%20", $reqCRAC);
+						//echo $reqCRAC;
+						
+						$contCRAC = file_get_contents($reqCRAC);
+						//$contCRAC = utf8_encode($contCRAC);
+						$resCRAC = json_decode($contCRAC);
+						$numFCRAC = 0;
+						if (isset($resCRAC->response->numFound)) {$numFCRAC = $resCRAC->response->numFound;}
+						if ($numFCRAC != 0) {
+							$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a></span></center></td>";
+						}else{
+							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
+						}
 						$lignAff = "ok";
 					}else{
 						$textAff .= "<center><img src='./img/addOK.png'></center>";

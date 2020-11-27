@@ -2023,7 +2023,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
       if ($colact == "ok") {
         if ($lienMAJ != "") {
           $textAff .= "<td style='text-align: center;'>";
-          //if ($lienMAJ != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/MAJ.png'></a></span>";}
+          //if ($lienMAJ != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/add.png'></a></span>";}
           if ($actMaj == "ok") {
             //"Embargo" > Interdit de modifier une notice si date "whenSubmitted" < n jours
             $submDate = "";
@@ -2039,12 +2039,12 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
             $submDate = mktime(0, 0, 0, substr($submDate, 5, 2), substr($submDate, 8, 2), substr($submDate, 0, 4));
             $limDate = time() - $nbjours*86400;
             if ($submDate <= $limDate) {//Il est possible de faire les modifications car la date limite est dépassée
-              $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+              $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"".$actsMAJ."\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
             }else{
-              $textAff .= "<center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/MAJEmbargo.png'></center>";
+              $textAff .= "<center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/addEmbargo.png'></center>";
             }
           }else{
-            $textAff .= "<center><img title=\"La(les) modification(s) n'est(ne sont) pas envisageables car une ou plusieurs métadonnées a(ont) été modifiée(s) depuis moins d'une semaine : ".$raisons."\" src='./img/MAJOK.png'></center>";
+            $textAff .= "<center><img title=\"La(les) modification(s) n'est(ne sont) pas envisageables car une ou plusieurs métadonnées a(ont) été modifiée(s) depuis moins d'une semaine : ".$raisons."\" src='./img/addOK.png'></center>";
           }
           $textAff .= "</td></tr>";
           $lignAff = "ok";
@@ -2505,16 +2505,16 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
             $lignAff = "ok";
             $textAff .= "<td style='text-align: center;'>";
             //echo "A modifier";
-            //if ($lienMAJAut != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/MAJ.png'></a></span>";}
+            //if ($lienMAJAut != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/add.png'></a></span>";}
             include "./CrossHAL_actions.php";
             $actMaj = "ok";
             foreach($ACTIONS_LISTE as $tab) {
               if (in_array($halID, $tab) && in_array("MAJ_AUT",$tab)) {$actMaj = "no";}
             }
             if ($actMaj == "ok") {
-              $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AUT\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+              $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AUT\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
             }else{
-              $textAff .= "<center><img src='./img/MAJOK.png'></center>";
+              $textAff .= "<center><img src='./img/addOK.png'></center>";
             }
             $xml->save($Fnm);
             $textAff .= "</td>";
@@ -2779,7 +2779,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
             $textAff .= "<td style='text-align: center;'>";
             $lienMAJPre = "./CrossHAL_Modif.php?action=MAJ&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
             if ($lienMAJPre != "") {
-              //echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre." 'onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/MAJ.png'></a></span>";
+              //echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre." 'onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/add.png'></a></span>";
               include "./CrossHAL_actions.php";
               $actMaj = "ok";
               foreach($ACTIONS_LISTE as $tab) {
@@ -2800,12 +2800,12 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
                 $submDate = mktime(0, 0, 0, substr($submDate, 5, 2), substr($submDate, 8, 2), substr($submDate, 0, 4));
                 $limDate = time() - $nbjours*86400;
                 if ($submDate <= $limDate) {//Il est possible de faire les modifications car la date limite est dépassée
-                  $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PRE\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+                  $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PRE\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
                 }else{
-                  $textAff .= "<center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/MAJEmbargo.png'></center>";
+                  $textAff .= "<center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/addEmbargo.png'></center>";
                 }
               }else{
-                $textAff .= "<center><img src='./img/MAJOK.png'></center>";
+                $textAff .= "<center><img src='./img/addOK.png'></center>";
               }
             }
             $textAff .= "</td>";
@@ -3285,14 +3285,14 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
                   $limDate = time() - $nbjours*86400;
                   if ($submDate <= $limDate) {//Il est possible de faire les modifications car la date limite est dépassée
                     $lignAff = "ok";
-                    $textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienIDH."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_IDH\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+                    $textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienIDH."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_IDH\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center></td>";
                   }else{
                     $lignAff = "ok";
-                    $textAff .= "<td><center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/MAJEmbargo.png'></center></td>";
+                    $textAff .= "<td><center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/addEmbargo.png'></center></td>";
                   }
                 }else{
                   $lignAff = "ok";
-                  $textAff .= "<td><center><img src='./img/MAJOK.png'></center></td>";
+                  $textAff .= "<td><center><img src='./img/addOK.png'></center></td>";
                 }
               }else{
                 $lignAff = "ok";
@@ -3304,9 +3304,9 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
                   $textAff .= "<td style='text-align: center;'>&nbsp;</td>";//DocID
                 }
                 if ($nodocid == "") {
-                  $textAff .= "<td><center><img alt='Invalide' title='IdHal non valide' src='./img/MAJEmbargo.png'></center></td>";
+                  $textAff .= "<td><center><img alt='Invalide' title='IdHal non valide' src='./img/addEmbargo.png'></center></td>";
                 }else{
-                  $textAff .= "<td><center><img alt='Invalide' title='DocID à ignorer' src='./img/MAJEmbargo.png'></center></td>";
+                  $textAff .= "<td><center><img alt='Invalide' title='DocID à ignorer' src='./img/addEmbargo.png'></center></td>";
                 }
               }
               //echo("<td style='background-color:#FFFF00'>&nbsp;</td>");
@@ -3810,16 +3810,16 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
           $limDate = time() - $nbjours*86400;
           if ($submDate <= $limDate) {//Il est possible de faire les modifications car la date limite est dépassée
             if ($condAct == "ok") {//Il y a une condition préalable au lancement de l'action
-              $textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/MAJOK.png'></span></center></td>";
+              $textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/addOK.png'></span></center></td>";
             }else{
-              $textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+              $textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center></td>";
             }
           }else{
-            $textAff .= "<td><center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/MAJEmbargo.png'></center></td>";
+            $textAff .= "<td><center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/addEmbargo.png'></center></td>";
           }
           $lignAff = "ok";
         }else{
-          $textAff .= "<td><center><img src='./img/MAJOK.png'></center></td>";
+          $textAff .= "<td><center><img src='./img/addOK.png'></center></td>";
         }
       }else{
         $textAff .= "<td>&nbsp;</td>";
@@ -3861,13 +3861,13 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
               $submDate = mktime(0, 0, 0, substr($submDate, 5, 2), substr($submDate, 8, 2), substr($submDate, 0, 4));
               $limDate = time() - $nbjours*86400;
               if ($submDate <= $limDate) {//Il est possible de faire les modifications car la date limite est dépassée
-                $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+                $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
               }else{
-                $textAff .= "<center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/MAJEmbargo.png'></center>";
+                $textAff .= "<center><img alt='Embargo' title='Embargo: interdit de modifier cette notice car la date \"whenSubmitted\" < 90 jours' src='./img/addEmbargo.png'></center>";
               }
               $txtAff = "ok";
             }else{
-              $textAff .= "<center><img src='./img/MAJOK.png'></center>";
+              $textAff .= "<center><img src='./img/addOK.png'></center>";
             }
           }else{//Notice sans lien externe > embargo à mettre en place
             //Utilisation détournée de paramètres de la fonction initiale pour l'inscription de l'embargo dans le TEI
@@ -3880,14 +3880,14 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
               if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no";}
             }
             if ($lienPDF == "noDateEpub") {
-              $textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/MAJEmbargo.png'></center>";
+              $textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/addEmbargo.png'></center>";
               $lignAff = "ok";
             }else{
               if ($actMaj == "ok") {
-                $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+                $textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
                 $lignAff = "ok";
               }else{
-                $textAff .= "<center><img src='./img/MAJOK.png'></center>";
+                $textAff .= "<center><img src='./img/addOK.png'></center>";
               }
             }
           }

@@ -338,17 +338,17 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						$textAff .= "<td><center><span id='maj".$halID."'><a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' src='./img/dep.png'></a></span></center></td>";
 					}else{
 						if ($condAct == "ok") {//Il y a une condition préalable au lancement de l'action
-							$textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/MAJOK.png'></span></center></td>";
+							$textAff .= "<td><center><span id='maj".$halID."'><img alt='MAJ' title='Par précaution, ce bouton Action ne sera activé que lorsque vous aurez vérifié via le lien ci-avant que le PDF est bien un manuscrit auteur' src='./img/addOK.png'></span></center></td>";
 						}else{
-							$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+							$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center></td>";
 						}
 					}
 				}else{
-					$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
+					$textAff .= "<center><a href='#'><img alt='Modification impossible' title='Modification impossible' data-toggle=\"popover\" data-trigger='hover' data-content='Dépôt sous embargo' data-original-title='' src='./img/addEmbargo.png'></a></center>";
 				}
 				$lignAff = "ok";
 			}else{
-				$textAff .= "<td><center><img src='./img/MAJOK.png'></center></td>";
+				$textAff .= "<td><center><img src='./img/addOK.png'></center></td>";
 			}
 		}else{
 			$textAff .= "<td>&nbsp;</td>";
@@ -420,13 +420,13 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 							}
 						}
 						if ($embgModi == "ok") {
-							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
 						}else{
-							$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
+							$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/addEmbargo.png'></center>";
 						}
 						$lignAff = "ok";
 					}else{
-						$textAff .= "<center><img src='./img/MAJOK.png'></center>";
+						$textAff .= "<center><img src='./img/addOK.png'></center>";
 					}
 				}else{//Notice sans lien externe > embargo à mettre en place
 					//Utilisation détournée de paramètres de la fonction initiale pour l'inscription de l'embargo dans le TEI
@@ -439,14 +439,14 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 					}
 					if ($lienPDF == "noDateEpub") {
-						$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/MAJEmbargo.png'></center>";
+						$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/addEmbargo.png'></center>";
 						$lignAff = "ok";
 					}else{
 						if ($actMaj == "ok") {
-							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
 							$lignAff = "ok";
 						}else{
-							$textAff .= "<center><img src='./img/MAJOK.png'></center>";
+							$textAff .= "<center><img src='./img/addOK.png'></center>";
 						}
 					}
 				}

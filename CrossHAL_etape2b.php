@@ -435,13 +435,13 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 					}
 					if ($embgModi == "ok") {
 						$lignAff = "ok";
-						$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienIDH."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_IDH\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center></td>";
+						$textAff .= "<td><center><span id='maj".$halID."'><a target='_blank' href='".$lienIDH."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_IDH\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center></td>";
 					}else{
-						$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
+						$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/addEmbargo.png'></center>";
 					}
 				}else{
 					$lignAff = "ok";
-					$textAff .= "<td><center><img src='./img/MAJOK.png'></center></td>";
+					$textAff .= "<td><center><img src='./img/addOK.png'></center></td>";
 				}
 			}else{
 				$lignAff = "ok";
@@ -453,9 +453,9 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 					$textAff .= "<td style='text-align: center;'>&nbsp;</td>";//DocID
 				}
 				if ($nodocid == "") {
-					$textAff .= "<td><center><img alt='Invalide' title='IdHal non valide' src='./img/MAJEmbargo.png'></center></td>";
+					$textAff .= "<td><center><img alt='Invalide' title='IdHal non valide' src='./img/addEmbargo.png'></center></td>";
 				}else{
-					$textAff .= "<td><center><img alt='Invalide' title='DocID à ignorer' src='./img/MAJEmbargo.png'></center></td>";
+					$textAff .= "<td><center><img alt='Invalide' title='DocID à ignorer' src='./img/addEmbargo.png'></center></td>";
 				}
 			}
 		}

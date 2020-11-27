@@ -194,16 +194,16 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				$lignAff = "ok";
 				$textAff .= "<td>";
 				//echo "A modifier";
-				//if ($lienMAJAut != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/MAJ.png'></a></span>";}
+				//if ($lienMAJAut != "") {echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/add.png'></a></span>";}
 				include "./CrossHAL_actions.php";
 				$actMaj = "ok";
 				foreach($ACTIONS_LISTE as $tab) {
 					if (in_array($halID, $tab) && in_array("MAJ_AUT",$tab)) {$actMaj = "no";}
 				}
 				if ($actMaj == "ok") {
-					$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AUT\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+					$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJAut."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AUT\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
 				}else{
-					$textAff .= "<center><img src='./img/MAJOK.png'></center>";
+					$textAff .= "<center><img src='./img/addOK.png'></center>";
 				}
 				$xml->save($Fnm);
 				$textAff .= "</td>";
@@ -617,7 +617,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				$textAff .= "<td>";
 				$lienMAJPre = "./CrossHAL_Modif.php?action=MAJ&etp=2&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
 				if ($lienMAJPre != "") {
-					//echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre." 'onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/MAJ.png'></a></span>";
+					//echo "<span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre." 'onclick='majok(\"".$doi."\")'><img alt='MAJ' src='./img/add.png'></a></span>";
 					include "./CrossHAL_actions.php";
 					$actMaj = "ok";
 					foreach($ACTIONS_LISTE as $tab) {
@@ -668,12 +668,12 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 							}
 						}
 						if ($embgModi == "ok") {
-							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PRE\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+							$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJPre."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PRE\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
 						}else{
-							$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/MAJEmbargo.png'></center>";
+							$textAff .= "<center><img alt='Embargo' title='Modification impossible : dépôt sous embargo' src='./img/addEmbargo.png'></center>";
 						}
 					}else{
-						$textAff .= "<center><img src='./img/MAJOK.png'></center>";
+						$textAff .= "<center><img src='./img/addOK.png'></center>";
 					}
 				}
 				$textAff .= "</td>";

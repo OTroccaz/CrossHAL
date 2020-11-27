@@ -316,13 +316,13 @@ function formFilePDF() {
 }
 
 function majok(halID) {
-  document.getElementById("maj"+halID).innerHTML = "<img src='./img/MAJOK.png'>";
+  document.getElementById("maj"+halID).innerHTML = "<img src='./img/addOK.png'>";
 }
 
 function majokVu(halID) {
-  document.getElementById("Vu"+halID).innerHTML = "<img src='./img/MAJOK.png'>";
+  document.getElementById("Vu"+halID).innerHTML = "<img src='./img/addOK.png'>";
 }
 
 function condActOk(halID, lienPDF, action) {
-  document.getElementById("maj"+halID).innerHTML = "<a target='_blank' href='"+lienPDF+"' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \""+halID+"\", action: \""+action+"\" });majok(\""+halID+"\");'><img alt='MAJ' src='./img/MAJ.png'></a>";
+  document.getElementById("maj"+halID).innerHTML = "<a target='_blank' href='"+lienPDF+"' onclick='$.post(\"CrosHAL_liste_actions.php\", { halID: \""+halID+"\", action: \""+action+"\" });majok(\""+halID+"\");'><img alt='MAJ' src='./img/add.png'></a>";
 }

@@ -264,7 +264,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=2&Id=".$halID;
 			$proDate = $arrayHAL["response"]["docs"][$cpt]["producedDate_s"];
 			$depDate = $arrayHAL["response"]["docs"][$cpt]["submittedDate_s"];
-			$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\", ctb: \"".$ctb."\", domMel: \"".$domMel."\", proDate: \"".$proDate."\", depDate: \"".$depDate."\", team: \"".$team."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\"); '><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+			$actAffil .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_AFFIL\", ctb: \"".$ctb."\", domMel: \"".$domMel."\", proDate: \"".$proDate."\", depDate: \"".$depDate."\", team: \"".$team."\" });majok(\"".$halID."\"); majokVu(\"".$halID."\"); '><img alt='MAJ' src='./img/add.png'></a></span></center>";
 		}else{
 			$actAffil .= "";
 		}
@@ -353,7 +353,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		*/
 		
 		//Vu > Conforme
-		$textAff .= "<td style='text-align: center;'><span id='Vu".$halID."'><a style=\"cursor:pointer\" onclick='$.post(\"CrossHAL_vu_actions.php\", { halID: \"".$halID."\" }); majokVu(\"".$halID."\"); $.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_VU\" }); majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></td>";
+		$textAff .= "<td style='text-align: center;'><span id='Vu".$halID."'><a style=\"cursor:pointer\" onclick='$.post(\"CrossHAL_vu_actions.php\", { halID: \"".$halID."\" }); majokVu(\"".$halID."\"); $.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_VU\" }); majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></td>";
 
 		//Tampons
 		$actStp = "";
@@ -373,9 +373,9 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		/*//En fait, il n'est pas possible (pour l'instant ?) de modifier les tampons via Sword
 		if ($actMaj == "ok") {
 			$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=2&Id=".$halID;
-			$actStp .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_STAMP\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+			$actStp .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienMAJ."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_STAMP\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
 		}else{
-			$actStp .= "<center><img src='./img/MAJOK.png'></center>";
+			$actStp .= "<center><img src='./img/addOK.png'></center>";
 		}
 		$actions .= $actStp;
 		*/

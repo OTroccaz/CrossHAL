@@ -69,14 +69,14 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 					if (in_array($halID, $tab) && in_array("MAJ_PDF",$tab)) {$actMaj = "no"; $lignAff = "ok";}
 				}
 				if ($lienPDF == "noDateEpub") {
-					$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/MAJEmbargo.png'></center>";
+					$textAff .= "<center><img alt='Pas de dateEpub' title=\"La date de publication en ligne n'est pas renseignée !\" src='./img/addEmbargo.png'></center>";
 					$lignAff = "ok";
 				}else{
 					if ($actMaj == "ok") {
-						$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/MAJ.png'></a></span></center>";
+						$textAff .= "<center><span id='maj".$halID."'><a target='_blank' href='".$lienPDF."' onclick='$.post(\"CrossHAL_liste_actions.php\", { halID: \"".$halID."\", action: \"MAJ_PDF\" });majok(\"".$halID."\"); majokVu(\"".$halID."\");'><img alt='MAJ' src='./img/add.png'></a></span></center>";
 						$lignAff = "ok";
 					}else{
-						$textAff .= "<center><img src='./img/MAJOK.png'></center>";
+						$textAff .= "<center><img src='./img/addOK.png'></center>";
 					}
 				}
 			}else{

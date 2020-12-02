@@ -853,16 +853,23 @@
 																																					&nbsp;<br>
 																																				</div>
 																																				
-																																				<div class="form-group row mb-1">
-																																					<div class="form-group col-sm-12">
-																																						<div class="custom-control custom-checkbox">
-																																							<input type="checkbox" id="chk47" class="custom-control-input" onclick="option2();" name="ctrTrs" value="oui"<?php echo $ctr;?>>
-																																							<label for="chk47" class="custom-control-label">
-																																							Contrôle des tiers
-																																							</label>
-																																						</div>
-																																					</div>
-																																				</div>
+																																				<?php
+																																				//Restriction IP pour le contrôle des tiers
+																																				include("./Glob_IP_list.php");
+																																				if (in_array($ip, $IP_aut)) {
+																																					echo "<div class=\"form-group row mb-1\">";
+																																					echo "<div class=\"form-group col-sm-12\">";
+																																					echo "	<div class=\"custom-control custom-checkbox\">";
+																																					echo "		<input type=\"checkbox\" id=\"chk47\" class=\"custom-control-input\" onclick=\"option2();\" name=\"ctrTrs\" value=\"oui\"".$ctr.">";
+																																					echo "		<label for=\"chk47\" class=\"custom-control-label\">";
+																																					echo "		Contrôle des tiers";
+																																					echo "		</label>";
+																																					echo "	</div>";
+																																					echo "</div>";
+																																					echo "</div>";
+																																				}
+																																				?>
+																																				
 																																			</div>
 																																	</div>
 																															</div>

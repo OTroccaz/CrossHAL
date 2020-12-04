@@ -158,7 +158,7 @@ if($return == FALSE)
   exit ("ERREUR : ".$errStr);;
 }
 try {
-  $entry = new SimpleXMLElement($return);
+  $entry = new SimpleXMLElement($return, TRUE, FALSE);
   $entry->registerXPathNamespace('atom', 'http://www.w3.org/2005/Atom');
   $entry->registerXPathNamespace('sword', 'http://purl.org/net/sword/terms');
   $entry->registerXPathNamespace('hal', 'http://hal.archives-ouvertes.fr/');

@@ -80,6 +80,105 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$iref++; 
 				}
 			}
+			
+			if ($idHALAjout == "non") {//Pas d'idHAL avec les méthodes précédentes > on va tester celles mises en place pour Zip2HAL
+				$firstNameT = strtolower(wd_remove_accents($tabIdHAL["prenom"][$iTIH]));
+				$lastNameT = strtolower(wd_remove_accents($tabIdHAL["nom"][$iTIH]));
+				
+				$reqAut = "https://api.archives-ouvertes.fr/ref/author/?q=fullName_sci:(%22".$firstNameT."%20".$lastNameT."%22%20OR%20%22".substr($firstNameT, 0, 1)."%20".$lastNameT."%22)%20AND%20valid_s:%22VALID%22&rows=1000&fl=idHal_i,idHal_s,docid,valid_s,emailDomain_s,fullName_s&sort=valid_s%20desc,docid%20asc,fullName_s%20asc";
+				$reqAut = str_replace(" ", "%20", $reqAut);
+				//echo '<a target="_blank" href="'.$reqAut.'">URL requête auteurs HAL (1ère méthode)</a><br>';
+				//echo $reqAut.'<br>';
+				$contAut = file_get_contents($reqAut);
+				$resAut = json_decode($contAut);
+				$numFound = 0;
+				if(isset($resAut->response->numFound)) {$numFound=$resAut->response->numFound;}
+				
+				if($numFound != 0) {			
+					foreach($resAut->response->docs as $author) {
+						if(isset($author->idHal_s) && $author->idHal_s != 0 && $author->valid_s == "VALID" && strpos($author->fullName_s, ",") === false) {
+							$tabIdHAL["idhals"][$iTIH] = $author->idHal_s;
+							if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
+								$tabIdHALsNC[$author->idHal_s] = $authFuN;
+								$idHALAjout = "oui";
+							}
+							break;
+						}
+					}
+				}
+			}
+			
+			if($idHALAjout == "non" && strlen(str_replace(array("-", "."), "", $tabIdHAL["prenom"][$iTIH])) <= 2) {
+				$reqAut = "https://api.archives-ouvertes.fr/ref/author/?q=fullName_t:%22".$tabIdHAL["nom"][$iTIH]."%22%20AND%20valid_s:%22VALID%22&rows=1000&fl=idHal_i,idHal_s,docid,valid_s,emailDomain_s,fullName_s&sort=valid_s%20desc,docid%20asc,fullName_s%20asc";
+				$reqAut = str_replace(" ", "%20", $reqAut);
+				//echo '<a target="_blank" href="'.$reqAut.'">URL requête auteurs HAL (Méthode intermédiaire 1-2)</a><br>';
+				//echo $reqAut.'<br>';
+				$contAut = file_get_contents($reqAut);
+				$resAut = json_decode($contAut);
+				$numFound = 0;
+				if(isset($resAut->response->numFound)) {$numFound=$resAut->response->numFound;}
+				if($numFound != 0) {
+					foreach($resAut->response->docs as $author) {
+						if(isset($author->idHal_s) && $author->idHal_s != 0 && $author->valid_s == "VALID" && strpos($author->fullName_s, ",") === false) {
+							$tabIdHAL["idhals"][$iTIH] = $author->idHal_s;
+							if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
+								$tabIdHALsNC[$author->idHal_s] = $authFuN;
+								$idHALAjout = "oui";
+							}
+							break;
+						}
+					}
+				}
+			}
+			
+			if($idHALAjout == "non") {
+				$reqAut = "https://api.archives-ouvertes.fr/ref/author/?q=fullName_sci:(%22".$firstNameT."%20".$lastNameT."%22%20OR%20%22".substr($firstNameT, 0, 1)."%20".$lastNameT."%22)%20AND%20valid_s:(%22OLD%22%20OR%20%22INCOMING%22)&rows=1000&fl=idHal_i,idHal_s,docid,valid_s,emailDomain_s,fullName_s&sort=valid_s%20desc,docid%20asc,fullName_s%20asc";
+				$reqAut = str_replace(" ", "%20", $reqAut);
+				//echo '<a target="_blank" href="'.$reqAut.'">URL requête auteurs HAL (2ème méthode)</a><br>';
+				//echo $reqAut.'<br>';
+				$contAut = file_get_contents($reqAut);
+				$resAut = json_decode($contAut);
+				$numFound = 0;
+				if(isset($resAut->response->numFound)) {$numFound=$resAut->response->numFound;}
+				if($numFound != 0) {
+					foreach($resAut->response->docs as $author) {
+						if(isset($author->idHal_s) && $author->idHal_s != 0 && $author->valid_s == "VALID" && strpos($author->fullName_s, ",") === false) {
+							$tabIdHAL["idhals"][$iTIH] = $author->idHal_s;
+							if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
+								$tabIdHALsNC[$author->idHal_s] = $authFuN;
+								$idHALAjout = "oui";
+							}
+							break;
+						}
+					}
+				}
+			}
+			
+			if($idHALAjout == "non" && strlen($tabIdHAL["prenom"][$iTIH]) > 2) {
+				$reqAut = "https://api.archives-ouvertes.fr/ref/author/?q=fullName_t:%22".$tabIdHAL["prenom"][$iTIH]."%20".$tabIdHAL["nom"][$iTIH]."%22%20AND%20valid_s:%22VALID%22&rows=1000&fl=idHal_i,idHal_s,docid,valid_s,emailDomain_s,fullName_s&sort=valid_s%20desc,docid%20asc,fullName_s%20asc";
+				$reqAut = str_replace(" ", "%20", $reqAut);
+				//echo '<a target="_blank" href="'.$reqAut.'">URL requête auteurs HAL (3ème méthode)</a><br>';
+				//echo $reqAut.'<br>';
+				$contAut = file_get_contents($reqAut);
+				$resAut = json_decode($contAut);
+				$numFound = 0;
+				if(isset($resAut->response->numFound)) {$numFound=$resAut->response->numFound;}
+				if($numFound != 0) {
+					foreach($resAut->response->docs as $author) {
+						if(isset($author->idHal_s) && $author->idHal_s != 0 && $author->valid_s == "VALID" && strpos($author->fullName_s, ",") === false) {
+							$tabIdHAL["idhals"][$iTIH] = $author->idHal_s;
+							if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
+								$tabIdHALsNC[$author->idHal_s] = $authFuN;
+								$idHALAjout = "oui";
+							}
+							break;
+						}
+					}
+				}
+			}
+				
+			
+			
 			//L'idHAL trouvé est-il déjà présent dans la notice > si oui, la ligne ne sera pas à afficher
 			$aIH = 0;
 			while (isset($arrayHAL["response"]["docs"][$cpt]["authIdHal_s"][$aIH])) {
@@ -124,6 +223,9 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			$iAut++;
 			$iTIH++;
 		}
+		
+		//var_dump($tabIdHAL);
+		//die();
 	}
 }
 //var_dump($tabStructNC);

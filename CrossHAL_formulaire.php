@@ -712,7 +712,7 @@
 																																						</div>
 																																					</div>
 																																					
-																																					<div class="form-group col-sm-9">
+																																					<div class="form-group col-sm-6">
 																																						<div class="custom-control custom-checkbox">
 																																							<input type="checkbox" id="chk19" class="custom-control-input" onclick="option2();" name="iniPre" value="oui"<?php echo $erp;?>>
 																																							<label for="chk19" class="custom-control-label">
@@ -720,6 +720,11 @@
 																																							</label>
 																																						</div>
 																																					</div>
+																																					
+																																					<div class="form-group col-sm-3">
+																																						<a target="_blank" rel="noopener noreferrer" href="./CrossIDHAL_CSV.php">Procédure CSV OCDHAL</a>
+																																					</div>
+																																				
 																																				</div>
 																																				
 																																				<div class="form-group row mb-2">

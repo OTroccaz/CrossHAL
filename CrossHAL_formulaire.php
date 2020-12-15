@@ -872,6 +872,8 @@
 																																					echo "	</div>";
 																																					echo "</div>";
 																																					echo "</div>";
+																																				}else{
+																																					echo "<span id=\"chk47\"></span>";
 																																				}
 																																				?>
 																																				

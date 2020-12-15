@@ -53,9 +53,9 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				if (strtolower(wd_remove_accents($tabIdHAL["prenom"][$iTIH])) != "") {
 					if (strpos($tabAI[0], strtolower(wd_remove_accents($tabIdHAL["prenom"][$iTIH]))) !== false) {
 						$tabIdHAL["idhals"][$iTIH] = $tabAI[0];
+						$idHALAjout = "oui";
 						if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
 							$tabIdHALsNC[$tabAI[0]] = $authFuN;
-							$idHALAjout = "oui";
 						}
 					}
 				}
@@ -69,9 +69,9 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						if (strtolower(wd_remove_accents($tabIdHAL["prenom"][$iTIH])) != "") {
 							if (strpos($arrayRefAut["response"]["docs"][$iref]["idHal_s"], strtolower(wd_remove_accents($tabIdHAL["prenom"][$iTIH]))) !== false) {
 								$tabIdHAL["idhals"][$iTIH] = $arrayRefAut["response"]["docs"][$iref]["idHal_s"];
+								$idHALAjout = "oui";
 								if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
 									$tabIdHALsNC[$arrayRefAut["response"]["docs"][$iref]["idHal_s"]] = $authFuN;
-									$idHALAjout = "oui";
 								}
 							}
 						}
@@ -88,16 +88,16 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				foreach($CrossIDHAL as $elt) {
 					if($elt["UniqK"] == $testUniqK) {
 						$tabIdHAL["idhals"][$iTIH] = $elt["idHAL"];
+						$idHALAjout = "oui";
 						if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
 							$tabIdHALsNC[$elt["idHAL"]] = $authFuN;
-							$idHALAjout = "oui";
 						}
 						break;
 					}
 				}
 			}
-				
 			
+		
 			//L'idHAL trouvé est-il déjà présent dans la notice > si oui, la ligne ne sera pas à afficher
 			$aIH = 0;
 			while (isset($arrayHAL["response"]["docs"][$cpt]["authIdHal_s"][$aIH])) {
@@ -111,6 +111,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				$tabIdHAL["idhals"][$iTIH] = "-";
 				$tabIdHAL["aff"][$iTIH] = "non";
 			}
+			
 			
 			//Recherche de l'affiliation
 			$iAff = 0;//Indice de parcours des résultats obtenus avec authIdHasStructure_fs

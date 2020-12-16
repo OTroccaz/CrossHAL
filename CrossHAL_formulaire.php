@@ -682,7 +682,7 @@
                                                             </div>
                                                             <div id="collapseTwo" class="collapse p-2" aria-labelledby="headingTwo" data-parent="#accordionChoix">
 																																<div class="card-body">
-																																		<div class="border border-grey rounded p-2 mb-2">
+																																		<!--<div class="border border-grey rounded p-2 mb-2">-->
 
 																																				<?php
 																																				if (isset($ordAut) && $ordAut == "oui") {$tua = " checked";}else{$tua = "";}
@@ -702,36 +702,7 @@
 																																				if (isset($rIdHALPub) && $rIdHALPub == "oui") {$idhpub = " checked";}else{$idhpub = "";}
 																																				?>
 																																			
-																																				<div class="form-group row mb-1">
-																																					<div class="form-group col-sm-3">
-																																						<div class="custom-control custom-checkbox">
-																																							<input type="checkbox" id="chk18" class="custom-control-input" onclick="option2();" name="ordAut" value="oui"<?php echo $tua;?>>
-																																							<label for="chk18" class="custom-control-label">
-																																							Corriger l'ordre des auteurs
-																																							</label>
-																																						</div>
-																																					</div>
-																																					
-																																					<div class="form-group col-sm-6">
-																																						<div class="custom-control custom-checkbox">
-																																							<input type="checkbox" id="chk19" class="custom-control-input" onclick="option2();" name="iniPre" value="oui"<?php echo $erp;?>>
-																																							<label for="chk19" class="custom-control-label">
-																																							Remplacer l'initiale du premier prénom par son écriture complète
-																																							</label>
-																																						</div>
-																																					</div>
-																																					
-																																					<div class="form-group col-sm-3">
-																																						<a target="_blank" rel="noopener noreferrer" href="./CrossIDHAL_CSV.php">Procédure CSV OCDHAL</a>
-																																					</div>
-																																				
-																																				</div>
-																																				
-																																				<div class="form-group row mb-2">
-																																					<br>
-																																				</div>
-																																				
-																																				<div class="form-group row mb-1">
+																																				<div class="form-group row mb-1 border border-dark rounded p-2">
 																																					<div class="form-group col-sm-12">
 																																						<div class="custom-control custom-checkbox">
 																																							<input type="checkbox" id="chk25" class="custom-control-input" onclick="option2();" name="rIdHAL" value="oui"<?php echo $idh;?>>
@@ -834,13 +805,11 @@
 																																					<div class="col-sm-12 font-italic">
 																																					Cette option permet de rechercher d'éventuels IdHAL auteur absents des notices.
 																																					</div>
-																																				</div>
-																																				
-																																				<div class="form-group row mb-2">
-																																					&nbsp;<br>
-																																				</div>
-																																				
-																																				<div class="form-group row mb-1">
+																																					
+																																					<div class="form-group row mb-4">
+																																						&nbsp;
+																																					</div>
+																																					
 																																					<div class="form-group col-sm-12">
 																																						<div class="custom-control custom-checkbox">
 																																							<input type="checkbox" id="chk36" class="custom-control-input" onclick="option2();" name="vIdHAL" value="oui"<?php echo $idv;?>>
@@ -853,16 +822,46 @@
 																																					Pour ce test de repérage, choisissez une période de recherche raisonnable pour limiter le nombre total de notices. L'incrément de recherche n'a aucune incidence puisque toutes les notices comportant au moins un auteur de la collection sont traitées.
 																																					</div>
 																																				</div>
-																																			
+																																				
 																																				<div class="form-group row mb-2">
-																																					&nbsp;<br>
+																																					<br>
 																																				</div>
 																																				
+																																				<div class="form-group row mb-1 border border-dark rounded p-2">
+																																					<div class="form-group col-sm-3">
+																																						<div class="custom-control custom-checkbox">
+																																							<input type="checkbox" id="chk18" class="custom-control-input" onclick="option2();" name="ordAut" value="oui"<?php echo $tua;?>>
+																																							<label for="chk18" class="custom-control-label">
+																																							Corriger l'ordre des auteurs
+																																							</label>
+																																						</div>
+																																					</div>
+																																					<span id="chk19"></span><!--Conserver le présence de l'id chk19 si l'option ci-dessous est réactivée-->
+																																					<!--
+																																					<div class="form-group col-sm-6">
+																																						<div class="custom-control custom-checkbox">
+																																							<input type="checkbox" id="chk19" class="custom-control-input" onclick="option2();" name="iniPre" value="oui"<?php echo $erp;?>>
+																																							<label for="chk19" class="custom-control-label">
+																																							Remplacer l'initiale du premier prénom par son écriture complète
+																																							</label>
+																																						</div>
+																																					</div>
+																																					-->
+																																					<div class="form-group col-sm-9">
+																																						<a target="_blank" rel="noopener noreferrer" href="./CrossIDHAL_CSV.php">Chargez le fichier Auteurs d'OCdHAL (à renommer "code-collection.csv")</a>
+																																					</div>
+																																				
+																																				</div>
+																																				
+																																				<div class="form-group row mb-2">
+																																					<br><br>
+																																				</div>
+																																																																							
 																																				<?php
 																																				//Restriction IP pour le contrôle des tiers
 																																				include("./Glob_IP_list.php");
 																																				if (in_array($ip, $IP_aut)) {
-																																					echo "<div class=\"form-group row mb-1\">";
+																																					echo "<div class=\"form-group row mb-1 border border-dark rounded p-2\">";
 																																					echo "<div class=\"form-group col-sm-12\">";
 																																					echo "	<div class=\"custom-control custom-checkbox\">";
 																																					echo "		<input type=\"checkbox\" id=\"chk47\" class=\"custom-control-input\" onclick=\"option2();\" name=\"ctrTrs\" value=\"oui\"".$ctr.">";
@@ -878,7 +877,7 @@
 																																				?>
 																																				
 																																			</div>
-																																	</div>
+																																	<!--</div>-->
 																															</div>
 																													</div>
 																															

@@ -702,7 +702,7 @@
 																																				if (isset($rIdHALPub) && $rIdHALPub == "oui") {$idhpub = " checked";}else{$idhpub = "";}
 																																				?>
 																																			
-																																				<div class="form-group row mb-1 border border-dark rounded p-2">
+																																				<div class="form-group row mb-2 border border-grey rounded p-2">
 																																					<div class="form-group col-sm-12">
 																																						<div class="custom-control custom-checkbox">
 																																							<input type="checkbox" id="chk25" class="custom-control-input" onclick="option2();" name="rIdHAL" value="oui"<?php echo $idh;?>>
@@ -802,6 +802,10 @@
 																																						</div>
 																																					</div>
 																																					
+																																					<div class="form-group col-sm-6">
+																																						<a target="_blank" rel="noopener noreferrer" href="./CrossIDHAL_CSV.php">Chargez le fichier Auteurs d'OCdHAL (à renommer "code-collection.csv" et au format UTF-8)</a>
+																																					</div>
+																																					
 																																					<div class="col-sm-12 font-italic">
 																																					Cette option permet de rechercher d'éventuels IdHAL auteur absents des notices.
 																																					</div>
@@ -827,7 +831,7 @@
 																																					<br>
 																																				</div>
 																																				
-																																				<div class="form-group row mb-1 border border-dark rounded p-2">
+																																				<div class="form-group row mb-1 border border-grey rounded p-2">
 																																					<div class="form-group col-sm-3">
 																																						<div class="custom-control custom-checkbox">
 																																							<input type="checkbox" id="chk18" class="custom-control-input" onclick="option2();" name="ordAut" value="oui"<?php echo $tua;?>>
@@ -847,9 +851,6 @@
 																																						</div>
 																																					</div>
 																																					-->
-																																					<div class="form-group col-sm-9">
-																																						<a target="_blank" rel="noopener noreferrer" href="./CrossIDHAL_CSV.php">Chargez le fichier Auteurs d'OCdHAL (à renommer "code-collection.csv")</a>
-																																					</div>
 																																				
 																																				</div>
 																																				
@@ -861,7 +862,7 @@
 																																				//Restriction IP pour le contrôle des tiers
 																																				include("./Glob_IP_list.php");
 																																				if (in_array($ip, $IP_aut)) {
-																																					echo "<div class=\"form-group row mb-1 border border-dark rounded p-2\">";
+																																					echo "<div class=\"form-group row mb-1 border border-grey rounded p-2\">";
 																																					echo "<div class=\"form-group col-sm-12\">";
 																																					echo "	<div class=\"custom-control custom-checkbox\">";
 																																					echo "		<input type=\"checkbox\" id=\"chk47\" class=\"custom-control-input\" onclick=\"option2();\" name=\"ctrTrs\" value=\"oui\"".$ctr.">";

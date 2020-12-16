@@ -570,9 +570,9 @@ if ($iMax != $numFound) {
 	echo "<input type='hidden' value='".$rIdHALPub."' name='rIdHALPub'>";
 	echo "<input type='hidden' value='Valider' name='valider'>";
 	if ($iMinInit != 1) {
-		echo "<input type='submit' class='form-control btn btn-md btn-primary' value='Retour' style='width: 70px;' name='retour'>&nbsp;&nbsp;&nbsp;";
+		echo "<input type='submit' class='btn btn-md btn-primary btn-sm' value='Retour' name='retour'>&nbsp;&nbsp;&nbsp;";
 	}
-	echo "<input type='submit' class='form-control btn btn-md btn-primary' value='Suite' style='width: 70px;' name='suite'>";
+	echo "<input type='submit' class='btn btn-md btn-primary btn-sm' value='Suite' name='suite'>";
 	echo "</form><br>";
 	//echo "<script>formFilePDF();</script>";
 }else{
@@ -602,7 +602,7 @@ if ($iMax != $numFound) {
 	echo "<input type='hidden' value='".$rIdHALPub."' name='rIdHALPub'>";
 	echo "<input type='hidden' value='Valider' name='valider'>";
 	if ($iMaxRet != 0) {
-		echo "<input type='submit' class='form-control btn btn-md btn-primary' value='Retour' style='width: 70px;' name='retour'>";
+		echo "<input type='submit' class='btn btn-md btn-primary btn-sm' value='Retour' name='retour'>";
 	}
 }
 if ($cptAff == 0 && $iPro < $numFound) {//Auto-soumission du formulaire

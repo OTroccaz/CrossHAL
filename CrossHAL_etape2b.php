@@ -40,6 +40,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			$tabIdHAL["nom"][$iTIH] = ucfirst($arrayHAL["response"]["docs"][$cpt]["authLastName_s"][$iAut]);
 			$tabIdHAL["prenom"][$iTIH] = ucfirst($arrayHAL["response"]["docs"][$cpt]["authFirstName_s"][$iAut]);
 			$tabIdHAL["aff"][$iTIH] = "oui";//Par défaut, l'IdHAL est à rechercher/afficher
+			$tabIdHAL["affiliation"][$iTIH] = "-";
 
 			//Recherche de l'IdHAL
 			$tabAI = explode("_FacetSep_", $arrayHAL["response"]["docs"][$cpt]["authIdHalFullName_fs"][$iAut]);
@@ -113,7 +114,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 			
 			
-			//Recherche de l'affiliation
+			//Recherche de(s) l'affiliation(s)
 			$iAff = 0;//Indice de parcours des résultats obtenus avec authIdHasStructure_fs
 			while(isset($arrayHAL["response"]["docs"][$cpt]["authIdHasStructure_fs"][$iAff])) {
 				$tabIS = explode("_FacetSep_", $arrayHAL["response"]["docs"][$cpt]["authIdHasStructure_fs"][$iAff]);
@@ -123,16 +124,14 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$pnAut = $tabISP[0];
 					//if ($tabISP[0] == $authFuN) {//Les noms complets de l'auteur correspondent
 					if ($pnAut == $authFuN) {//Les noms complets de l'auteur correspondent
-						$tabIdHAL["affiliation"][$iTIH] = $tabISP[1];
-						if (!array_key_exists($authFuN, $tabStructNC)) {$tabStructNC[$authFuN] = $tabISP[1];}
-						$iAff++;
-						break;
-					}else{
-						$tabIdHAL["affiliation"][$iTIH] = "-";
-						$iAff++;
+						$tabIdHAL["affiliation"][$iTIH] .= "~".$tabISP[1];
+						if (!array_key_exists($authFuN, $tabStructNC)) {
+							$tabStructNC[$authFuN] = $tabISP[1];
+						}else{
+							if (strpos($tabStructNC[$authFuN], $tabISP[1]) === false) {$tabStructNC[$authFuN] .= "~".$tabISP[1];}
+						}
 					}
-				}else{
-					break;
+					$iAff++;
 				}
 			}
 			if (isset($arrayHAL["response"]["docs"][$cpt]["producedDate_s"])) {
@@ -148,6 +147,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		//die();
 	}
 }
+
 //var_dump($tabStructNC);
 //var_dump($tabdocidNC);
 //var_dump($tabIdHALsNC);
@@ -160,7 +160,16 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 	$lignAff = "no";//Test affichage ou non de la ligne du tableau
 	$textAff = "";//Texte de la ligne du tableau
 	$iCpt = $cpt + 1;
-	if ($docidStr != "" && strpos($docidStr, $tabIdHAL["affiliation"][$cpt]) !== false) {//N'afficher que les auteurs de la collection recherchée
+	//N'afficher que les auteurs de la collection recherchée
+	$yestu = "non";
+	$tabYet = explode("~", $tabIdHAL["affiliation"][$cpt]);
+	foreach($tabYet as $yet) {
+		if ($docidStr != "" && strpos($docidStr, $yet) !== false) {
+			$yestu = "oui";
+			break;
+		}
+	}
+	if ($yestu == "oui") {//Auteur de la collection recherchée
 		$textAff .= "<tr style='text-align: center;'>";
 		$textAff .= "<td>".$iCpt."</td>";
 		if (isset($tabIdHAL["lienDOI"][$cpt])) {
@@ -313,7 +322,7 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 												}
 											}
 											if ($trouve == "ouioui") {
-												//suppression noeuds idno, affiliation et email
+												//suppression noeuds idno, affiliation, orgname et email
 												if ($elt->getElementsByTagName("idno")->length > 0) {
 													while($newXml = $elt->getElementsByTagName("idno")->item(0)) {
 														$newXml->parentNode->removeChild($newXml);
@@ -322,6 +331,12 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 												}
 												if ($elt->getElementsByTagName("affiliation")->length > 0) {
 													while($newXml = $elt->getElementsByTagName("affiliation")->item(0)) {
+														$newXml->parentNode->removeChild($newXml);
+														//$newXml = $elt->removeChild($elt->getElementsByTagName("affiliation")->item(0));
+													}
+												}
+												if ($elt->getElementsByTagName("orgName")->length > 0) {
+													while($newXml = $elt->getElementsByTagName("orgName")->item(0)) {
 														$newXml->parentNode->removeChild($newXml);
 														//$newXml = $elt->removeChild($elt->getElementsByTagName("affiliation")->item(0));
 													}
@@ -403,9 +418,34 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 													$newXml = $elt->appendChild($node);
 												}
 												if ($struct != "") {
-													$node = $xml->createElement("affiliation");
-													$node->setAttribute("ref", "#struct-".$struct);
-													$newXml = $elt->appendChild($node);
+													//Il faut différencier les 'orgName' des 'affiliation' et les placer dans cet ordre
+													$tabStr = explode("~", $struct);
+													/*
+													foreach($tabStr as $str) {
+														$eltstr = $xml->getElementsByTagName("org");
+														foreach ($eltstr as $eltr) {
+															if ($eltr->hasAttribute("xml:id") && $eltr->getAttribute("xml:id") == "struct-".$str) {
+																if ($eltr->getAttribute("type") == "institution") {
+																	$node = $xml->createElement("orgName");
+																	$node->setAttribute("ref", "#struct-".$str);
+																	$newXml = $elt->appendChild($node);
+																}
+															}
+														}
+													}
+													*/
+													foreach($tabStr as $str) {
+														$eltstr = $xml->getElementsByTagName("org");
+														foreach ($eltstr as $eltr) {
+															if ($eltr->hasAttribute("xml:id") && $eltr->getAttribute("xml:id") == "struct-".$str) {
+																if ($eltr->getAttribute("type") == "laboratory") {
+																	$node = $xml->createElement("affiliation");
+																	$node->setAttribute("ref", "#struct-".$str);
+																	$newXml = $elt->appendChild($node);
+																}
+															}
+														}
+													}
 												}
 												
 												break 2;

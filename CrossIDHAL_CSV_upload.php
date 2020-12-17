@@ -105,7 +105,7 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 		$uniqK = "";
 		$chaine .= $ind.'=>array("Quand"=>"'.$elt["Quand"].'", ';
 		$chaine .= '"Collection"=>"'.$elt["Collection"].'", ';
-		$uniqK .= $elt["Collection"];
+		//$uniqK .= $elt["Collection"];
 		$chaine .= '"Nom"=>"'.$elt["Nom"].'", ';
 		$uniqK .= $elt["Nom"];
 		$chaine .= '"Prenom"=>"'.$elt["Prenom"].'", ';
@@ -143,7 +143,7 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 				$chaine = $ind.'=>array("Quand"=>"'.$quand.'", ';
 				//$chaine = 'array("Quand"=>"'.$quand.'", ';
         $chaine .= '"Collection"=>"'.strtoupper(strstr($_FILES['CSV_OCDHAL']['name'], '.', true)).'", ';
-				$uniqK .= strstr($_FILES['CSV_OCDHAL']['name'], '.', true);
+				//$uniqK .= strstr($_FILES['CSV_OCDHAL']['name'], '.', true);
         $chaine .= '"Nom"=>"'.$tab[0].'", ';
 				$uniqK .= $tab[0];
         $chaine .= '"Prenom"=>"'.$tab[1].'", ';

@@ -84,10 +84,12 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			
 			if($idHALAjout == "non") {//Recherche de l'idHAL avec le tableau généré à partir des CSV OCDHAL
 				include("./CrossIDHAL.php");
-				$testUniqK = strtolower(normalize($team.$tabIdHAL["nom"][$iTIH].$tabIdHAL["prenom"][$iTIH]));
+				//$testUniqK = strtolower(normalize($team.$tabIdHAL["nom"][$iTIH].$tabIdHAL["prenom"][$iTIH]));
+				$testUniqK1 = strtolower(normalize($tabIdHAL["nom"][$iTIH].$tabIdHAL["prenom"][$iTIH]));// Nom + prénom complets
+				$testUniqK2 = strtolower(normalize($tabIdHAL["nom"][$iTIH].prenomCompInit($tabIdHAL["prenom"][$iTIH])));//Nom complet + initiales du prénom
 				//if(array_search($testUniqK, array_column($CrossIDHAL, "UniqK")) !== false) {//Auteur trouvé
 				foreach($CrossIDHAL as $elt) {
-					if($elt["UniqK"] == $testUniqK) {
+					if($elt["UniqK"] == $testUniqK1 || $elt["UniqK"] == $testUniqK2) {
 						$tabIdHAL["idhals"][$iTIH] = $elt["idHAL"];
 						$idHALAjout = "oui";
 						if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau

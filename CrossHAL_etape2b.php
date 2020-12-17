@@ -18,6 +18,7 @@ while(isset($arrayHALStr["response"]["docs"][$idoc]["docid"])) {
 //for($cpt = 0; $cpt < $numFound; $cpt++) {
 //for($cpt = 0; $cpt < 20; $cpt++) {
 $iMinTab = $iMin - 1;
+$iPro = 0;
 for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 	progression($cpt+1, $iMax, $iPro);
 	$bapa = false;//Booléen HAL (true/false) précisant si c'est une notice à paraître > inPress_bool
@@ -100,7 +101,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				}
 			}
 			
-		
+			
 			//L'idHAL trouvé est-il déjà présent dans la notice > si oui, la ligne ne sera pas à afficher
 			$aIH = 0;
 			while (isset($arrayHAL["response"]["docs"][$cpt]["authIdHal_s"][$aIH])) {
@@ -115,6 +116,18 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				$tabIdHAL["aff"][$iTIH] = "non";
 			}
 			
+			/*
+			echo $cpt.' - '.$arrayHAL["response"]["docs"][$cpt]["halId_s"].'<br>';
+			//if ($tabIdHAL["nom"][$iTIH] == "Cammarata" || $tabIdHAL["nom"][$iTIH] == "Lebreton" || $tabIdHAL["nom"][$iTIH] == "Sims") {
+			if (($arrayHAL["response"]["docs"][$cpt]["halId_s"] == "hal-02634666" || $arrayHAL["response"]["docs"][$cpt]["halId_s"] == "hal-02928270") && $tabIdHAL["nom"][$iTIH] == "Sims") {
+				echo $testUniqK1.' - '.$testUniqK2.'<br>';
+				echo $idHALAjout.'<br>';
+				echo $cpt.'<br>';
+				var_dump($tabIdHALsNC);
+				var_dump($arrayHAL["response"]["docs"][$cpt]["authIdHal_s"]);
+				//die();
+			}
+			*/
 			
 			//Recherche de(s) l'affiliation(s)
 			$iAff = 0;//Indice de parcours des résultats obtenus avec authIdHasStructure_fs

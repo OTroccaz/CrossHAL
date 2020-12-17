@@ -39,6 +39,7 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 <hr style="color: #467666; height: 1px; border-width: 1px; border-top-color: #467666; border-style: inset;">
 
 <?php
+include "./CrossHAL_fonctions.php";
 function utf8_fopen_read($fileName) {
     //$fc = iconv('windows-1250', 'utf-8', file_get_contents($fileName));
     $fc = file_get_contents($fileName);
@@ -139,6 +140,7 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 		$total = count(file($temp));
 		while($tab = fgetcsv($handle, 0, ';')) {
 			if ($ligne != 0) {//Exclure les noms des colonnes
+				//Traitement avec ajout prénom complet
 				$uniqK = "";
 				$chaine = $ind.'=>array("Quand"=>"'.$quand.'", ';
 				//$chaine = 'array("Quand"=>"'.$quand.'", ';
@@ -168,12 +170,56 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 				}
 				$uniqK = strtolower(normalize($uniqK));
 				$chaine .= '"UniqK"=>"'.$uniqK.'")';
-				if ($ligne != $total-1) {$chaine .= ',';}
+				if ($ligne != $total-1) {
+					$chaine .= ',';
+				}else{
+					if (strlen(str_replace(".", "", $tab[1])) > 1) {$chaine .= ',';}
+				}
 				$chaine .= chr(13);
 				if (!in_array($uniqK, $unKTab) && $tab[2] != "") {//L'auteur n'est pas dans le tableau et son idHAL est renseigné
 					fwrite($inF,$chaine);
 					$unKTab[] = $uniqK;
 					$ind++;
+				}
+				
+				//Traitement avec ajout intiale(s) du prénom si celui-ci, débarrassé des points contient plus d'1 caractère
+				if (strlen(str_replace(".", "", $tab[1])) > 1) {
+					$uniqK = "";
+					$chaine = $ind.'=>array("Quand"=>"'.$quand.'", ';
+					//$chaine = 'array("Quand"=>"'.$quand.'", ';
+					$chaine .= '"Collection"=>"'.strtoupper(strstr($_FILES['CSV_OCDHAL']['name'], '.', true)).'", ';
+					//$uniqK .= strstr($_FILES['CSV_OCDHAL']['name'], '.', true);
+					$chaine .= '"Nom"=>"'.$tab[0].'", ';
+					$uniqK .= $tab[0];
+					$chaine .= '"Prenom"=>"'.prenomCompInit($tab[1]).'", ';
+					$uniqK .= prenomCompInit($tab[1]);
+					$chaine .= '"idHAL"=>"'.$tab[2].'", ';
+					//$uniqK .= $tab[2];
+					$chaine .= '"idAUT"=>"'.$tab[3].'", ';
+					//$uniqK .= $tab[3];
+					$chaine .= '"idORCID"=>"'.$tab[4].'", ';
+					//$uniqK .= $tab[4];
+					$chaine .= '"Affiliation"=>"'.$tab[9].'", ';
+					//$uniqK .= $tab[9];
+					$chaine .= '"Domaine"=>"'.$tab[10].'", ';
+					//$uniqK .= $tab[10];
+					//Si prénom abrégé (initiale(s)), pas sûr à 100%
+					if (strpos($tab[1], ".") === false) {
+						$chaine .= '"Valide"=>"oui", ';
+						//$uniqK .= "oui";
+					}else{
+						$chaine .= '"Valide"=>"non", ';
+						//$uniqK .= "non";
+					}
+					$uniqK = strtolower(normalize($uniqK));
+					$chaine .= '"UniqK"=>"'.$uniqK.'")';
+					if ($ligne != $total-1) {$chaine .= ',';}
+					$chaine .= chr(13);
+					if (!in_array($uniqK, $unKTab) && $tab[2] != "") {//L'auteur n'est pas dans le tableau et son idHAL est renseigné
+						fwrite($inF,$chaine);
+						$unKTab[] = $uniqK;
+						$ind++;
+					}
 				}
 			}
 			$ligne++;

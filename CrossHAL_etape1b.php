@@ -589,7 +589,7 @@ if ($iMax != $numFound) {
 	}
 }
 /*
-if ($cptAff == 0) {//Auto-soumission du formulaire
+if ($cptAff == 0 && $cpt != $iMax) {//Auto-soumission du formulaire si ce n'est pas la dernière notice à avoir été traitée
 	echo "<script>";
 	echo "  document.getElementById(\"etape1\").submit(); ";
 	echo "</script>";

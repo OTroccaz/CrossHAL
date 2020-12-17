@@ -176,6 +176,40 @@ function corrXML($xml) {
 			}
 		}
 		
+		//Correction éventuelle de l'ordre des noeuds ref et fs pour les types de documents
+		$edts = $xml->getElementsByTagName("edition");
+		foreach($edts as $edt) {
+			$tabRf = array();
+			$tabFs = array();
+			foreach($edt->childNodes as $elt) {
+				if($elt->nodeName == "ref") {
+					//Enregistrement de la référence
+					$tabRf[] = $elt;
+				}
+				if($elt->nodeName == "fs") {
+					//Enregistrement du 'fs'
+					$tabFs[] = $elt;
+				}
+			}
+			//Suppression des références
+			foreach($tabRf as $ref){ 
+				$edt->removeChild($ref);
+			}
+			//Suppression des 'fs'
+			foreach($tabFs as $fes){ 
+				$edt->removeChild($fes);
+			}
+			//Ajout des références à la fin des noeuds
+			foreach($tabRf as $ref){ 
+				$edt->appendChild($ref);
+			}
+			//Ajout des 'fs' à la fin des noeuds
+			foreach($tabFs as $fes) {
+				$edt->appendChild($fes);																		
+			}
+		}
+		
+		
 		//Transformation des classCode VOCINRA en mots-clés
 		$tabClas = array();
 		$tabKeyw = array();

@@ -1,1 +1,1 @@
-<?php$CrossIDHAL = array(0=>array("Quand"=>"2020-03-29", "Collection"=>"IETR", "Nom"=>"tita", "Prenom"=>"", "idHAL"=>"", "idAUT"=>"", "idORCID"=>"", "Affiliation"=>"", "Domaine"=>"", "Valide"=>"", "UniqK"=>""));?>
+<?php$CrossIDHAL = array(0=>array("Quand"=>"2020-03-29", "Collection"=>"IETR", "Nom"=>"tita", "Prenom"=>"", "idHAL"=>"", "idHALnum"=>"", "idAUT"=>"", "idORCID"=>"", "Affiliation"=>"", "Domaine"=>"", "Valide"=>"", "UniqK"=>""));?>

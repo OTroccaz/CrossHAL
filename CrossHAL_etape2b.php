@@ -92,6 +92,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				foreach($CrossIDHAL as $elt) {
 					if($elt["UniqK"] == $testUniqK1 || $elt["UniqK"] == $testUniqK2) {
 						$tabIdHAL["idhals"][$iTIH] = $elt["idHAL"];
+						$tabIdHAL["idhali"][$iTIH] = $elt["idHALnum"];
 						$idHALAjout = "oui";
 						if (array_search($authFuN, $tabIdHALsNC) === false) {//On ajoute les équivalences 'IdHAL_s <> Nom complet' seulement si elle est absente du tableau
 							$tabIdHALsNC[$elt["idHAL"]] = $authFuN;

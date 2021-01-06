@@ -113,6 +113,8 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 		$uniqK .= $elt["Prenom"];
 		$chaine .= '"idHAL"=>"'.$elt["idHAL"].'", ';
 		//$uniqK .= $elt["idHAL"];
+		$chaine .= '"idHALnum"=>"'.$elt["idHALnum"].'", ';
+		//$uniqK .= $elt["idHALnum"];
 		$chaine .= '"idAUT"=>"'.$elt["idAUT"].'", ';
 		//$uniqK .= $elt["idAUT"];
 		$chaine .= '"idORCID"=>"'.$elt["idORCID"].'", ';
@@ -152,6 +154,8 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 				$uniqK .= $tab[1];
         $chaine .= '"idHAL"=>"'.$tab[2].'", ';
 				//$uniqK .= $tab[2];
+				$chaine .= '"idHALnum"=>"'.$tab[14].'", ';
+				//$uniqK .= $tab[14];
         $chaine .= '"idAUT"=>"'.$tab[3].'", ';
 				//$uniqK .= $tab[3];
         $chaine .= '"idORCID"=>"'.$tab[4].'", ';
@@ -195,6 +199,8 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 					$uniqK .= prenomCompInit($tab[1]);
 					$chaine .= '"idHAL"=>"'.$tab[2].'", ';
 					//$uniqK .= $tab[2];
+					$chaine .= '"idHALnum"=>"'.$tab[14].'", ';
+					//$uniqK .= $tab[14];
 					$chaine .= '"idAUT"=>"'.$tab[3].'", ';
 					//$uniqK .= $tab[3];
 					$chaine .= '"idORCID"=>"'.$tab[4].'", ';

@@ -44,6 +44,7 @@
 																					if (isset($_POST["absISTEX"]) && $_POST["absISTEX"] == "oui") {$absISTEX = htmlspecialchars($_POST["absISTEX"]);$opt1 = "oui";}else{$absISTEX = "non";}
 																					if (isset($_POST["lanISTEX"]) && $_POST["lanISTEX"] == "oui") {$lanISTEX = htmlspecialchars($_POST["lanISTEX"]);$opt1 = "oui";}else{$lanISTEX = "non";}
 																					if (isset($_POST["mocISTEX"]) && $_POST["mocISTEX"] == "oui") {$mocISTEX = htmlspecialchars($_POST["mocISTEX"]);$opt1 = "oui";}else{$mocISTEX = "non";}
+																					if (isset($_POST["csvDOIAC"]) && $_POST["csvDOIAC"] == "oui") {$csvDOIAC = htmlspecialchars($_POST["csvDOIAC"]);$opt1 = "oui";}else{$csvDOIAC = "non";}
 																					if (isset($_POST["DOIComm"]) && $_POST["DOIComm"] == "oui") {$DOIComm = htmlspecialchars($_POST["DOIComm"]);$opt1 = "oui";}else{$DOIComm = "non";}
 																					if (isset($_POST["PoPeer"]) && $_POST["PoPeer"] == "oui") {$PoPeer = htmlspecialchars($_POST["PoPeer"]);$opt1 = "oui";}else{$PoPeer = "non";}
 
@@ -155,6 +156,7 @@
 																													if (isset($_POST["absISTEX"]) && $_POST["absISTEX"] == "oui") {$absISTEX = htmlspecialchars($_POST["absISTEX"]);$opt1 = "oui";}else{$absISTEX = "non";}
 																													if (isset($_POST["lanISTEX"]) && $_POST["lanISTEX"] == "oui") {$lanISTEX = htmlspecialchars($_POST["lanISTEX"]);$opt1 = "oui";}else{$lanISTEX = "non";}
 																													if (isset($_POST["mocISTEX"]) && $_POST["mocISTEX"] == "oui") {$mocISTEX = htmlspecialchars($_POST["mocISTEX"]);$opt1 = "oui";}else{$mocISTEX = "non";}
+																													if (isset($_POST["csvDOIAC"]) && $_POST["csvDOIAC"] == "oui") {$csvDOIAC = htmlspecialchars($_POST["csvDOIAC"]);$opt1 = "oui";}else{$csvDOIAC = "non";}
 																													if (isset($_POST["DOIComm"]) && $_POST["DOIComm"] == "oui") {$DOIComm = htmlspecialchars($_POST["DOIComm"]);$opt1 = "oui";}else{$DOIComm = "non";}
 																													if (isset($_POST["PoPeer"]) && $_POST["PoPeer"] == "oui") {$PoPeer = htmlspecialchars($_POST["PoPeer"]);$opt1 = "oui";}else{$PoPeer = "non";}
 
@@ -384,6 +386,9 @@
 																																				if (isset($absISTEX) && $absISTEX == "oui") {$absI = " checked";}else{$absI = "";}
 																																				if (isset($lanISTEX) && $lanISTEX == "oui") {$lanI = " checked";}else{$lanI = "";}
 																																				if (isset($mocISTEX) && $mocISTEX == "oui") {$mocI = " checked";}else{$mocI = "";}
+																																				
+																																				if (isset($csvDOIAC) && $csvDOIAC == "oui") {$csvD = " checked";}else{$csvD = "";}
+																																				
 																																				if (isset($DOIComm) && $DOIComm == "non" || !isset($team)) {$DOICn = " checked";}else{$DOICn = "";}
 																																				if (isset($DOIComm) && $DOIComm == "oui") {$DOICo = " checked";}else{$DOICo = "";}
 																																				if (isset($PoPeer) && $PoPeer == "oui") {$Popo = " checked";}else{$Popo = "";}
@@ -625,6 +630,18 @@
 																																						</div>
 																																					</div>
 																																				</div><!-- .form-group -->
+																																				
+																																				<h4><span class='badge badge-secondary-lighten'>Via le CSV des DOIAC :</span></h4>
+																																				<div class="form-group row mb-1">
+																																					<div class="form-group col-sm-3">
+																																						<div class="custom-control custom-checkbox">
+																																							<input type="checkbox" id="chk52" class="custom-control-input" onclick="option1();" name="csvDOIAC" value="oui"<?php echo $csvD;?>>
+																																							<label for="chk52" class="custom-control-label">
+																																							Ajouter l'auteur correspondant
+																																							</label>
+																																						</div>
+																																					</div>
+																																				</div><!-- .form-group -->	
 																																					
 																																				<div class="form-group row mb-1">	
 																																					<div class="form-group col-sm-12">

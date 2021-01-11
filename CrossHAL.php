@@ -302,12 +302,17 @@ include("./Glob_normalize.php");
 																					}
 																					if (isset($idhal) && $idhal != "") {$atester = "authIdHal_s"; $qui = $idhal;}else{$atester = "collCode_s"; $qui = $team;}
 																					//Etape 1 sur les articles ou sur les conférences et chapitres ?
-																					if ($ccTitconf == "non" && $ccPays == "non" && $ccDatedeb == "non" && $ccDatefin == "non" && $ccISBN == "non" && $ccTitchap == "non" && $ccTitlivr == "non" && $ccEditcom == "non") {
+																					if ($ccTitconf == "non" && $ccPays == "non" && $ccDatedeb == "non" && $ccDatefin == "non" && $ccISBN == "non" && $ccTitchap == "non" && $ccTitlivr == "non" && $ccEditcom == "non" && $csvDOIAC == "non") {
 																						//Etape 1a sur les articles
 																						include "./CrossHAL_etape1a.php";
 																					}else{
-																						//Etape 1b sur les conférences et chapitres
-																						include "./CrossHAL_etape1b.php";
+																						if ($csvDOIAC == "non") {
+																							//Etape 1b sur les conférences et chapitres
+																							include "./CrossHAL_etape1b.php";
+																						}else{
+																							//Etape 1c sur les auteurs correspondants
+																							include "./CrossHAL_etape1c.php";
+																						}
 																					}
 																					echo '						</div> <!-- end card-body-->';
 																					echo '				</div> <!-- end card-->';

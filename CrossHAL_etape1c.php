@@ -107,31 +107,35 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		
 		corrXML($xml);
 		
-		//Recherche du nom de l'auteur correspondant
-		$tabAC = explode(",", $elt["ReprintAC"]);
-		$nomAC = $tabAC[0];
+		//Recherche du(des) nom(s) de(s) l'auteur(s) correspondant(s)
+		$tabTest = explode(";", $elt["ReprintAC"]);
 		
-		//Est-ce que cet auteur a bien été désigné comme auteur correspondant dans la notice HAL ?
-		$auts = $xml->getElementsByTagName("author");
-		foreach($auts as $aut) {
-			$quoi = $aut->getAttribute("role");
-			foreach($aut->childNodes as $item) {
-				if ($item->nodeName == "persName") {
-					foreach($item->childNodes as $qui) {
-						if ($qui->nodeName == "surname") {
-							if (stripos(wd_remove_accents($qui->nodeValue), wd_remove_accents($nomAC)) !== false && $quoi != "crp") {
-								//Le TEI est à modifier
-								$aut->setAttribute("role", "crp");
-								$xml->save($Fnm);
-								
-								$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
-								include "./CrossHAL_actions.php";
-								$testMaj = "ok";
-								$lignAff = "ok";
-								foreach($ACTIONS_LISTE as $tab) {
-									if (in_array($halID, $tab) && in_array("MAJ_DAC",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "auteur correspondant, ";}
+		foreach($tabTest as $tst) {
+			$tabAC = explode(",", $tst);
+			$nomAC = trim($tabAC[0]);
+			
+			//Est-ce que cet auteur a bien été désigné comme auteur correspondant dans la notice HAL ?
+			$auts = $xml->getElementsByTagName("author");
+			foreach($auts as $aut) {
+				$quoi = $aut->getAttribute("role");
+				foreach($aut->childNodes as $item) {
+					if ($item->nodeName == "persName") {
+						foreach($item->childNodes as $qui) {
+							if ($qui->nodeName == "surname") {
+								if (stripos(wd_remove_accents($qui->nodeValue), wd_remove_accents($nomAC)) !== false && $quoi != "crp") {
+									//Le TEI est à modifier
+									$aut->setAttribute("role", "crp");
+									$xml->save($Fnm);
+									
+									$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+									include "./CrossHAL_actions.php";
+									$testMaj = "ok";
+									$lignAff = "ok";
+									foreach($ACTIONS_LISTE as $tab) {
+										if (in_array($halID, $tab) && in_array("MAJ_DAC",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "auteur correspondant, ";}
+									}
+									if ($testMaj == "ok") {$actsMAJ .= "MAJ_DAC~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"];}
 								}
-								if ($testMaj == "ok") {$actsMAJ .= "MAJ_DAC~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"];}
 							}
 						}
 					}

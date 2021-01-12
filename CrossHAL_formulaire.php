@@ -631,17 +631,23 @@
 																																					</div>
 																																				</div><!-- .form-group -->
 																																				
-																																				<h4><span class='badge badge-secondary-lighten'>Via le CSV des DOIAC :</span></h4>
-																																				<div class="form-group row mb-1">
-																																					<div class="form-group col-sm-3">
-																																						<div class="custom-control custom-checkbox">
-																																							<input type="checkbox" id="chk52" class="custom-control-input" onclick="option1();" name="csvDOIAC" value="oui"<?php echo $csvD;?>>
-																																							<label for="chk52" class="custom-control-label">
-																																							Ajouter l'auteur correspondant
-																																							</label>
-																																						</div>
-																																					</div>
-																																				</div><!-- .form-group -->	
+																																				<?php
+																																				//Restriction IP pour la recherche des auteurs correspondants
+																																				include("./Glob_IP_list.php");
+																																				if (in_array($ip, $IP_aut)) {
+																																					echo "<h4><span class='badge badge-secondary-lighten'>Via le CSV des DOIAC :</span></h4>";
+																																					echo "<div class=\"form-group row mb-1\">";
+																																					echo "	<div class=\"form-group col-sm-3\">";
+																																					echo "		<div class=\"custom-control custom-checkbox\">";
+																																					echo "			<input type=\"checkbox\" id=\"chk52\" class=\"custom-control-input\" onclick=\"option1();\" name=\"csvDOIAC\" value=\"oui\"".$csvD.">";
+																																					echo "			<label for=\"chk52\" class=\"custom-control-label\">";
+																																					echo "			Ajouter l'auteur correspondant";
+																																					echo "			</label>";
+																																					echo "		</div>";
+																																					echo "	</div>";
+																																					echo "</div><!-- .form-group -->";
+																																				}
+																																				?>
 																																					
 																																				<div class="form-group row mb-1">	
 																																					<div class="form-group col-sm-12">

@@ -1,0 +1,1 @@
+<?php$CrossIDHALEnr = array(0=>array("Nom"=>"Toto", "Prenom"=>"Titi", "idHAL"=>"", "Annee"=>"2021", "Domaine"=>"", "Affiliation"=>"Tata"),);?>

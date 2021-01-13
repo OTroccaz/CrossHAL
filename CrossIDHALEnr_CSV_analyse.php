@@ -22,6 +22,13 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <link rel="icon" type="type/ico" href="HAL_favicon.ico">
   <link rel="stylesheet" href="./CrossHAL.css">
+	
+	<!-- App css -->
+	<link href="./assets/css/icons.css" rel="stylesheet" type="text/css" />
+	
+	<!-- Datatables css -->
+	<link href="./assets/css/vendor/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+	<link href="./assets/css/vendor/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -110,7 +117,9 @@ foreach($CrossIDHALEnr as $elt) {
 
 ?>
 
-<table class="table100" aria-describedby="Entêtes">
+<!--<table class="table100" aria-describedby="Entêtes">-->
+<table id="basic-datatable" class="table table-responsive table-bordered table-striped table-centered table-sm text-center small">
+<thead class='thead-dark'>
 <tr>
 <th scope="col" style="text-align: center;">Indice</th>
 <th scope="col" style="text-align: center;">Nom</th>
@@ -123,47 +132,46 @@ foreach($CrossIDHALEnr as $elt) {
 <th scope="col" style="text-align: center;">Année</th>
 <th scope="col" style="text-align: center;">Domaine</th>
 <th scope="col" style="text-align: center;">Affiliation</th>
-</tr>
+</tr></thead><tbody>
 
 
 <?php
 $ind = 0;
 foreach($CrossIDHALEnr as $elt) {
-	if ($ind%2 == 1) {$fond = '';}else{$fond = ' style="background-color: #dedede;"';}
 	$Nom = $elt["Nom"];
 	$Prenom = $elt["Prenom"];
 	$uniqK = strtolower(normalize($Nom.$Prenom));
 	if ($elt["idHAL"] == "") {
 		if (isset($quelIdHAL[$uniqK]) && $quelIdHAL[$uniqK] != "") {
 			echo '<tr>';
-			echo '<td'.$fond.'>'.$ind.'</td>';
-			echo '<td'.$fond.'>'.$elt["Nom"].'</td>';
-			echo '<td'.$fond.'>'.$elt["Prenom"].'</td>';
-			echo '<td'.$fond.'>&nbsp;</td>';
-			if (isset($quelIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$quelIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
-			if (isset($avecIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
-			if (isset($sansIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
-			echo '<td'.$fond.'><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
-			echo '<td'.$fond.'>'.$elt["Annee"].'</td>';
-			echo '<td'.$fond.'>'.$elt["Domaine"].'</td>';
-			echo '<td'.$fond.'>'.$elt["Affiliation"].'</td>';
+			echo '<td>'.$ind.'</td>';
+			echo '<td>'.$elt["Nom"].'</td>';
+			echo '<td>'.$elt["Prenom"].'</td>';
+			echo '<td>&nbsp;</td>';
+			if (isset($quelIdHAL[$uniqK])) {echo '<td>'.$quelIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
+			if (isset($avecIdHAL[$uniqK])) {echo '<td>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
+			if (isset($sansIdHAL[$uniqK])) {echo '<td>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
+			echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
+			echo '<td>'.$elt["Annee"].'</td>';
+			echo '<td>'.$elt["Domaine"].'</td>';
+			echo '<td>'.$elt["Affiliation"].'</td>';
 			echo '</tr>';
 			$ind++;
 		}
 	}else{//IdHAL isolés
 		if ($avecIdHAL[$uniqK] == 1) {
 			echo '<tr>';
-			echo '<td'.$fond.'>'.$ind.'</td>';
-			echo '<td'.$fond.'>'.$elt["Nom"].'</td>';
-			echo '<td'.$fond.'>'.$elt["Prenom"].'</td>';
-			echo '<td'.$fond.'>'.$quelIdHAL[$uniqK].' ???</td>';
-			echo '<td'.$fond.'>&nbsp;</td>';
-			if (isset($avecIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
-			if (isset($sansIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
-			echo '<td'.$fond.'><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
-			echo '<td'.$fond.'>'.$elt["Annee"].'</td>';
-			echo '<td'.$fond.'>'.$elt["Domaine"].'</td>';
-			echo '<td'.$fond.'>'.$elt["Affiliation"].'</td>';
+			echo '<td>'.$ind.'</td>';
+			echo '<td>'.$elt["Nom"].'</td>';
+			echo '<td>'.$elt["Prenom"].'</td>';
+			echo '<td>'.$quelIdHAL[$uniqK].' ???</td>';
+			echo '<td>&nbsp;</td>';
+			if (isset($avecIdHAL[$uniqK])) {echo '<td>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
+			if (isset($sansIdHAL[$uniqK])) {echo '<td>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
+			echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
+			echo '<td>'.$elt["Annee"].'</td>';
+			echo '<td>'.$elt["Domaine"].'</td>';
+			echo '<td>'.$elt["Affiliation"].'</td>';
 			echo '</tr>';
 			$ind++;
 		}
@@ -171,10 +179,21 @@ foreach($CrossIDHALEnr as $elt) {
 }
 
 ?>
+</tbody>
 </table>
 <br><br>
 <?php
 include('./Glob_bas.php');
 ?>
 </body>
+
+<!-- Datatables js -->
+<script src="assets/js/vendor/jquery.dataTables.min.js"></script>
+<script src="assets/js/vendor/dataTables.bootstrap4.js"></script>
+<script src="assets/js/vendor/dataTables.responsive.min.js"></script>
+<script src="assets/js/vendor/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable Init js -->
+<script src="assets/js/pages/demo.datatable-init.js"></script>
+                                                
 </html>

@@ -119,10 +119,10 @@ foreach($CrossIDHALEnr as $elt) {
 <th scope="col" style="text-align: center;">idHAL suggéré</th>
 <th scope="col" style="text-align: center;"># ocurrences (idHAL)</th>
 <th scope="col" style="text-align: center;"># sans idHAL</th>
+<th scope="col" style="text-align: center;">Lien AUréHAL</th>
 <th scope="col" style="text-align: center;">Année</th>
 <th scope="col" style="text-align: center;">Domaine</th>
 <th scope="col" style="text-align: center;">Affiliation</th>
-<th scope="col" style="text-align: center;">Lien AUréHAL</th>
 </tr>
 
 
@@ -143,10 +143,10 @@ foreach($CrossIDHALEnr as $elt) {
 			if (isset($quelIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$quelIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
 			if (isset($avecIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
 			if (isset($sansIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
+			echo '<td'.$fond.'><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
 			echo '<td'.$fond.'>'.$elt["Annee"].'</td>';
 			echo '<td'.$fond.'>'.$elt["Domaine"].'</td>';
 			echo '<td'.$fond.'>'.$elt["Affiliation"].'</td>';
-			echo '<td'.$fond.'><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
 			echo '</tr>';
 			$ind++;
 		}
@@ -160,10 +160,10 @@ foreach($CrossIDHALEnr as $elt) {
 			echo '<td'.$fond.'>&nbsp;</td>';
 			if (isset($avecIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
 			if (isset($sansIdHAL[$uniqK])) {echo '<td'.$fond.'>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td'.$fond.'>&nbsp;</td>';}
+			echo '<td'.$fond.'><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
 			echo '<td'.$fond.'>'.$elt["Annee"].'</td>';
 			echo '<td'.$fond.'>'.$elt["Domaine"].'</td>';
 			echo '<td'.$fond.'>'.$elt["Affiliation"].'</td>';
-			echo '<td'.$fond.'><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
 			echo '</tr>';
 			$ind++;
 		}

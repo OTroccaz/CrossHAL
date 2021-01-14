@@ -87,7 +87,7 @@
 																				if (!isset($_POST["valider"]) && !isset($_POST["apa"])) {
 																					$apa = "oui";
 																				}
-																				if (isset($opt1) && $opt1 == "oui" && $increment >= 10) {$increment = 10;}
+																				if (isset($opt1) && $opt1 == "oui" && $increment >= 10 && $csvDOIAC == "non") {$increment = 10;}
 																				if (isset($_POST["valider"])) {
 																					$iMax = $iMin + $increment - 1;
 																					$iMinRet = $iMin;
@@ -199,7 +199,7 @@
 																												if (!isset($_POST["valider"]) && !isset($_POST["apa"])) {
 																													$apa = "oui";
 																												}
-																												if (isset($opt1) && $opt1 == "oui" && $increment >= 10) {$increment = 10;}
+																												if (isset($opt1) && $opt1 == "oui" && $increment >= 10 && $csvDOIAC == "non") {$increment = 10;}
 																												if (isset($_POST["valider"])) {
 																													$iMax = $iMin + $increment - 1;
 																													$iMinRet = $iMin;
@@ -330,7 +330,7 @@
 																							</div>
 																							<div class="col-9">
 																									<div class="border border-primary rounded p-2 small d-inline-block">
-																											<span class='text-primary'>-> Cette valeur correspond au pas des requêtes envoyées vers Crossref. Plus elle sera élevée et plus le risque de blocage de votre poste sera important. Par précaution, elle est volontairement forcée à un maximum de 10 pour l'étape 1.</span>
+																											<span class='text-primary'>-> Cette valeur correspond au pas des requêtes envoyées vers Crossref. Plus elle sera élevée et plus le risque de blocage de votre poste sera important. Par précaution, elle est volontairement forcée à un maximum de 10 pour l'étape 1 (sauf pour l'ajout des auteurs correspondants).</span>
 																									</div>
 																							</div>
 																						</div><!-- .form-group -->

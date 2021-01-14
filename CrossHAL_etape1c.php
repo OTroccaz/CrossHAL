@@ -193,7 +193,7 @@ echo "</script>";
 
 //Modification automatisée
 $actionMA = "onclick='";
-if ($lienMAJgrpTot != "" && $increment == 10) {
+if ($lienMAJgrpTot != "") {
 	if (strpos($lienMAJgrpTot, "A_exclure:") !== false) {//Suppression des IdHAL pour lesquels la modification automatisée ne doit pas être appliquée
 		$tabHalId = explode("~", $lienMAJgrpTot);
 		$tabActId = explode("~", $actsMAJgrpTot);

@@ -29,6 +29,11 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 	<!-- Datatables css -->
 	<link href="./assets/css/vendor/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
 	<link href="./assets/css/vendor/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+	
+	<style>
+	tr:nth-child(even) {background-color: #dedede;}
+	</style>
+
 </head>
 <body>
 
@@ -160,20 +165,22 @@ foreach($CrossIDHALEnr as $elt) {
 		}
 	}else{//IdHAL isolés
 		if ($avecIdHAL[$uniqK] == 1) {
-			echo '<tr>';
-			echo '<td>'.$ind.'</td>';
-			echo '<td>'.$elt["Nom"].'</td>';
-			echo '<td>'.$elt["Prenom"].'</td>';
-			echo '<td>'.$quelIdHAL[$uniqK].' ???</td>';
-			echo '<td>&nbsp;</td>';
-			if (isset($avecIdHAL[$uniqK])) {echo '<td>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
-			if (isset($sansIdHAL[$uniqK])) {echo '<td>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
-			echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
-			echo '<td>'.$elt["Annee"].'</td>';
-			echo '<td>'.$elt["Domaine"].'</td>';
-			echo '<td>'.$elt["Affiliation"].'</td>';
-			echo '</tr>';
-			$ind++;
+			if (strlen(str_replace('.', '', $elt["Prenom"])) == 1) {
+				echo '<tr>';
+				echo '<td>'.$ind.'</td>';
+				echo '<td>'.$elt["Nom"].'</td>';
+				echo '<td>'.$elt["Prenom"].'</td>';
+				echo '<td>'.$quelIdHAL[$uniqK].' ???</td>';
+				echo '<td>&nbsp;</td>';
+				if (isset($avecIdHAL[$uniqK])) {echo '<td>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
+				if (isset($sansIdHAL[$uniqK])) {echo '<td>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
+				echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
+				echo '<td>'.$elt["Annee"].'</td>';
+				echo '<td>'.$elt["Domaine"].'</td>';
+				echo '<td>'.$elt["Affiliation"].'</td>';
+				echo '</tr>';
+				$ind++;
+			}
 		}
 	}
 }

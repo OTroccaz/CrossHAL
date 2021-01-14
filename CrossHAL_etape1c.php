@@ -31,6 +31,10 @@ echo "</tr><tr>";
 echo "<th><strong>DOI</strong></th>";
 echo "<th><strong>HAL</strong></th>";
 echo "</tr></thead><tbody>";
+
+$lienMAJgrpTot = "";
+$actsMAJgrpTot = "";
+
 $iMinTab = $iMin - 1;
 $cptAff = 0;//Compteur de ligne(s) affichée(s)
 for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
@@ -134,7 +138,13 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 									foreach($ACTIONS_LISTE as $tab) {
 										if (in_array($halID, $tab) && in_array("MAJ_DAC",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "auteur correspondant, ";}
 									}
-									if ($testMaj == "ok") {$actsMAJ .= "MAJ_DAC~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"];}
+									if ($testMaj == "ok") {
+										$actsMAJ .= "MAJ_DAC~";
+										$lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+										$actsMAJgrp .= "~MAJ_DAC";
+										$lienMAJgrpTot .= $lienMAJgrp;
+										$actsMAJgrpTot .= $actsMAJgrp;
+									}
 								}
 							}
 						}
@@ -180,6 +190,61 @@ echo "</tbody></table><br>";
 echo "<script>";
 echo "  document.getElementById('cpt').style.display = \"none\";";
 echo "</script>";
+
+//Modification automatisée
+$actionMA = "onclick='";
+if ($lienMAJgrpTot != "" && $increment == 10) {
+	if (strpos($lienMAJgrpTot, "A_exclure:") !== false) {//Suppression des IdHAL pour lesquels la modification automatisée ne doit pas être appliquée
+		$tabHalId = explode("~", $lienMAJgrpTot);
+		$tabActId = explode("~", $actsMAJgrpTot);
+		for ($i=0; $i<count($tabHalId); $i++) {
+			if (strpos($tabHalId[$i], "A_exclure:") !== false) {
+				$halId = str_replace("A_exclure:", "", $tabHalId[$i]);
+				$lienMAJgrpTot = str_replace(array("~A_exclure:".$halId, "~".$halId), "", $lienMAJgrpTot);
+				$tabActId[$i] = "";
+			}
+		}
+		$actsMAJgrpTot = "";
+		for ($i=0; $i<count($tabActId); $i++) {
+			$actsMAJgrpTot .= $tabActId[$i];
+		}
+	}
+	$lienMAJgrpTot = substr($lienMAJgrpTot, 1, strlen($lienMAJgrpTot));
+	$actsMAJgrpTot = substr($actsMAJgrpTot, 1, strlen($actsMAJgrpTot));
+	$tabHalId = explode("~", $lienMAJgrpTot);
+	$tabActId = explode("~", $actsMAJgrpTot);
+	$lienMAJgrpTot = "";
+	$actsMAJgrpTot = "";
+	$k = 0;
+	for ($i=0; $i<count($tabHalId); $i++) {
+		if ($lienMAJgrpTot == "" || strpos($lienMAJgrpTot, $tabHalId[$i]) === false) {
+			$lienMAJgrpTot .= "#".$tabHalId[$i];
+			$actsMAJgrpTot = substr($actsMAJgrpTot, 0, (strlen($actsMAJgrpTot) - 1));
+			$actsMAJgrpTot .= "#".$tabActId[$k]."~";
+			$k++;
+		}else{
+			$actsMAJgrpTot .= $tabActId[$k]."~";
+			$k++;
+		}
+	}
+	$lienMAJgrpTot = substr($lienMAJgrpTot, 1, strlen($lienMAJgrpTot));
+	$actsMAJgrpTot = substr($actsMAJgrpTot, 1, (strlen($actsMAJgrpTot) - 2));
+	echo ('Mettre à jour toutes les notices identifiées : ');
+	//echo $lienMAJgrpTot."<br>";
+	//echo $actsMAJgrpTot."<br>";
+	$tabHalId = explode("#", $lienMAJgrpTot);
+	$tabActId = explode("#", $actsMAJgrpTot);
+	for ($i=0; $i<count($tabHalId); $i++) {
+		$actionMA .= 'window.open("./CrossHAL_Modif.php?action=MAJ&etp=1&Id='.$tabHalId[$i].'"); ';
+		$actionMA .= 'majok("'.$tabHalId[$i].'"); ';
+	}
+	$actionMA .= '$.post("CrossHAL_liste_actions.php", { halID: "'.$lienMAJgrpTot.'", action: "'.$actsMAJgrpTot.'" }); ';
+	//$actionMA .= "'";
+	$actionMA .= 'document.getElementById("actionMA").innerHTML = "<img src=./img/addOK.png>";';
+	$actionMA .= "'";
+	//echo $actionMA;
+	echo ("<span id='actionMA'><img alt='MAJ' style='width: 50px;' src='./img/add_grand.png' style='cursor:hand;' ".$actionMA."></span><br>");
+}
 
 if ($iMax != $numFound) {
 	echo "<form name='troli' id='etape1' action='CrossHAL.php' method='post'>";

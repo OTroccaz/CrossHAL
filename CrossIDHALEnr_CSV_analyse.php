@@ -136,7 +136,7 @@ foreach($CrossIDHALEnr as $elt) {
 
 
 <?php
-$ind = 0;
+$ind = 1;
 foreach($CrossIDHALEnr as $elt) {
 	$Nom = $elt["Nom"];
 	$Prenom = $elt["Prenom"];

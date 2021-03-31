@@ -635,7 +635,7 @@
 																																				//Restriction IP pour la recherche des auteurs correspondants
 																																				include("./Glob_IP_list.php");
 																																				if (in_array($ip, $IP_aut)) {
-																																					echo "<h4><span class='badge badge-secondary-lighten'>Via le CSV des DOIAC ou en traitant votre propre <a target='_blank' rel='noopener noreferrer' href='./CrossDOIAC_CSV.php'>CSV équivalent DOIAC</a> construit préalablement selon <a href='./CrossDOIAC_CSV.csv'>ce modèle</a> :</span></h4>";
+																																					echo "<h4><span class='badge badge-secondary-lighten'>Via un <a target='_blank' rel='noopener noreferrer' href='./CrossDOIAC_CSV.php'>CSV</a> construit préalablement selon <a href='./CrossDOIAC_CSV.csv'>ce modèle</a> :</span></h4>";
 																																					echo "<div class=\"form-group row mb-1\">";
 																																					echo "	<div class=\"form-group col-sm-3\">";
 																																					echo "		<div class=\"custom-control custom-checkbox\">";

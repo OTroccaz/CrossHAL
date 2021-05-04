@@ -931,6 +931,11 @@
 																																				?>
 																																				
 																																				<div class="form-group row mb-1">
+																																					<div class="col-12 mb-3">
+																																						<div class="border border-primary rounded p-2 small">
+																																								<span class="text-primary">Attention : ne pas utiliser cette fonctionnalité sur un compte <u>non modéré</u> par le CCSD ! Vous risquez de générer des dépôts "auteur" au lieu de "gold open access".</span>
+																																						</div>
+																																					</div>
 																																					<div class="form-group col-sm-12">
 																																						<span class="col-sm-3">Restreindre l'affichage aux notices</span>
 																																						<div class="custom-control custom-checkbox custom-control-inline">

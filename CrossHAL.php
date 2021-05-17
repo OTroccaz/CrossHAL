@@ -158,7 +158,7 @@ include("./Glob_normalize.php");
 	<script src="./assets/js/app.min.js"></script>
 
 	<!-- third party js -->
-	<script src="./assets/js/vendor/Chart.bundle.min.js"></script>
+	<!-- <script src="./assets/js/vendor/Chart.bundle.min.js"></script> -->
 	<!-- third party js ends -->
 	<script src="./assets/js/pages/hal-ur1.chartjs.js"></script>
 	
@@ -584,7 +584,7 @@ include("./Glob_normalize.php");
 				<script src="./assets/js/app.min.js"></script>
 
 				<!-- third party js -->
-				<script src="./assets/js/vendor/Chart.bundle.min.js"></script>
+				<!-- <script src="./assets/js/vendor/Chart.bundle.min.js"></script> -->
 				<!-- third party js ends -->
 				<script src="./assets/js/pages/hal-ur1.chartjs.js"></script>
 				

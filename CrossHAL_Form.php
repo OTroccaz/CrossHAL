@@ -26,6 +26,7 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
 	<!-- <link href="./assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" /> -->
 	
 	<!-- third party js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 	<script type="text/javascript" language="Javascript" src="./CrossHAL.js"></script>
 	<!-- third party js end -->
 	
@@ -179,7 +180,8 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
 				<script src="./assets/js/app.min.js"></script>
 
 				<!-- third party js -->
-				<script src="./assets/js/vendor/Chart.bundle.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+				<!-- <script src="./assets/js/vendor/Chart.bundle.min.js"></script> -->
 				<!-- third party js ends -->
 				<script src="./assets/js/pages/hal-ur1.chartjs.js"></script>
 				

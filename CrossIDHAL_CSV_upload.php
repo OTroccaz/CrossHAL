@@ -119,6 +119,8 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 		//$uniqK .= $elt["idAUT"];
 		$chaine .= '"idORCID"=>"'.$elt["idORCID"].'", ';
 		//$uniqK .= $elt["idORCID"];
+		$chaine .= '"idResearcherID"=>"'.$elt["idResearcherID"].'", ';
+		//$uniqK .= $elt["idResearcherID"];
 		$chaine .= '"Affiliation"=>"'.$elt["Affiliation"].'", ';
 		//$uniqK .= $elt["Affiliation"];
 		$chaine .= '"Domaine"=>"'.$elt["Domaine"].'", ';
@@ -160,6 +162,8 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 				//$uniqK .= $tab[3];
         $chaine .= '"idORCID"=>"'.$tab[4].'", ';
 				//$uniqK .= $tab[4];
+				$chaine .= '"idResearcherID"=>"'.$tab[16].'", ';
+				//$uniqK .= $tab[16];
         $chaine .= '"Affiliation"=>"'.$tab[9].'", ';
 				//$uniqK .= $tab[9];
 				$chaine .= '"Domaine"=>"'.$tab[10].'", ';
@@ -205,6 +209,8 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 					//$uniqK .= $tab[3];
 					$chaine .= '"idORCID"=>"'.$tab[4].'", ';
 					//$uniqK .= $tab[4];
+					$chaine .= '"idResearcherID"=>"'.$tab[16].'", ';
+					//$uniqK .= $tab[16];
 					$chaine .= '"Affiliation"=>"'.$tab[9].'", ';
 					//$uniqK .= $tab[9];
 					$chaine .= '"Domaine"=>"'.$tab[10].'", ';

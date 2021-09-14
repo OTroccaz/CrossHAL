@@ -494,8 +494,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				}else{
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4) && substr($txtAnnCR, 0, 4) != "" && substr($annHAL, 5, 2) != substr($txtAnnCR, 5, 2) && substr($txtAnnCR, 5, 2) != "" && substr($annHAL, 8, 2) != substr($txtAnnCR, 8, 2) && substr($txtAnnCR, 8, 2) != "" )) {
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4))) {
-					//Modification que si AAAA-CR > AAAA-HAL
-					if (intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) {
+					//Modification que si (AAAA-CR > AAAA-HAL) ou si (AAAA-CR = AAAA-HAL et AAAA-CR plus complète que AAAA-HAL)
+					if ((intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) || (intval(substr($txtAnnCR, 0, 4)) == intval(substr($annHAL, 0, 4)) && strlen($txtAnnCR) > strlen($annHAL))) {
 						$deb = "<strong>";$fin = "</strong>";
 					}
 				}
@@ -1163,8 +1163,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				}else{
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4) && substr($txtAnnCR, 0, 4) != "" && substr($annHAL, 5, 2) != substr($txtAnnCR, 5, 2) && substr($txtAnnCR, 5, 2) != "" && substr($annHAL, 8, 2) != substr($txtAnnCR, 8, 2) && substr($txtAnnCR, 8, 2) != "" )) {
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4))) {
-					//Modification que si AAAA-CR > AAAA-HAL
-					if (intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) {
+					//Modification que si (AAAA-CR > AAAA-HAL) ou si (AAAA-CR = AAAA-HAL et AAAA-CR plus complète que AAAA-HAL)
+					if ((intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) || (intval(substr($txtAnnCR, 0, 4)) == intval(substr($annHAL, 0, 4)) && strlen($txtAnnCR) > strlen($annHAL))) {
 						insertNode($xml, $txtAnnCR, "imprint", "date", "date", "type", "datePub", "", "", "iB");
 						$xml->save($Fnm);
 						$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];

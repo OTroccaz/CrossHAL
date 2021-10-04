@@ -402,6 +402,22 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
         $edt->item(0)->appendChild($bip);
 
         $xml->save($Fnm);
+				
+				//Availabilty
+				if ($evd == "greenPublisher" || $evd == "PublisherPaid") {
+					$stm = $xml->getElementsByTagName('publicationStmt');
+					$bip = $xml->createElement("availability");
+					$bip->setAttribute("status", "restricted");
+					$stm->item(0)->appendChild($bip);
+					$xml->save($Fnm);
+					
+					$avl = $xml->getElementsByTagName('availability');
+					$bip = $xml->createElement("licence");
+					$bip->setAttribute("target", "http://creativecommons.org/licenses/by/");
+					$bip->nodeValue = "Attribution";
+					$avl->item(0)->appendChild($bip);
+					$xml->save($Fnm);
+				}
         
         /*
         //Où déposer le fichier PDF pour qu'HAL/le CCSD puisse le valider correctement ?

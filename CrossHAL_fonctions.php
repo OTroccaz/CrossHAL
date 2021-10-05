@@ -386,10 +386,11 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
       if ($elt->hasAttribute("type") && $elt->getAttribute("type") == "file") {//PDF présent > exit
         $Fnm = "";
       }else{
-        $avail = 'http://creativecommons.org/licenses/by';
-        if ($compNC != "") {$avail .= '-nc';}
-        if ($compND != "") {$avail .= '-nd';}
-        if ($compSA != "") {$avail .= '-sa';}
+        $avail = 'https://creativecommons.org/licenses/by';
+				$label = "Attribution";
+        if ($compNC != "") {$avail .= '-nc'; $label .= " - NonCommercial";}
+        if ($compND != "") {$avail .= '-nd'; $label .= " - NoDerivatives";}
+        if ($compSA != "") {$avail .= '-sa'; $label .= " - ShareAlike";}
         $avail .= '/';
         
         $edt = $xml->getElementsByTagName('edition');
@@ -413,8 +414,8 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 					
 					$avl = $xml->getElementsByTagName('availability');
 					$bip = $xml->createElement("licence");
-					$bip->setAttribute("target", "http://creativecommons.org/licenses/by/");
-					$bip->nodeValue = "Attribution";
+					$bip->setAttribute("target", $avail);
+					$bip->nodeValue = $label;
 					$avl->item(0)->appendChild($bip);
 					$xml->save($Fnm);
 				}

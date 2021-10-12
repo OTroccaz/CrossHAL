@@ -406,18 +406,23 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 				
 				//Availabilty
 				if ($evd == "greenPublisher" || $evd == "PublisherPaid") {
-					$stm = $xml->getElementsByTagName('publicationStmt');
-					$bip = $xml->createElement("availability");
-					$bip->setAttribute("status", "restricted");
-					$stm->item(0)->appendChild($bip);
-					$xml->save($Fnm);
-					
-					$avl = $xml->getElementsByTagName('availability');
-					$bip = $xml->createElement("licence");
-					$bip->setAttribute("target", $avail);
-					$bip->nodeValue = $label;
-					$avl->item(0)->appendChild($bip);
-					$xml->save($Fnm);
+					//N'ajouter le noeud que s'il est absent !
+					$tests = array();
+					$tests = $xml->getElementsByTagName('availability');
+					if (empty($tests)) {
+						$stm = $xml->getElementsByTagName('publicationStmt');
+						$bip = $xml->createElement("availability");
+						$bip->setAttribute("status", "restricted");
+						$stm->item(0)->appendChild($bip);
+						$xml->save($Fnm);
+						
+						$avl = $xml->getElementsByTagName('availability');
+						$bip = $xml->createElement("licence");
+						$bip->setAttribute("target", $avail);
+						$bip->nodeValue = $label;
+						$avl->item(0)->appendChild($bip);
+						$xml->save($Fnm);
+					}
 				}
         
         /*

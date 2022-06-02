@@ -401,15 +401,18 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
         //$bip->setAttribute("target", $targetPDF.$titPDF.".pdf");
         $bip->setAttribute("target", $urlPDF);
         $edt->item(0)->appendChild($bip);
+				
+				corrXML($xml);
 
         $xml->save($Fnm);
 				
 				//Availabilty
-				if ($evd == "greenPublisher" || $evd == "PublisherPaid") {
+				if ($evd == "greenPublisher" || $evd == "publisherPaid") {
 					//N'ajouter le noeud que s'il est absent !
 					$tests = array();
 					$tests = $xml->getElementsByTagName('availability');
-					if (empty($tests)) {
+					$testsObj = objectToArray($tests);
+					if (empty($testsObj)) {
 						$stm = $xml->getElementsByTagName('publicationStmt');
 						$bip = $xml->createElement("availability");
 						$bip->setAttribute("status", "restricted");

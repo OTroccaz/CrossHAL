@@ -24,10 +24,11 @@ header('Content-type: text/html; charset=UTF-8');
 
 register_shutdown_function(function() {
     $error = error_get_last();
-
-    if ($error['type'] === E_ERROR && strpos($error['message'], 'Maximum execution time of') === 0) {
-        echo "<br><strong><font color='red'>Le script a été arrêté car son temps d'exécution dépasse la limite maximale autorisée.</font></strong><br>";
-    }
+		if (isset($error['type'])) {
+			if ($error['type'] === E_ERROR && strpos($error['message'], 'Maximum execution time of') === 0) {
+					echo "<br><strong><font color='red'>Le script a été arrêté car son temps d'exécution dépasse la limite maximale autorisée.</font></strong><br>";
+			}
+		}
 });
 
 //CR = CrossRef / PM = Pubmed

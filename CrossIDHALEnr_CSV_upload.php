@@ -114,6 +114,8 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 	//echo $chaine;
 	//echo in_array_r("titi", $CrossIDHALEnr) ? 'oui' : 'non';
 	*/
+	
+	$tst = array();
 
 	$chaine = "";
 	$chaine .= '<?php'.chr(13);
@@ -128,19 +130,25 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 		$total = count(file($temp));
 		while($tab = fgetcsv($handle, 0, ';')) {
 			if ($ligne != 0) {//Exclure les noms des colonnes
-				$chaine = $ind.'=>array(';
-        $chaine .= '"Nom"=>"'.trim($tab[0]).'", ';
-        $chaine .= '"Prenom"=>"'.trim($tab[1]).'", ';
-        $chaine .= '"idHAL"=>"'.trim($tab[2]).'", ';
-        $chaine .= '"Annee"=>"'.trim($tab[5]).'", ';
-				$chaine .= '"Domaine"=>"'.trim($tab[10]).'", ';
-        $chaine .= '"Affiliation"=>"'.str_replace('"', '’', trim($tab[6])).' - '.str_replace('"', '’', trim($tab[9])).'")';
-				if ($ligne != $total-1) {
-					$chaine .= ',';
+				//Unicité des lignes
+				$cmp = trim($tab[0]).trim($tab[1]).trim($tab[2]).trim($tab[5]).trim($tab[10]).str_replace('"', '’', trim($tab[6])).' - '.str_replace('"', '’', trim($tab[9]));
+				$cmp = str_replace(' ', '', $cmp);
+				if (!in_array($cmp, $tst)) {
+					$chaine = $ind.'=>array(';
+					$chaine .= '"Nom"=>"'.trim($tab[0]).'", ';
+					$chaine .= '"Prenom"=>"'.trim($tab[1]).'", ';
+					$chaine .= '"idHAL"=>"'.trim($tab[2]).'", ';
+					$chaine .= '"Annee"=>"'.trim($tab[5]).'", ';
+					$chaine .= '"Domaine"=>"'.trim($tab[10]).'", ';
+					$chaine .= '"Affiliation"=>"'.str_replace('"', '’', trim($tab[6])).' - '.str_replace('"', '’', trim($tab[9])).'")';
+					if ($ligne != $total-1) {
+						$chaine .= ',';
+					}
+					$chaine .= chr(13);
+					fwrite($inF,$chaine);
+					$ind++;
+					$tst[] = $cmp;
 				}
-				$chaine .= chr(13);
-				fwrite($inF,$chaine);
-				$ind++;
 			}
 			$ligne++;
 		}
@@ -157,6 +165,7 @@ fclose($inF);
 fclose($handle);
 echo ('<br><strong>Le fichier nécessaire au traitement des idHAL auteurs via OCDHAL enrichi a été créé avec succès.<br><br>');
 echo ('<a href="./CrossIDHALEnr_CSV_analyse.php">Vous pouvez lancer l\'analyse de ce fichier</a><br><br>');
+//var_dump($tst);
 }
 ?>
 

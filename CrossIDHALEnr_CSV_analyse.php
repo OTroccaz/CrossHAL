@@ -156,7 +156,7 @@ foreach($CrossIDHALEnr as $elt) {
 			if (isset($quelIdHAL[$uniqK])) {echo '<td>'.$quelIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
 			if (isset($avecIdHAL[$uniqK])) {echo '<td>'.$avecIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
 			if (isset($sansIdHAL[$uniqK])) {echo '<td>'.$sansIdHAL[$uniqK].'</td>';}else{echo '<td>&nbsp;</td>';}
-			echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
+			echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/person/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
 			echo '<td>'.$elt["Annee"].'</td>';
 			echo '<td>'.$elt["Domaine"].'</td>';
 			echo '<td>'.$elt["Affiliation"].'</td>';

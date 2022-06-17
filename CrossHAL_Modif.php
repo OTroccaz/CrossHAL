@@ -46,9 +46,10 @@ if (isset($_GET['Id']) && ($_GET['Id'] != ""))
 //Pour visualiser résultat preprod > https://univ-rennes1.halpreprod.archives-ouvertes.fr/halid
 
 /*
-$url = "https://api-preprod.archives-ouvertes.fr/sword/";
+$url = "https://api-preprod.archives-ouvertes.fr/sword/hal/";
 $urlStamp = "https://api-preprod.archives-ouvertes.fr/";
 */
+
 $url = "https://api.archives-ouvertes.fr/sword/";
 $urlStamp = "https://api.archives-ouvertes.fr/";
 
@@ -113,6 +114,8 @@ foreach($eltASup as $elt) {
 }
 $xml->save($nomficFin);
 
+$xmlContenu = $xml->saveXML();//Nécessaire pour le mime-type soit bien considéré comme du text/xml
+
 $fp = fopen($nomficFin, "r");
 $ENDPOINTS_RESPONDER["TIMOUT"] = 20;
 
@@ -158,7 +161,8 @@ if($return == FALSE)
   exit ("ERREUR : ".$errStr);;
 }
 try {
-  $entry = new SimpleXMLElement($return, TRUE, FALSE);
+  //$entry = new SimpleXMLElement($return);
+	$entry = simplexml_load_string($return,'SimpleXMLElement', LIBXML_NOCDATA);
   $entry->registerXPathNamespace('atom', 'http://www.w3.org/2005/Atom');
   $entry->registerXPathNamespace('sword', 'http://purl.org/net/sword/terms');
   $entry->registerXPathNamespace('hal', 'http://hal.archives-ouvertes.fr/');

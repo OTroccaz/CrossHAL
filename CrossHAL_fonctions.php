@@ -411,8 +411,8 @@ function genXMLPDF($halID, $doi, $targetPDF, $titPDF, $evd, $compNC, $compND, $c
 					//N'ajouter le noeud que s'il est absent !
 					$tests = array();
 					$tests = $xml->getElementsByTagName('availability');
-					$testsObj = objectToArray($tests);
-					if (empty($testsObj)) {
+					//$testsObj = objectToArray($tests);
+					if (empty($tests)) {
 						$stm = $xml->getElementsByTagName('publicationStmt');
 						$bip = $xml->createElement("availability");
 						$bip->setAttribute("status", "restricted");

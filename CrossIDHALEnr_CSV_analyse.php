@@ -136,6 +136,7 @@ foreach($CrossIDHALEnr as $elt) {
 <th scope="col" style="text-align: center;">Lien AUréHAL</th>
 <th scope="col" style="text-align: center;">Année</th>
 <th scope="col" style="text-align: center;">Domaine</th>
+<th scope="col" style="text-align: center;">ID idRef</th>
 <th scope="col" style="text-align: center;">Affiliation</th>
 </tr></thead><tbody>
 
@@ -159,6 +160,8 @@ foreach($CrossIDHALEnr as $elt) {
 			echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/person/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
 			echo '<td>'.$elt["Annee"].'</td>';
 			echo '<td>'.$elt["Domaine"].'</td>';
+			$ID_idRef = (empty($elt["ID idRef"])) ? '':'<a target="_blank" href="https://www.idref.fr/'.$elt["ID idRef"].'">Lien</a>';
+			echo '<td>'.$ID_idRef.'</td>';
 			echo '<td>'.$elt["Affiliation"].'</td>';
 			echo '</tr>';
 			$ind++;
@@ -177,6 +180,8 @@ foreach($CrossIDHALEnr as $elt) {
 				echo '<td><a target="_blank" href="https://aurehal.archives-ouvertes.fr/author/browse?critere='.$elt["Nom"].'+'.$elt["Prenom"].'">Lien</a></td>';
 				echo '<td>'.$elt["Annee"].'</td>';
 				echo '<td>'.$elt["Domaine"].'</td>';
+				$ID_idRef = (empty($elt["ID idRef"])) ? '':'<a target="_blank" href="https://www.idref.fr/'.$elt["ID idRef"].'">Lien</a>';
+				echo '<td>'.$ID_idRef.'</td>';
 				echo '<td>'.$elt["Affiliation"].'</td>';
 				echo '</tr>';
 				$ind++;

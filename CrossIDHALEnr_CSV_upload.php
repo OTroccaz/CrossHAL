@@ -6,7 +6,7 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 {
   $css = $_GET['css'];
 }else{
-  $css = "https://ecobio.univ-rennes1.fr/HAL_SCD.css";
+  $css = "https://halur1.univ-rennes1.fr/HAL_SCD.css";
 }
 ?>
 
@@ -139,8 +139,9 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 					$chaine .= '"Prenom"=>"'.trim($tab[1]).'", ';
 					$chaine .= '"idHAL"=>"'.trim($tab[2]).'", ';
 					$chaine .= '"Annee"=>"'.trim($tab[5]).'", ';
-					$chaine .= '"Domaine"=>"'.trim($tab[10]).'", ';
-					$chaine .= '"Affiliation"=>"'.str_replace('"', '’', trim($tab[6])).' - '.str_replace('"', '’', trim($tab[9])).'")';
+					$chaine .= '"Domaine"=>"'.trim($tab[9]).'", ';
+					$chaine .= '"ID idRef"=>"'.trim($tab[10]).'", ';
+					$chaine .= '"Affiliation"=>"'.str_replace('"', '’', trim($tab[6])).'")';
 					if ($ligne != $total-1) {
 						$chaine .= ',';
 					}

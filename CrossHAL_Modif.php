@@ -129,6 +129,8 @@ curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 	curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+}else{
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 }
 curl_setopt($ch, CURLOPT_VERBOSE, 1);
 $headers=array();

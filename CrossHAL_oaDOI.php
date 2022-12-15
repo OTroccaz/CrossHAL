@@ -105,6 +105,8 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
 	if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+	}else{
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	}
   $json = curl_exec($ch);
   //echo $json;
@@ -206,6 +208,8 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
 					if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 						curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+					}else{
+						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 					}
           $doajJson = curl_exec($doaj);
           //echo $doajJson;
@@ -249,6 +253,8 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
 			if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 				curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+			}else{
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			}
       curl_exec($ch);
       $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

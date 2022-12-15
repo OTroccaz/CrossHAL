@@ -90,10 +90,12 @@ function askCurl($url, &$arrayCurl) {
 	if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
+	}else{
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	}
   $json = curl_exec($ch);
   curl_close($ch);
-  
+
   $memory = intval(ini_get('memory_limit')) * 1024 * 1024;
   $limite = strlen($json)*1;
   if ($limite > $memory) {

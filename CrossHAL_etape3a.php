@@ -383,6 +383,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				if ($action == "3" && $halID == $getHalID) {
 					$urlPDF = $urlServeur;
 					$evd = "";
+					if ($licEvd == "auteur") {$evd = "auteur";}
+					if ($licEvd == "OA") {$evd = "greenPublisher";}
 					$compNC = "";
 					$compND = "";
 					$compSA = "";

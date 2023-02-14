@@ -90,11 +90,11 @@ if (isset($_FILES['CSV_CrossHAL']['name']) && $_FILES['CSV_CrossHAL']['name'] !=
 				$chaine = $ind.'=>array("Quand"=>"'.$tab[0].'", ';
         $chaine .= '"Destinataire"=>"'.$tab[1].'", ';
         $chaine .= '"Article"=>"'.$tab[2].'", ';
-				$chaine .= '"Titre"=>"'.$tab[3].'", ';
-        $chaine .= '"Type"=>"'.$tab[4].'", ';
-        $chaine .= '"Fichier"=>"'.$tab[5].'", ';
-        $chaine .= '"Langue"=>"'.$tab[6].'", ';
-        $chaine .= '"Labo"=>"'.$tab[7].'", ';
+				$chaine .= '"Titre"=>"'.$tab[7].'", ';
+        $chaine .= '"Type"=>"'.$tab[3].'", ';
+        $chaine .= '"Fichier"=>"'.$tab[4].'", ';
+        $chaine .= '"Langue"=>"'.$tab[5].'", ';
+        $chaine .= '"Labo"=>"'.$tab[6].'", ';
         $chaine .= '"Reponse"=>"'.$tab[8].'", ';
 				$chaine .= '"Forward"=>"'.$tab[9].'", ';
         $chaine .= '"Remarques"=>"'.$tab[10].'")';

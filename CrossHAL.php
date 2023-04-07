@@ -226,7 +226,7 @@ include("./Glob_normalize.php");
 																				<p class="font-italic">Photo : Marbella Spain by Victor Grabarczyk on Unsplash (détail)</p>
 																				
                                         <p class="mb-2 text-justify">
-                                            CrossHAL permet de vérifier la qualité des métadonnées des notices saisies dans HAL, de compléter et corriger les auteurs, et de déposer le texte intégral des articles. Ce script a été créé par Olivier Troccaz (conception-développement) et Laurent Jonchère (conception).
+                                            CrossHAL permet de vérifier la qualité des métadonnées des notices saisies dans HAL, de compléter et corriger les auteurs, et de déposer le texte intégral des articles. Ce script a été créé par Olivier Troccaz (conception-développement) et Laurent Jonchère (conception). Son code est disponible <a target='_blank' rel='noopener noreferrer' href="https://github.com/OTroccaz/CrossHAL">sur GitHub</a> sous licence <a target='_blank' rel='noopener noreferrer' href="https://www.gnu.org/licenses/gpl-3.0.fr.html">GPLv3</a>.
                                         </p>
 																				
 																				<p class="mb-4">

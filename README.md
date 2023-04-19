@@ -1,4 +1,1 @@
-CrosHAL permet : 
-. de vérifier la validité des métadonnées des notices saisies dans HAL avec celles présentes dans CrossRef, Pubmed et ISTEX,
-. de compléter et corriger les auteurs, 
-. de déposer le texte intégral des articles.
+CrossHAL allows to check the quality of the metadata of the records entered in HAL, to complete and correct the authors, and to deposit the full text of the articles.

@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Basée sur la distance de Levenshtein, fonction de recherche du titre à partir de CrossRef et du DOI - Based on Levenshtein distance, title search function using CrossRef and DOI
+ */
+ 
 function utf8_to_extended_ascii($str, &$map) {
   // find all multibyte characters (cf. utf-8 encoding specs)
   $matches = array();

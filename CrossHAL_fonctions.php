@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Regroupement des fonctions définies - Grouping of defined functions
+ */
+ 
 if(!function_exists("array_column")) {
   function array_column($array,$column_name) {
     return array_map(function($element) use($column_name){return $element[$column_name];}, $array);

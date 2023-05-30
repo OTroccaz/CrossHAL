@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Correspondances collection <> domaine - Correspondences collection <> domain
+ */
+ 
 //liste des 'correspondances collection <> domaine'
 $DOMCOLL_LISTE = array(
 0 => array('domaine'=>'spi', 'collhal'=>'FOTON'),

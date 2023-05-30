@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Etape 3c - Stage 3c
+ */
+ 
 //Etape 3c > Manuscrit auteurs (via OverHAL) non référencés dans HAL
 include("./CrossHAL_Stats_overhal_mails_UR1.php");
 //var_dump($Stats_OH_Mails);

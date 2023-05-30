@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Correspondances URL de PDF en fonction du début du code DOI - PDF URL matches based on the start of the DOI code
+ */
+ 
 $entURL = array(
 'http://aip.scitation.org/doi/pdf/DOI'=>'10.1063',
 //'http://downloads.hindawi.com/journals/prm/SUFFIXE.pdf'=>'10.1155',

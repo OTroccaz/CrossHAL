@@ -1,5 +1,14 @@
 <?php
 /*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Recherche du critère Open Acces en fonction du DOI - Search for Open Access criteria by DOI
+ */
+ 
+/*
 include("./Glob_normalize.php");
 */
 function testFic($fileUrl)
@@ -139,7 +148,7 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
           }
         }
         if ($parsed_json->{'journal_is_oa'} == false) {
-          if (substr($parsed_json->{'best_oa_location'}->{'license'}, 0, 2) == "cc") {
+          if (substr($parsed_json->{'best_oa_location'}->{'license'} ?? '', 0, 2) == "cc") {
             $evd = "publisherPaid";
             $oa = "ok";
             if($parsed_json->{'best_oa_location'}->{'url_for_pdf'} != null) {$urlPDF = $parsed_json->{'best_oa_location'}->{'url_for_pdf'};}

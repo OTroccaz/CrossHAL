@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Fonction de recherche de métadonnées via ISTEX - ISTEX metadata search function
+ */
+ 
 function rechMetadoISTEX($doi, &$abstract, &$langue, &$keywords, &$langmoc, &$datepub) {
   $urlISTEX = "https://api.istex.fr/document/?q=rft_id=info:doi/".$doi."&size=1&output=*";
   //$contents = simplexml_load_file($urlISTEX);

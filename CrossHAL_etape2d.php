@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Etape 2d - Stage 2d
+ */
+ 
 //Etape 2d > Contrôle des tiers
 //var_dump($arrayHAL["response"]["docs"]);
 include("./CrossHAL_contrib_surs.php");

@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Formulaire pour les modifications - Form for modifications
+ */
+ 
 header('Content-type: text/html; charset=UTF-8');
 require_once('./CAS_connect.php');
 $action = $_GET['action'];
@@ -9,7 +18,7 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
 <html lang="fr">
 <head>
 	<meta charset="utf-8" />
-	<title>CrossHAL - HAL - UR1</title>
+	<title>CrossHAL - HAL - UR</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta content="CrossHAL permet de vérifier les métadonnées des notices saisies dans HAL, de les compléter et corriger, et de déposer le texte intégral des articles" name="description" />
 	<meta content="Coderthemes + Lizuka + OTroccaz + LJonchere" name="author" />
@@ -72,7 +81,7 @@ $form = "CrossHAL_Modif.php?action=".$action."&amp;Id=".$id;
                                     <div class="page-title-right">
                                         <nav aria-label="breadcrumb">
                                             <ol class="breadcrumb bg-light-lighten p-2">
-                                                <li class="breadcrumb-item"><a href="index.php"><i class="uil-home-alt"></i> Accueil HALUR1</a></li>
+                                                <li class="breadcrumb-item"><a href="index.php"><i class="uil-home-alt"></i> Accueil HALUR</a></li>
                                                 <li class="breadcrumb-item active" aria-current="page">Cross<span class="font-weight-bold">HAL</span></li>
                                             </ol>
                                         </nav>

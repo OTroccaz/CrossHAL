@@ -1,5 +1,14 @@
 <?php
 /*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Fonction de recherche de l'ISSN et/ou e-ISSN d'une revue à partir de CrossRef - Search function for the ISSN and/or e-ISSN of a journal using CrossRef
+ */
+ 
+/*
 function objectToArray($object) {
   if(!is_object( $object) && !is_array($object)) {
     return $object;

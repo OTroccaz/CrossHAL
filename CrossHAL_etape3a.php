@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Etape 3a - Stage 3a
+ */
+ 
 //Etape 3a > Manuscrit auteurs (fichiers sous la forme doi_normalisé.pdf)
 $urlServeur = "";
 if (isset($_POST["urlServeur"]) && $_POST["urlServeur"] != "") {$urlServeur = $_POST["urlServeur"];}

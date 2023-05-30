@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Correspondances id structure <> codes labo - Correspondences structure id <> lab codes
+ */
+ 
 //liste des 'correspondances id structure <> codes labo'
 $LABAFFSTR_LISTE = array(
 '#struct-491814'=>'FOTON',

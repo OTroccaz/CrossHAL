@@ -1,4 +1,13 @@
 <?php
+/*
+ * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ *
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
+ *
+ * Etape 2a - Stage 2a
+ */
+ 
 //Etape 2a > Corriger ordre des auteurs et remplacer l'initiale du premier prénom par son écriture complète
 $iMinTab = $iMin - 1;
 for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {

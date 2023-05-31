@@ -339,7 +339,7 @@ include("./Glob_normalize.php");
 																										echo '<div class="card shadow-lg w-100">';
 																												echo '<div class="card-body">';
 																					//authentification CAS ou autre ?
-																					if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) !== false) {
+																					if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
 																						include "./_connexion.php";
 																					}else{
 																						require_once "./CAS_connect.php";

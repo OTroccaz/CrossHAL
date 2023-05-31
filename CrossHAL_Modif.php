@@ -13,7 +13,7 @@ header('Content-type: text/html; charset=UTF-8');
 
 <?php
 //require_once('./CAS_connect.php')//authentification CAS ou autre ?
-if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
+if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
   include('./_connexion.php');
   $HAL_USER = $user;
   $HAL_PASSWD = $pass;

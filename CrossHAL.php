@@ -116,7 +116,7 @@ include "./CrossHAL_PMID_Metado.php";
 include "./CrossHAL_ISTEX_Metado.php";
 include "./CrossHAL_codes_pays.php";
 //authentification CAS ou autre ?
-if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
+if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
   include('./_connexion.php');
 }else{
   require_once('./CAS_connect.php');
@@ -129,7 +129,7 @@ $root = 'http';
 if ( isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
   $root.= "s";
 }
-$targetPDF = "https://ecobio.univ-rennes1.fr/CrossHAL/PDF/";
+$targetPDF = "https://halur1.univ-rennes1.fr/PDF/";
 $testok = 0;
 $idhal = "";
 
@@ -296,7 +296,7 @@ include("./Glob_normalize.php");
 																												echo '<div class="card-body">';
 
 																					//authentification CAS ou autre ?
-																					if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
+																					if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
 																						include "./_connexion.php";
 																					}else{
 																						require_once "./CAS_connect.php";
@@ -339,7 +339,7 @@ include("./Glob_normalize.php");
 																										echo '<div class="card shadow-lg w-100">';
 																												echo '<div class="card-body">';
 																					//authentification CAS ou autre ?
-																					if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
+																					if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) !== false) {
 																						include "./_connexion.php";
 																					}else{
 																						require_once "./CAS_connect.php";

@@ -15,7 +15,7 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 {
   $css = $_GET['css'];
 }else{
-  $css = "https://ecobio.univ-rennes1.fr/HAL_SCD.css";
+  $css = "https://halur1.univ-rennes1.fr/HAL_SCD.css";
 }
 ?>
 <html lang="fr">
@@ -70,11 +70,6 @@ if ($_FILES['pdf_file']['error'] != 4)//Is there a pdf file ?
 }
 
 if ($pdf_file == 1) {
-$urlPDF = "";
-if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
-  $urlPDF = "https://ecobio.univ-rennes1.fr/CrossHAL/PDF/".$halID.".pdf";
-}
-if (strpos($_SERVER['HTTP_HOST'], 'halur1') !== false) {
   $urlPDF = "https://halur1.univ-rennes1.fr/PDF/".$halID.".pdf";
 }
 

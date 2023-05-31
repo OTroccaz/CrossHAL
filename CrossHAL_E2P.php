@@ -78,7 +78,7 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 {
   $css = $_GET['css'];
 }else{
-  $css = "https://ecobio.univ-rennes1.fr/HAL_SCD.css";
+  $css = "https://halur1.univ-rennes1.fr/HAL_SCD.css";
 }
 
 if (isset($_GET["erreur"]))
@@ -98,7 +98,7 @@ include "./CrossHAL_PMID_Metado.php";
 include "./CrossHAL_ISTEX_Metado.php";
 include "./CrossHAL_codes_pays.php";
 //authentification CAS ou autre ?
-if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
+if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) !== false) {
   include('./_connexion.php');
 }else{
   require_once('./CAS_connect.php');
@@ -122,7 +122,7 @@ $root = 'http';
 if ( isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
   $root.= "s";
 }
-$targetPDF = "https://ecobio.univ-rennes1.fr/CrossHAL/PDF/";
+$targetPDF = "https://halur1.univ-rennes1.fr/PDF/";
 $testok = 0;
 $idhal = "";
 
@@ -752,7 +752,7 @@ if (document.getElementById("chk21").checked == false) {
 //Etape 1
 if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"])) && $opt1 == "oui") {
   //authentification CAS ou autre ?
-  if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
+  if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
     include('./_connexion.php');
   }else{
     require_once('./CAS_connect.php');
@@ -2164,7 +2164,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
 //Etape 2
 if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"])) && $opt2 == "oui") {
   //authentification CAS ou autre ?
-  if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false || strpos($_SERVER['HTTP_HOST'], 'ecobio') !== false) {
+  if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
     include('./_connexion.php');
   }else{
     require_once('./CAS_connect.php');

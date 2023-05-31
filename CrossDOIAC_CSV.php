@@ -15,7 +15,7 @@ if (isset($_GET['css']) && ($_GET['css'] != ""))
 {
   $css = $_GET['css'];
 }else{
-  $css = "https://ecobio.univ-rennes1.fr/HAL_SCD.css";
+  $css = "https://halur1.univ-rennes1.fr/HAL_SCD.css";
 }
 ?>
 

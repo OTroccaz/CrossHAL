@@ -71,7 +71,6 @@ if ($_FILES['pdf_file']['error'] != 4)//Is there a pdf file ?
 
 if ($pdf_file == 1) {
   $urlPDF = "https://halur1.univ-rennes1.fr/PDF/".$halID.".pdf";
-}
 
   $url = "&opt3=oui";
   $url .= "&halID=".$_POST["halID"];

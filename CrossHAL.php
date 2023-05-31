@@ -97,7 +97,6 @@ if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $mocISTEX = "";
 	$DOIComm = "";
 	$PoPeer= "";
-	$ordinv = "";
 }
 
 if (isset($_GET["erreur"]))

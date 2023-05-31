@@ -68,6 +68,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $urlServeur = $_GET["urlServeur"];
   $urlPDF3 = $_GET["urlPDF3"];
   $cptTab = $_GET["cptTab"];
+	$ordinv = $_GET["ordinv"];
   $chkall = "";
   $doiCrossRef = "";
   $revue = "";

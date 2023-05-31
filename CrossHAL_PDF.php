@@ -93,6 +93,7 @@ if ($pdf_file == 1) {
 	$url .= "&urlServeur=".$_POST["urlServeur"];
   $url .= "&urlPDF3=".$urlPDF;
   $url .= "&cptTab=".$_POST["cptTab"];
+	$url .= "&ordinv=".$_POST["ordinv"];
   $url .= "&action=3";
   header('Location: '.'./CrossHAL.php?'.$url);
 }

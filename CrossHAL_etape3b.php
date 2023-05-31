@@ -150,6 +150,7 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 				$textAff .= "<input type='hidden' value='' name='embargo'>";
 				$textAff .= "<input type='hidden' value='' name='urlServeur'>";
 				$textAff .= "<input type='hidden' value='' name='cptTab'>";
+				$textAff .= "<input type='hidden' value='".$ordinv."' name='ordinv'>";
 				$textAff .= "<input class='btn btn-info btn-sm' type='submit' value='Envoyer le fichier'>";
 				$textAff .= "</form>";
 			}

@@ -543,6 +543,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						$textAff .= "<input type='hidden' value='".$embargo."' name='embargo'>";
 						$textAff .= "<input type='hidden' value='".$urlServeur."' name='urlServeur'>";
 						$textAff .= "<input type='hidden' value='".$cptTab."' name='cptTab'>";
+						$textAff .= "<input type='hidden' value='".$ordinv."' name='ordinv'>";
 						$textAff .= "<input class='btn btn-info btn-sm' type='submit' value='Envoyer le fichier'>";
 						$textAff .= "</form>";
 					}

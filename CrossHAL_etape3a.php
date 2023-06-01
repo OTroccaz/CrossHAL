@@ -394,6 +394,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$evd = "";
 					if ($licEvd == "auteur") {$evd = "auteur";}
 					if ($licEvd == "OA") {$evd = "greenPublisher";}
+					if ($licEvd == "hybride") {$evd = "publisherPaid";}
 					$compNC = "";
 					$compND = "";
 					$compSA = "";

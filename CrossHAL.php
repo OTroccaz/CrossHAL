@@ -9,6 +9,7 @@
  * Page d'accueil - Home page
  */
  
+header('Content-Encoding: none;'); 
 // récupération de l'adresse IP du client (on cherche d'abord à savoir s'il est derrière un proxy)
 if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
   $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -143,7 +144,7 @@ include("./Glob_normalize.php");
 <html lang="fr">
 <head>
 	<meta charset="utf-8" />
-	<title>CrossHAL - HAL - UR</title>
+	<title>CrossHAL - HALUR</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta content="CrossHAL permet de vérifier les métadonnées des notices saisies dans HAL, de les compléter et corriger, et de déposer le texte intégral des articles" name="description" />
 	<meta content="Coderthemes + Lizuka + OTroccaz + LJonchere" name="author" />
@@ -239,7 +240,7 @@ include("./Glob_normalize.php");
                                         </p>
 																				
 																				<p class="mb-4">
-                                            Contacts : <a target='_blank' rel='noopener noreferrer' href="https://openaccess.univ-rennes1.fr/interlocuteurs/laurent-jonchere">Laurent Jonchère</a> (Université de Rennes 1) / <a target='_blank' rel='noopener noreferrer' href="https://openaccess.univ-rennes1.fr/interlocuteurs/olivier-troccaz">Olivier Troccaz</a> (CNRS CReAAH/OSUR).
+                                            Contacts : <a target='_blank' rel='noopener noreferrer' href="https://scienceouverte.univ-rennes.fr/interlocuteurs/laurent-jonchere">Laurent Jonchère</a> (Université de Rennes 1) / <a target='_blank' rel='noopener noreferrer' href="https://scienceouverte.univ-rennes.fr/interlocuteurs/olivier-troccaz">Olivier Troccaz</a> (CNRS CReAAH/OSUR).
                                         </p>
 
 

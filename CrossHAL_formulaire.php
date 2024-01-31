@@ -96,7 +96,7 @@
 																				if (!isset($_POST["valider"]) && !isset($_POST["apa"])) {
 																					$apa = "oui";
 																				}
-																				if (isset($opt1) && $opt1 == "oui" && $increment >= 10 && $csvDOIAC == "non") {$increment = 10;}
+																				//if (isset($opt1) && $opt1 == "oui" && $increment >= 10 && $csvDOIAC == "non") {$increment = 10;}
 																				if (isset($_POST["valider"])) {
 																					$iMax = $iMin + $increment - 1;
 																					$iMinRet = $iMin;
@@ -208,7 +208,7 @@
 																												if (!isset($_POST["valider"]) && !isset($_POST["apa"])) {
 																													$apa = "oui";
 																												}
-																												if (isset($opt1) && $opt1 == "oui" && $increment >= 10 && $csvDOIAC == "non") {$increment = 10;}
+																												//if (isset($opt1) && $opt1 == "oui" && $increment >= 10 && $csvDOIAC == "non") {$increment = 10;}
 																												if (isset($_POST["valider"])) {
 																													$iMax = $iMin + $increment - 1;
 																													$iMinRet = $iMin;
@@ -640,6 +640,7 @@
 																																					</div>
 																																				</div><!-- .form-group -->
 																																				
+																																				<span id='chk52'></span>
 																																				<?php
 																																				//Restriction IP pour la recherche des auteurs correspondants
 																																				include("./Glob_IP_list.php");

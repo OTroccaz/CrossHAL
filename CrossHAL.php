@@ -303,7 +303,7 @@ include("./Glob_normalize.php");
 																						require_once "./CAS_connect.php";
 																					}
 																					$rows = 100000;//100000
-																					if ($increment >= 10 && $csvDOIAC == "non") {$increment = 10;}//Pour éviter d'être blacklisté par Crossref, sauf pour l'étape 1c
+																					//if ($increment >= 10 && $csvDOIAC == "non") {$increment = 10;}//Pour éviter d'être blacklisté par Crossref, sauf pour l'étape 1c
 																					//$entete = "Authorization: Basic ".$pass."\r\n".
 																					//          "On-Behalf-Of: ".$user."\r\n".
 																					//          "Content-Type: text/xml"."\r\n".

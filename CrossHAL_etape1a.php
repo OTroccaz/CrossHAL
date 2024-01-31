@@ -504,7 +504,13 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4) && substr($txtAnnCR, 0, 4) != "" && substr($annHAL, 5, 2) != substr($txtAnnCR, 5, 2) && substr($txtAnnCR, 5, 2) != "" && substr($annHAL, 8, 2) != substr($txtAnnCR, 8, 2) && substr($txtAnnCR, 8, 2) != "" )) {
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4))) {
 					//Modification que si (AAAA-CR > AAAA-HAL) ou si (AAAA-CR = AAAA-HAL et AAAA-CR plus complète que AAAA-HAL)
+					/*
 					if ((intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) || (intval(substr($txtAnnCR, 0, 4)) == intval(substr($annHAL, 0, 4)) && strlen($txtAnnCR) > strlen($annHAL))) {
+						$deb = "<strong>";$fin = "</strong>";
+					}
+					*/
+					//Modification que si (AAAA-CR > AAAA-HAL)
+					if ((intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4)))) {
 						$deb = "<strong>";$fin = "</strong>";
 					}
 				}
@@ -1173,7 +1179,9 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4) && substr($txtAnnCR, 0, 4) != "" && substr($annHAL, 5, 2) != substr($txtAnnCR, 5, 2) && substr($txtAnnCR, 5, 2) != "" && substr($annHAL, 8, 2) != substr($txtAnnCR, 8, 2) && substr($txtAnnCR, 8, 2) != "" )) {
 					//if (($testAnnCR == substr($annHAL, 0, 4) && (strlen($txtAnnCR) > strlen($annHAL))) || (substr($annHAL, 0, 4) != substr($txtAnnCR, 0, 4))) {
 					//Modification que si (AAAA-CR > AAAA-HAL) ou si (AAAA-CR = AAAA-HAL et AAAA-CR plus complète que AAAA-HAL)
-					if ((intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) || (intval(substr($txtAnnCR, 0, 4)) == intval(substr($annHAL, 0, 4)) && strlen($txtAnnCR) > strlen($annHAL))) {
+					//if ((intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4))) || (intval(substr($txtAnnCR, 0, 4)) == intval(substr($annHAL, 0, 4)) && strlen($txtAnnCR) > strlen($annHAL))) {
+					//Modification que si (AAAA-CR > AAAA-HAL)
+					if ((intval(substr($txtAnnCR, 0, 4)) > intval(substr($annHAL, 0, 4)))) {
 						insertNode($xml, $txtAnnCR, "imprint", "date", "date", "type", "datePub", "", "", "iB");
 						$xml->save($Fnm);
 						$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
@@ -1524,7 +1532,8 @@ echo "</script>";
 
 //Modification automatisée
 $actionMA = "onclick='";
-if ($lienMAJgrpTot != "" && $increment == 10) {
+//if ($lienMAJgrpTot != "" && $increment == 10) {
+if ($lienMAJgrpTot != "") {
 	if (strpos($lienMAJgrpTot, "A_exclure:") !== false) {//Suppression des IdHAL pour lesquels la modification automatisée ne doit pas être appliquée
 		$tabHalId = explode("~", $lienMAJgrpTot);
 		$tabActId = explode("~", $actsMAJgrpTot);

@@ -45,7 +45,7 @@ register_shutdown_function(function() {
 $action = "";//Variable pour identifier l'étape 1, 2 ou 3
 $urlServeur = "";//URL du PDF qui sera renseignée dans le TEI
 $nbjours = 1;//"Embargo" > Interdit de modifier une notice si date "whenSubmitted" < n jours
-$racine = "https://hal.archives-ouvertes.fr/";
+$racine = "https://hal.science/";
 
 if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $action = $_GET["action"];

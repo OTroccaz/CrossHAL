@@ -44,7 +44,7 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 			$notice = $i+1;
 			echo "<td style='text-align: center;'>".$notice."</td>";
 			echo "<td style='text-align: center;'><a target='_blank' href='".$Stats_OH_Mails[$i]["Article"]."'><img title='DOI' src='./img/doi.jpg'></a></td>";
-			$lienHAL = "https://hal-univ-rennes1.archives-ouvertes.fr/".$arrayHAL["response"]["docs"][0]["halId_s"];
+			$lienHAL = "https://univ-rennes.hal.science/".$arrayHAL["response"]["docs"][0]["halId_s"];
 			echo "<td style='text-align: center;'><a target='_blank' href='".$lienHAL."'><img title='HAL' src='./img/HAL.jpg'></a></td>";
 			echo "<td style='text-align: center;'>".$doi."</td>";
 			echo "<td style='text-align: center;'>".$Stats_OH_Mails[$i]["Destinataire"]."</td>";
@@ -75,7 +75,7 @@ for ($i = 0; $i < count($Stats_OH_Mails); $i++) {
 			if ($numFCRAC != 0) {
 				$actADD = "<a href='#'><img alt='Le PDF a déjà été soumis à HAL' title='Le PDF a déjà été soumis à HAL' data-toggle=\"popover\" data-trigger='hover' data-content='En attente de traitement avant d’être mis en ligne, mais soumis à la validation de HAL' data-original-title='' style='width: 50px;' src='./img/dep_grand.png'></a>";
 			}else{
-				$actADD = "<a target='_blank' href='https://hal-univ-rennes1.archives-ouvertes.fr/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' style='width: 50px;' src='./img/add_grand.png'></a>";
+				$actADD = "<a target='_blank' href='https://univ-rennes.hal.science/submit/addfile/docid/".$arrayHAL["response"]["docs"][0]["docid"]."'><img alt='Add paper' title='Add paper' style='width: 50px;' src='./img/add_grand.png'></a>";
 			}
 			echo "<td style='text-align: center;'>".$actADD."</td>";
 			//Action 2 > Parcourir

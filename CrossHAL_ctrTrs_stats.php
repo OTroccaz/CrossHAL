@@ -140,7 +140,7 @@ foreach($CTRTRS_LISTE AS $i => $valeur) {
 	$j = $i + 1;
 	echo ("<tr style='text-align: center;'><td>".$j."</td>");
 	$chaine .= $j.';';
-	echo ("<td style='text-align: center;'><a target='_blank' href='https://hal.archives-ouvertes.fr/".$CTRTRS_LISTE[$i]["halID"]."'>".$CTRTRS_LISTE[$i]["halID"]."</a></td>");
+	echo ("<td style='text-align: center;'><a target='_blank' href='https://hal.science/".$CTRTRS_LISTE[$i]["halID"]."'>".$CTRTRS_LISTE[$i]["halID"]."</a></td>");
 	$chaine .= $CTRTRS_LISTE[$i]["halID"].';';
 	echo ("<td style='text-align: center;'>".$CTRTRS_LISTE[$i]["proDate"]."</td>");
 	$chaine .= $CTRTRS_LISTE[$i]["proDate"].';';

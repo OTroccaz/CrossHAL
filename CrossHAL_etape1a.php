@@ -14,7 +14,7 @@
 //$urlHAL = "https://api.archives-ouvertes.fr/search/?q=halId_s:%22hal-01795811%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:%22ART%22&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s,submitType_s,docType_s&sort=halId_s%20asc";
 	if($ordinv == "oui") {$sort = "desc";}else{$sort = "asc";}
 	$urlHAL = "https://api.archives-ouvertes.fr/search/?q=".$atester.":%22".$qui."%22".$txtApa."&rows=".$rows."&fq=producedDateY_i:[".$anneedeb."%20TO%20".$anneefin."]%20AND%20docType_s:(%22ART%22%20OR%20%22COMM%22%20OR%20%22COUV%22)&fl=title_s,authFirstName_s,authLastName_s,doiId_s,halId_s,volume_s,issue_s,page_s,funding_s,producedDate_s,ePublicationDate_s,keyword_s,pubmedId_s,anrProjectReference_s,journalTitle_s,journalIssn_s,journalValid_s,docid,journalIssn_s,journalEissn_s,abstract_s,language_s,inPress_bool,label_xml,submittedDate_s,submitType_s,docType_s,popularLevel_s,peerReviewing_s&sort=contributorFullName_s%20".$sort;
-//echo $urlHAL.'<br>';
+//echo $urlHAL.'<br><br>';
 //$contents = file_get_contents($urlHAL);
 //$results = json_decode($contents);
 //$resHAL = json_decode($contents, true);
@@ -215,6 +215,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$lanCR = "";//Langue CR
 		$finCR = "";//Financement CR
 		$annCR = "";//Année de publication CR
+		$txtAnnCR = "";//Année de publication CR sous format texte
 		$melCR = "";//Date de mise en ligne CR
 		$mocCR = "";//Mots-clés CR
 		$mocPM = "";//Mots-clés PM

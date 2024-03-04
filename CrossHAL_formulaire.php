@@ -244,7 +244,7 @@
                                                             </button> -->
                                                         </div>
 																												<input type="text" id="idhal" name="idhal" class="form-control" value="<?php echo $idhal;?>" onkeydown="document.getElementById('team').value = '';">
-																												<a class="ml-2 small" target="_blank" rel="noopener noreferrer" href="https://hal.archives-ouvertes.fr/page/mon-idhal">Créer mon IdHAL</a>
+																												<a class="ml-2 small" target="_blank" rel="noopener noreferrer" href="https://hal.science/page/mon-idhal">Créer mon IdHAL</a>
 																												<p class="small mt-2 w-100">(IdHAL > olivier-troccaz, par exemple)</p>
                                                    
 																										</div>

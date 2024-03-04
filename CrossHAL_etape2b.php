@@ -210,9 +210,9 @@ while(isset($tabIdHAL["lienHAL"][$cpt])) {
 				$textAff .= "<td style='text-align: center;'>&nbsp;</td>";
 			}
 		}
-		$lienMAJNot = str_replace(array("<a target='_blank' href='https://hal.archives-ouvertes.fr/", "'><img alt='HAL' src='./img/HAL.jpg'></a>"), "", $tabIdHAL["lienHAL"][$cpt]);
+		$lienMAJNot = str_replace(array("<a target='_blank' href='https://hal.science/", "'><img alt='HAL' src='./img/HAL.jpg'></a>"), "", $tabIdHAL["lienHAL"][$cpt]);
 		$tabDocid = explode("-", $lienMAJNot);
-		$lienMAJNot = "https://hal.archives-ouvertes.fr/submit/update/docid/".$tabDocid[1];
+		$lienMAJNot = "https://hal.science/submit/update/docid/".$tabDocid[1];
 		$textAff .= "<td><a target='_blank' href='".$lienMAJNot."'><img alt='HAL'src='./img/HAL.jpg'></a></td>";
 
 		$textAff .= "<td>".$tabIdHAL["nom"][$cpt]."</td>";

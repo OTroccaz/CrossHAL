@@ -32,7 +32,7 @@ header('Content-type: text/html; charset=UTF-8');
 $action = "";//Variable pour identifier l'étape 1, 2 ou 3
 $urlPDF = "";//URL du PDF qui sera renseignée dans le TEI
 $nbjours = 90;//"Embargo" > Interdit de modifier une notice si date "whenSubmitted" < n jours
-$racine = "https://hal.archives-ouvertes.fr/";
+$racine = "https://hal.science/";
 
 if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $action = $_GET["action"];
@@ -578,7 +578,7 @@ if (isset($team) && $team != "") {$team1 = $team; $team2 = $team;}else{$team1 = 
 <h2><b><u>ou</u></b></h2>
 <p class="form-inline"><b><label for="idhal">Identifiant alphabétique auteur HAL</label></b> <i>(IdHAL > olivier-troccaz, par exemple)</i> :
 <input type="text" id="idhal" name="idhal" class="form-control" style="height: 25px; width: 300px" value="<?php echo $idhal;?>" onkeydown="document.getElementById('team').value = '';">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://hal.archives-ouvertes.fr/page/mon-idhal">Créer mon IdHAL</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://hal.science/page/mon-idhal">Créer mon IdHAL</a>
 <br><br><table>
 <tr><td valign="top">Période :&nbsp;</td>
 <td>
@@ -2492,7 +2492,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
         //Actions
         $lienMAJAut = "";
         $tabDocid = explode("-", $arrayHAL["response"]["docs"][$cpt]["halId_s"]);
-        $lienMAJAut = "https://hal.archives-ouvertes.fr/submit/update/docid/".$tabDocid[1];
+        $lienMAJAut = "https://hal.science/submit/update/docid/".$tabDocid[1];
         
         $tei = $arrayHAL["response"]["docs"][$cpt]["label_xml"];
         //echo $tei;
@@ -3034,9 +3034,9 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
               $textAff .= "<td style='text-align: center;'>&nbsp;</td>";
             }
           }
-          $lienMAJNot = str_replace(array("<a target='_blank' href='https://hal.archives-ouvertes.fr/", "'><img alt='HAL' src='./img/HAL.jpg'></a>"), "", $tabIdHAL["lienHAL"][$cpt]);
+          $lienMAJNot = str_replace(array("<a target='_blank' href='https://hal.science/", "'><img alt='HAL' src='./img/HAL.jpg'></a>"), "", $tabIdHAL["lienHAL"][$cpt]);
           $tabDocid = explode("-", $lienMAJNot);
-          $lienMAJNot = "https://hal.archives-ouvertes.fr/submit/update/docid/".$tabDocid[1];
+          $lienMAJNot = "https://hal.science/submit/update/docid/".$tabDocid[1];
           $textAff .= "<td><a target='_blank' href='".$lienMAJNot."'><img alt='HAL'src='./img/HAL.jpg'></a></td>";
 
           $textAff .= "<td>".$tabIdHAL["nom"][$cpt]."</td>";
@@ -3108,7 +3108,7 @@ if ((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour"
                     $lienAureHAL = "https://aurehal.archives-ouvertes.fr/author/browse/critere/".$tabIdHAL["nom"][$cpt]."+".$tabIdHAL["prenom"][$cpt]."/solR/1/page/1/nbResultPerPage/50/tri/current_bool/filter/all";
                     $textAff .= "<td style='text-align: center;'><a target='_blank' href='".$lienAureHAL."'><img src='./img/HAL.jpg'></a></td>";
                     $textAff .= "<td style='text-align: center;'>".$emdoms."</td>";
-                    $lienDocID = "https://hal.archives-ouvertes.fr/search/index/q/*/authId_i/".$arrayHALAut["response"]["docs"][$iHALAut]["docid"];
+                    $lienDocID = "https://hal.science/search/index/q/*/authId_i/".$arrayHALAut["response"]["docs"][$iHALAut]["docid"];
                     $textAff .= "<td style='text-align: center;'><a target='_blank' href='".$lienDocID."'><img src='./img/HAL.jpg'></a></td>";
                     $aureDoc = "ok";
                     $iHALtst = "ok";
@@ -3576,7 +3576,7 @@ if (((isset($_POST["valider"]) || isset($_POST["suite"]) || isset($_POST["retour
   if (isset($_POST["urlPDF"]) && $_POST["urlPDF"] != "") {$urlPDF = $_POST["urlPDF"];}
   if (isset($_GET["urlPDF"]) && $_GET["urlPDF"] != "")  {$urlPDF = $_GET["urlPDF"];}
   $rows = 100000;//100000
-  $racine = "https://hal.archives-ouvertes.fr/";
+  $racine = "https://hal.science/";
   if ($apa == "oui") {//Notice "A paraître"
     $txtApa = "";
   }else{

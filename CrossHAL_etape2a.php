@@ -176,7 +176,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		//Actions
 		$lienMAJAut = "";
 		$tabDocid = explode("-", $arrayHAL["response"]["docs"][$cpt]["halId_s"]);
-		$lienMAJAut = "https://hal.archives-ouvertes.fr/submit/update/docid/".$tabDocid[1];
+		$lienMAJAut = "https://hal.science/submit/update/docid/".$tabDocid[1];
 		
 		$tei = $arrayHAL["response"]["docs"][$cpt]["label_xml"];
 		//echo $tei;

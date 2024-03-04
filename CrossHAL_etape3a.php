@@ -13,7 +13,7 @@ $urlServeur = "";
 if (isset($_POST["urlServeur"]) && $_POST["urlServeur"] != "") {$urlServeur = $_POST["urlServeur"];}
 if (isset($_GET["urlServeur"]) && $_GET["urlServeur"] != "")  {$urlServeur = $_GET["urlServeur"];}
 $rows = 100000;//100000
-$racine = "https://hal.archives-ouvertes.fr/";
+$racine = "https://hal.science/";
 if ($apa == "oui") {//Notice "A paraître"
 	$txtApa = "";
 }else{

@@ -8,10 +8,9 @@
  *
  * Page d'accueil - Home page
  */
- 
-if (strpos($_SERVER['HTTP_HOST'], 'cnrs.fr') !== false) {
-	header('Content-Encoding: none;');
-}
+
+header('Content-Encoding: none');
+
 // récupération de l'adresse IP du client (on cherche d'abord à savoir s'il est derrière un proxy)
 if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
   $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];

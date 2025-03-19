@@ -50,13 +50,13 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
   $pag = 0;
 
   
-  $url1 = "https://api.unpaywall.org/v2/10.1016/j.jenvman.2017.06.040?email=olivier.troccaz@univ-rennes1.fr";//404
-  $url2 = 'https://api.unpaywall.org/v2/10.1007/s10342-017-1066-z?email=olivier.troccaz@univ-rennes1.fr';//oa false
-  $url3 = 'https://api.unpaywall.org/v2/10.1002/eco.1765?email=olivier.troccaz@univ-rennes1.fr';//is_oa true
-  $url4 = 'https://api.unpaywall.org/v2/10.1136/jmedgenet-2015-103302?email=olivier.troccaz@univ-rennes1.fr';//license: cc-by-nc
-  $url5 = 'https://api.unpaywall.org/v2/10.1016/j.crhy.2016.11.009?email=olivier.troccaz@univ-rennes1.fr';//license: cc-by-nc-nd
-  $url6 = 'https://api.unpaywall.org/v2/10.1371/journal.pone.0168693?email=olivier.troccaz@univ-rennes1.fr';//Plos One > revue oa sous licence cc > retenir racine DOI 10.1371 
-  $url7 = 'https://api.unpaywall.org/v2/10.1186/s12864-016-3356-0?email=olivier.troccaz@univ-rennes1.fr';//BMC Genomics > revue oa sous licence cc > retenir racine DOI 10.1186
+  $url1 = "https://api.unpaywall.org/v2/10.1016/j.jenvman.2017.06.040?email=olivier.troccaz@univ-rennes.fr";//404
+  $url2 = 'https://api.unpaywall.org/v2/10.1007/s10342-017-1066-z?email=olivier.troccaz@univ-rennes.fr';//oa false
+  $url3 = 'https://api.unpaywall.org/v2/10.1002/eco.1765?email=olivier.troccaz@univ-rennes.fr';//is_oa true
+  $url4 = 'https://api.unpaywall.org/v2/10.1136/jmedgenet-2015-103302?email=olivier.troccaz@univ-rennes.fr';//license: cc-by-nc
+  $url5 = 'https://api.unpaywall.org/v2/10.1016/j.crhy.2016.11.009?email=olivier.troccaz@univ-rennes.fr';//license: cc-by-nc-nd
+  $url6 = 'https://api.unpaywall.org/v2/10.1371/journal.pone.0168693?email=olivier.troccaz@univ-rennes.fr';//Plos One > revue oa sous licence cc > retenir racine DOI 10.1371 
+  $url7 = 'https://api.unpaywall.org/v2/10.1186/s12864-016-3356-0?email=olivier.troccaz@univ-rennes.fr';//BMC Genomics > revue oa sous licence cc > retenir racine DOI 10.1186
   $url8 = "https://api.unpaywall.org/v2/10.1097/QAD.0000000000001048";
   //$url = "https://api.unpaywall.org/v2/10.1016/j.neulet.2016.02.038";
   //$url = "https://api.unpaywall.org/v2/10.1038/s41598-017-12398-0";//Nature Publishing Group
@@ -92,7 +92,7 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
 
   //some variables
   $doi = str_replace("https://api.unpaywall.org/v2/", "", $url);
-  $url .= "?email=olivier.troccaz@univ-rennes1.fr";
+  $url .= "?email=olivier.troccaz@univ-rennes.fr";
   //echo "<a target='_blank' href='".$url."'>".$url.'</a><br>';
 
   $entDOITab = explode("/", $doi);

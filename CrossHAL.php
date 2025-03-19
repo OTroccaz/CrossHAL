@@ -131,7 +131,7 @@ $root = 'http';
 if ( isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
   $root.= "s";
 }
-$targetPDF = "https://halur1.univ-rennes1.fr/PDF/";
+$targetPDF = "https://halur.univ-rennes.fr/PDF/";
 $testok = 0;
 $idhal = "";
 
@@ -214,7 +214,7 @@ include("./Glob_normalize.php");
                                     <div class="page-title-right">
                                         <nav aria-label="breadcrumb">
                                             <ol class="breadcrumb bg-light-lighten p-2">
-																								<li><a href="https://halur1.univ-rennes1.fr/CrossHAL.php?logout="><i class="uil-power"></i> Déconnexion CAS CCSD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+																								<li><a href="https://halur.univ-rennes.fr/CrossHAL.php?logout="><i class="uil-power"></i> Déconnexion CAS CCSD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                                                 <li class="breadcrumb-item"><a href="index.php"><i class="uil-home-alt"></i> Accueil HALUR</a></li>
                                                 <li class="breadcrumb-item active" aria-current="page">Cross<span class="font-weight-bold">HAL</span></li>
                                             </ol>
@@ -263,7 +263,7 @@ include("./Glob_normalize.php");
 																						<div class="mb-2">
                                             <ul class="list-group">
                                                 <li class="list-group-item">
-                                                    <a target="_blank" rel="noopener noreferrer" href="https://halur.univ-rennes.fr/CrossHAL_Tutoriel.pdf"><i class="mdi mdi-file-pdf-box-outline mr-1"></i> Prise en main rapide</a><br>
+                                                    <a target="_blank" rel="noopener noreferrer" href="./CrossHAL_Tutoriel.pdf"><i class="mdi mdi-file-pdf-box-outline mr-1"></i> Prise en main rapide</a><br>
                                                 </li>
                                             </ul> 
                                         </div>

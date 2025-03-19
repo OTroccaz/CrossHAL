@@ -94,8 +94,7 @@ function askCurl($url, &$arrayCurl) {
   curl_setopt($ch, CURLOPT_URL, $url);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
-  curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
+  curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur.univ-rennes.fr)');
 	if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
@@ -496,6 +495,26 @@ function testURL($url) {
   }
 }
 
+function rrmdir($dir)
+{
+ if (is_dir($dir))
+ {
+  $objects = scandir($dir);
+
+  foreach ($objects as $object)
+  {
+   if ($object != '.' && $object != '..')
+   {
+    if (filetype($dir.'/'.$object) == 'dir') {rrmdir($dir.'/'.$object);}
+    else {unlink($dir.'/'.$object);}
+   }
+  }
+
+  reset($objects);
+  rmdir($dir);
+ }
+}
+
 //Nettoyage des dossiers de création de fichiers
 function suppression($dir, $age) {
 	
@@ -519,7 +538,7 @@ function suppression($dir, $age) {
 		if ($ageElem > $age) {
 			if(is_dir($dir.'/'.$elem) && substr($elem, -2, 2) !== '..' && substr($elem, -1, 1) !== '.') {//si c'est un repertoire
 				suppression($dir.'/'.$elem, $age);
-				rmdir($dir.'/'.$elem);
+				rrmdir($dir.'/'.$elem);
 			}    
 		}
 	}

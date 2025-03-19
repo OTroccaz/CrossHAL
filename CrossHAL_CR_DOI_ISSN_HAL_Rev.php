@@ -1,11 +1,11 @@
 <?php
 /*
- * CrossHAL - Enrichissez vos dépôts HAL - Enrich your HAL repositories
+ * CrossHAL - Enrichissez vos dÃ©pÃ´ts HAL - Enrich your HAL repositories
  *
- * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent Jonchère (laurent.jonchere@univ-rennes.fr)
+ * Copyright (C) 2023 Olivier Troccaz (olivier.troccaz@cnrs.fr) and Laurent JonchÃ¨re (laurent.jonchere@univ-rennes.fr)
  * Released under the terms and conditions of the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.txt)
  *
- * Fonction de recherche de l'ISSN et/ou e-ISSN d'une revue à partir de CrossRef - Search function for the ISSN and/or e-ISSN of a journal using CrossRef
+ * Fonction de recherche de l'ISSN et/ou e-ISSN d'une revue Ã  partir de CrossRef - Search function for the ISSN and/or e-ISSN of a journal using CrossRef
  */
  
 /*
@@ -24,8 +24,7 @@ function askCurl($url, &$arrayCurl) {
   curl_setopt($ch, CURLOPT_URL, $url);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur1.univ-rennes1.fr)');
-  curl_setopt($ch, CURLOPT_USERAGENT, 'PROXY (http://siproxy.univ-rennes1.fr)');
+  curl_setopt($ch, CURLOPT_USERAGENT, 'SCD (https://halur.univ-rennes.fr)');
   if (isset ($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")	{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");

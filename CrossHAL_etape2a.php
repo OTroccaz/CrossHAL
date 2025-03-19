@@ -180,8 +180,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		
 		$tei = $arrayHAL["response"]["docs"][$cpt]["label_xml"];
 		//echo $tei;
-		$tei = str_replace(array('<p>', '</p>'), '', $tei);
-		$tei = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $tei);
+		//$tei = str_replace(array('<p>', '</p>'), '', $tei);
+		//$tei = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $tei);
 		$teiRes = '<?xml version="1.0" encoding="UTF-8"?>'.$tei;
 		//$teiRes = str_replace('<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:hal="http://hal.archives-ouvertes.fr/">', '<TEI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd" xmlns="http://www.tei-c.org/ns/1.0" xmlns:hal="http://hal.archives-ouvertes.fr/">', $teiRes);
 		//$Fnm = "./XML/".normalize(wd_remove_accents($titre)).".xml";
@@ -256,8 +256,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$lienMAJPre = "";
 		$tei = $arrayHAL["response"]["docs"][$cpt]["label_xml"];
 		//echo $tei;
-		$tei = str_replace(array('<p>', '</p>'), '', $tei);
-		$tei = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $tei);
+		//$tei = str_replace(array('<p>', '</p>'), '', $tei);
+		//$tei = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $tei);
 		$teiRes = '<?xml version="1.0" encoding="UTF-8"?>'.$tei;
 		//$teiRes = str_replace('<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:hal="http://hal.archives-ouvertes.fr/">', '<TEI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd" xmlns="http://www.tei-c.org/ns/1.0" xmlns:hal="http://hal.archives-ouvertes.fr/">', $teiRes);
 		//$Fnm = "./XML/".normalize(wd_remove_accents($titre)).".xml";

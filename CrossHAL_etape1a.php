@@ -850,9 +850,10 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$actMaj = "ok";
 		$raisons = "";
 		$tei = $arrayHAL["response"]["docs"][$cpt]["label_xml"];
-		//echo $tei;
-		$tei = str_replace(array('<p>', '</p>'), '', $tei);
-		$tei = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $tei);
+		//echo 'toto'.$tei.'otot';
+		//echo $arrayHAL["response"]["docs"][$cpt]["halId_s"];
+		//$tei = str_replace(array('<p>', '</p>'), '', $tei);
+		//$tei = str_replace('<p part="N">HAL API platform', '<p part="N">HAL API platform</p>', $tei);
 		$teiRes = '<?xml version="1.0" encoding="UTF-8"?>'.$tei;
 		//$teiRes = str_replace('<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:hal="http://hal.archives-ouvertes.fr/">', '<TEI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd" xmlns="http://www.tei-c.org/ns/1.0" xmlns:hal="http://hal.archives-ouvertes.fr/">', $teiRes);
 		//$Fnm = "./XML/".normalize(wd_remove_accents($titre)).".xml";
@@ -860,6 +861,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$xml = new DOMDocument( "1.0", "UTF-8" );
 		$xml->formatOutput = true;
 		$xml->preserveWhiteSpace = false;
+
 		$colact = "ok";
 		if (@$xml->loadXML($teiRes) !== false) {//tester validité teiRes
 			$xml->loadXML($teiRes);

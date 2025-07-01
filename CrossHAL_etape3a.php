@@ -244,7 +244,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 
 			$licEvd = "";
-			$compCC = "";
+			//$compCC = "";
 			if ($evd == "greenPublisher") {$licEvd = "OA";}
 			if ($evd == "publisherPaid") {$licEvd = "hybride";}
 			if ($evd == "author") {$licEvd = "auteur";}

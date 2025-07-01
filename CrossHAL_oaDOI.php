@@ -136,18 +136,18 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
 				$oa = "ok";
 				if ($parsed_json->{'best_oa_location'}->{'url_for_pdf'} != null) {$urlPDF = $parsed_json->{'best_oa_location'}->{'url_for_pdf'};}
 				$compCC = "CC";
-				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nc") !== false) {$compNC = "ok";}
-				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nd") !== false) {$compND = "ok";}
-				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "sa") !== false) {$compSA = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'} ?? '', "nc") !== false) {$compNC = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'} ?? '', "nd") !== false) {$compND = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'} ?? '', "sa") !== false) {$compSA = "ok";}
 				break;
 			case "hybrid":
 				$evd = "publisherPaid";
 				$oa = "ok";
 				if ($parsed_json->{'best_oa_location'}->{'url_for_pdf'} != null) {$urlPDF = $parsed_json->{'best_oa_location'}->{'url_for_pdf'};}
 				$compCC = "CC";
-				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nc") !== false) {$compNC = "ok";}
-				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nd") !== false) {$compND = "ok";}
-				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "sa") !== false) {$compSA = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'} ?? '', "nc") !== false) {$compNC = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'} ?? '', "nd") !== false) {$compND = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'} ?? '', "sa") !== false) {$compSA = "ok";}
 				break;
 			case "green":
 				$evd = "author";

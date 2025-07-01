@@ -155,6 +155,11 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
 				break;
 			case "closed":
 				$evd = "noaction";
+				$compCC = "closed";
+				break;
+			case "bronze":
+				$evd = "noaction";
+				$compCC = "bronze";
 				break;
 		}
 	

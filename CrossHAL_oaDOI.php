@@ -128,8 +128,39 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
   {
     //echo 'Invalid DOI?';
   }else{
-    if ($parsed_json->{'is_oa'} == true)//is_oa true
-    {
+    if ($parsed_json->{'is_oa'} == true) {//is_oa true
+		//Le champ best_oa_location > evidence n'est plus utilisé ("deprecated"), il est remplacé par "oa_status" (4 valeurs possibles).
+		switch ($parsed_json->{'oa_status'}) {
+			case "gold":
+				$evd = "greenPublisher";
+				$oa = "ok";
+				if ($parsed_json->{'best_oa_location'}->{'url_for_pdf'} != null) {$urlPDF = $parsed_json->{'best_oa_location'}->{'url_for_pdf'};}
+				$compCC = "CC";
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nc") !== false) {$compNC = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nd") !== false) {$compND = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "sa") !== false) {$compSA = "ok";}
+				break;
+			case "hybrid":
+				$evd = "publisherPaid";
+				$oa = "ok";
+				if ($parsed_json->{'best_oa_location'}->{'url_for_pdf'} != null) {$urlPDF = $parsed_json->{'best_oa_location'}->{'url_for_pdf'};}
+				$compCC = "CC";
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nc") !== false) {$compNC = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "nd") !== false) {$compND = "ok";}
+				if (strpos($parsed_json->{'best_oa_location'}->{'license'}, "sa") !== false) {$compSA = "ok";}
+				break;
+			case "green":
+				$evd = "author";
+				if ($parsed_json->{'best_oa_location'}->{'url_for_pdf'} != null) {$urlPDF = $parsed_json->{'best_oa_location'}->{'url_for_pdf'};}
+				break;
+			case "closed":
+				$evd = "noaction";
+				break;
+		}
+	
+	//Old test
+	/*
+	if ($parsed_json->{'is_oa'} == true) {//is_oa true
       if (substr($parsed_json->{'best_oa_location'}->{'evidence'}, 0, 4) == "open") {//type open
         if ($parsed_json->{'journal_is_oa'} == true) {
           if(substr($parsed_json->{'best_oa_location'}->{'license'}, 0, 2) == "cc") {
@@ -182,8 +213,9 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
           }
         }
       }
+	  */
       
-      /*old test
+      /*old old test
       //some tests on the license type
       if (isset($parsed_json->{'best_oa_location'}->{'license'}))
       {

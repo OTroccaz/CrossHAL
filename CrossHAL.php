@@ -72,6 +72,13 @@ if (isset($_GET['action']) && ($_GET['action'] == 3)) {
   $cptTab = $_GET["cptTab"];
 	$ordinv = $_GET["ordinv"];
   $chkall = "";
+  $doiOA = "";
+  $revOA = "";
+  $vnpOA = "";
+  $lanOA = "";
+  $finOA = "";
+  $anrOA = "";
+  $melOA = "";
   $doiCrossRef = "";
   $revue = "";
   $vnp = "";
@@ -116,7 +123,9 @@ include "./CrossHAL_CR_DOI_Levenshtein.php";
 include "./CrossHAL_CR_DOI_ISSN_HAL_Rev.php";
 include "./CrossHAL_PMID_Metado.php";
 include "./CrossHAL_ISTEX_Metado.php";
+include "./CrossHAL_OA_Metado.php";
 include "./CrossHAL_codes_pays.php";
+include "./CrossHAL_codes_pays_2_3_lettres.php";
 //authentification CAS ou autre ?
 if (strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
   include('./_connexion.php');

@@ -59,9 +59,16 @@ function option1() {
 	document.getElementById("chk47").checked = false;
 	document.getElementById("chk50").checked = false;
 	document.getElementById("chk51").checked = false;
+	//document.getElementById("chk53").checked = false;
+	//document.getElementById("chk54").checked = false;
+	//document.getElementById("chk55").checked = false;
+	//document.getElementById("chk56").checked = false;
+	//document.getElementById("chk57").checked = false;
+	//document.getElementById("chk58").checked = false;
+	//document.getElementById("chk59").checked = false;
   document.getElementById("embargo").style.display = "none";
 	//Si un des éléments CrossRef (cc) est coché > en plus de décocher ceux des option 2 et 3, décocher tous les autres de l'option 1
-	for (let ichk = 39; ichk < 53; ichk++) {
+	for (let ichk = 39; ichk < 60; ichk++) {
 		if (ichk != 48 && ichk != 49) {
 			document.getElementById('chk'+ichk).onchange = function() {
 				document.getElementById("chk0").checked = false;
@@ -83,9 +90,9 @@ function option1() {
 	//Si un des éléments autre que CrossRef (cc) est coché > en plus de décocher ceux des option 2 et 3, décocher tous ceux de CrossRef (cc)
 	for (let ichk = 0; ichk < 25; ichk++) {
 		//if (ichk != 6 && ichk != 8 && ichk != 9 && ichk != 18 && ichk != 19 && ichk != 20 && ichk != 21 && ichk != 22 && ichk != 23) {
-			if (ichk != 6 && ichk != 8 && ichk != 9 && ichk != 18 && ichk != 19) {
+			if (ichk != 6 && ichk != 8 && ichk != 9 && ichk != 18 && ichk != 19 && ichk != 4) {
 			document.getElementById('chk'+ichk).onchange = function() {
-				for (let jchk = 39; jchk < 52; jchk++) {
+				for (let jchk = 39; jchk < 60; jchk++) {
 					document.getElementById('chk'+jchk).checked = false;
 				}
 			}
@@ -134,15 +141,22 @@ function option2() {
 	document.getElementById("chk50").checked = false;
 	document.getElementById("chk51").checked = false;
 	document.getElementById("chk52").checked = false;
+	document.getElementById("chk53").checked = false;
+	document.getElementById("chk54").checked = false;
+	document.getElementById("chk55").checked = false;
+	document.getElementById("chk56").checked = false;
+	document.getElementById("chk57").checked = false;
+	document.getElementById("chk58").checked = false;
+	document.getElementById("chk59").checked = false;
   document.getElementById('chk18').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (let ichk = 25; ichk < 53; ichk++) {
+    for (let ichk = 25; ichk < 60; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
   document.getElementById('chk19').onchange = function() {
     document.getElementById("chk36").checked = false;
-    for (let ichk = 25; ichk < 53; ichk++) {
+    for (let ichk = 25; ichk < 60; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
@@ -163,19 +177,19 @@ function option2() {
   document.getElementById('chk36').onchange = function() {
     document.getElementById("chk18").checked = false;
     document.getElementById("chk19").checked = false;
-    for (let ichk = 25; ichk < 53; ichk++) {
+    for (let ichk = 25; ichk < 60; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
 	document.getElementById('chk47').onchange = function() {
     document.getElementById("chk18").checked = false;
     document.getElementById("chk19").checked = false;
-    for (let ichk = 25; ichk < 53; ichk++) {
+    for (let ichk = 25; ichk < 60; ichk++) {
       document.getElementById('chk'+ichk).checked = false;
     }
   };
   
-  for (let ichk = 26; ichk < 53; ichk++) {
+  for (let ichk = 26; ichk < 60; ichk++) {
     document.getElementById('chk'+ichk).onchange = function() {
       document.getElementById("chk18").checked = false;
       document.getElementById("chk19").checked = false;
@@ -228,6 +242,13 @@ function option3() {
 	document.getElementById("chk48").checked = false;
 	document.getElementById("chk49").checked = false;
 	document.getElementById("chk52").checked = false;
+	document.getElementById("chk53").checked = false;
+	document.getElementById("chk54").checked = false;
+	document.getElementById("chk55").checked = false;
+	document.getElementById("chk56").checked = false;
+	document.getElementById("chk57").checked = false;
+	document.getElementById("chk58").checked = false;
+	document.getElementById("chk59").checked = false;
   document.getElementById('chk20').onchange = function() {
     document.getElementById("chk21").checked = false;
 		document.getElementById("chk50").checked = false;
@@ -271,12 +292,12 @@ function option3() {
 }
 
 function chkall1() {
-  document.getElementById("chk0").checked = true;
-  document.getElementById("chk1").checked = true;
-  document.getElementById("chk2").checked = true;
-  document.getElementById("chk3").checked = true;
+  document.getElementById("chk0").checked = false;
+  document.getElementById("chk1").checked = false;
+  document.getElementById("chk2").checked = false;
+  document.getElementById("chk3").checked = false;
   document.getElementById("chk4").checked = true;
-  document.getElementById("chk5").checked = true;
+  document.getElementById("chk5").checked = false;
   //document.getElementById("chk6").checked = true;
   document.getElementById("chk7").checked = true;
   //document.getElementById("chk8").checked = false;
@@ -285,18 +306,18 @@ function chkall1() {
   document.getElementById("chk11").checked = true;
   document.getElementById("chk12").checked = true;
   document.getElementById("chk13").checked = true;
-  document.getElementById("chk14").checked = true;
+  document.getElementById("chk14").checked = false;
   document.getElementById("chk15").checked = false;
   document.getElementById("chk16").checked = false;
-  document.getElementById("chk17").checked = true;
+  document.getElementById("chk17").checked = false;
   document.getElementById("chk18").checked = false;
   document.getElementById("chk19").checked = false;
   document.getElementById("chk20").checked = false;
   document.getElementById("chk21").checked = false;
   document.getElementById("chk22").checked = false;
   document.getElementById("chk23").checked = false;
-  document.getElementById("chk24").checked = true;
-	document.getElementById("chk25").checked = false;
+  document.getElementById("chk24").checked = false;
+document.getElementById("chk25").checked = false;
   document.getElementById("chk26").checked = false;
   document.getElementById("chk27").checked = false;
   document.getElementById("chk28").checked = false;
@@ -322,6 +343,13 @@ function chkall1() {
 	document.getElementById("chk50").checked = false;
 	document.getElementById("chk51").checked = false;
 	document.getElementById("chk52").checked = false;
+	document.getElementById("chk53").checked = true;
+	document.getElementById("chk54").checked = true;
+	document.getElementById("chk55").checked = true;
+	document.getElementById("chk56").checked = true;
+	document.getElementById("chk57").checked = true;
+	document.getElementById("chk58").checked = true;
+	document.getElementById("chk59").checked = true;
 }
 
 function verif() {

@@ -42,10 +42,16 @@ if ($apa == "oui") {
 	echo "<th rowspan='2'><strong>AP</strong></th>";
 }
 echo "<th rowspan='2'><strong>1er auteur</strong></th>";
-if ($revue == "oui") {
+if ($revue == "oui") {//Revue CR
 	echo "<th rowspan='2'><strong>Revue</strong></th>" ;
 }
-if ($vnp == "oui") {
+if ($revOA == "oui") {//Revue OA
+	echo "<th rowspan='2'><strong>Revue</strong></th>" ;
+}
+if ($vnp == "oui") {//Vol/num/pag CR
+	echo "<th colspan='2'><strong>Vol(n)pp</strong></th>";
+}
+if ($vnpOA == "oui") {//Vol/num/pag OA
 	echo "<th colspan='2'><strong>Vol(n)pp</strong></th>";
 }
 if ($pmid == "oui") {
@@ -57,7 +63,10 @@ if ($pmcid == "oui") {
 if ($anneepub == "oui") {
 	echo "<th colspan='2'><strong>Année de publication</strong></th>";
 }
-if ($mel == "oui") {
+if ($mel == "oui") {//Date de mise en ligne CR
+	echo "<th colspan='2'><strong>Date de mise en ligne</strong></th>";
+}
+if ($melOA == "oui") {//Date de mise en ligne OA
 	echo "<th colspan='2'><strong>Date de mise en ligne</strong></th>";
 }
 if ($mocPubmed == "oui") {//Seulement HAL et PM
@@ -97,10 +106,19 @@ if ($lanISTEX == "oui") {
 if ($lanCrossRef == "oui") {
 	echo "<th><strong>Langue</strong></th>";
 }
-if ($financement == "oui") {
+if ($lanOA == "oui") {
+	echo "<th><strong>Langue</strong></th>";
+}
+if ($financement == "oui") {//Financement CR
 	echo "<th colspan='2'><strong>Financement</strong></th>";
 }
-if ($anr == "oui") {
+if ($finOA == "oui") {//Financement OA
+	echo "<th colspan='2'><strong>Financement</strong></th>";
+}
+if ($anr == "oui") {//ANR CR
+	echo "<th colspan='2'><strong>ANR</strong></th>";
+}
+if ($anrOA == "oui") {//ANR OA
 	echo "<th colspan='2'><strong>ANR</strong></th>";
 }
 echo "<th rowspan='2'><strong>Action</strong></th>";
@@ -108,13 +126,22 @@ echo "</tr><tr>";
 //echo "<th bordercolor='#808080'></th>";
 echo "<th><strong>DOI</strong></th>";
 echo "<th><strong>HAL</strong></th>";
-echo "<th><strong>CR</strong></th>";
+//OpenAlex
+if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
+	echo "<th><strong>OA</strong></th>";
+}else{
+	echo "<th><strong>CR</strong></th>";
+}
 //echo "<th><strong></strong></th>";
 //echo "<th><strong>HAL</strong></th>";
 //echo "<th><strong>CR</strong></th>";
-if ($vnp == "oui") {
+if ($vnp == "oui") {//Vol/num/pag CR
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>CR</strong></th>";
+}
+if ($vnpOA == "oui") {//Vol/num/pag OA
+	echo "<th><strong>HAL</strong></th>";
+	echo "<th><strong>OA</strong></th>";
 }
 if ($pmid == "oui") {
 	echo "<th><strong>HAL</strong></th>";
@@ -128,9 +155,13 @@ if ($anneepub == "oui") {
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>CR</strong></th>";
 }
-if ($mel == "oui") {
+if ($mel == "oui") {//Date de mise en ligne CR
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>CR</strong></th>";
+}
+if ($melOA == "oui") {//Date de mise en ligne OA
+	echo "<th><strong>HAL</strong></th>";
+	echo "<th><strong>OA</strong></th>";
 }
 if ($mocPubmed == "oui") {//Seulement HAL et PM
 	echo "<th><strong>HAL</strong></th>";
@@ -173,13 +204,24 @@ if ($lanISTEX == "oui") {
 if ($lanCrossRef == "oui") {
 	echo "<th><strong>CR</strong></th>";
 }
-if ($financement == "oui") {
+if ($lanOA == "oui") {
+	echo "<th><strong>OA</strong></th>";
+}
+if ($financement == "oui") {//Financement CR
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>CR</strong></th>";
 }
-if ($anr == "oui") {
+if ($finOA == "oui") {//Financement OA
+	echo "<th><strong>HAL</strong></th>";
+	echo "<th><strong>OA</strong></th>";
+}
+if ($anr == "oui") {//ANR CR
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>CR</strong></th>";
+}
+if ($anrOA == "oui") {//ANR OA
+	echo "<th><strong>HAL</strong></th>";
+	echo "<th><strong>OA</strong></th>";
 }
 //echo "<th><strong></strong></th>";
 echo "</tr></thead><tbody>";
@@ -203,6 +245,15 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		if (isset($arrayHAL["response"]["docs"][$cpt]["inPress_bool"])) {$bapa = $arrayHAL["response"]["docs"][$cpt]["inPress_bool"];}
 		$prenomHAL = "";//Prénom du 1er auteur HAL
 		$nomHAL = "";//Nom du 1er auteur HAL
+		$doiOAR = "";//DOI OpenAlex
+		$revOAR = "";//Revue OpenAlex
+		$volOAR = "";//Vol OpenAlex
+		$numOAR = "";//Num OpenAlex
+		$pagOAR = "";//Pag OpenAlex
+		$lanOAR = "";//Langue OpenAlex
+		$finOAR = "";//Financement OpenAlex
+		$anrOAR = "";//ANR OpenAlex
+		$melOAR = "";//Date de mise en ligne OpenAlex
 		unset($arrayCR);//Tableau de métadonnées CR
 		$prenomCR = "";//Prénom du 1er auteur CR
 		$nomCR = "";//Nom du 1er auteur CR
@@ -282,7 +333,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				}
 				$lienCR = "";
 			}else{//Problème de DOI
-				$rechDOI = "";//Recherche du DOI à partir du titre viar CR avec la fonction rechTitrDOI de CR_DOI_Levenshtein.php
+				$rechDOI = "";//Recherche du DOI à partir du titre via CR avec la fonction rechTitrDOI de CR_DOI_Levenshtein.php
 				rechTitreDOI($titre, 5, $closest, $shortest, $rechDOI);
 				if ($rechDOI != "") {
 					$doi = $rechDOI;
@@ -340,7 +391,12 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$textAff .= "<td>".$cptTab."</td>";
 		$textAff .= "<td>".$lienDOI."</td>";
 		$textAff .= "<td>".$lienHAL."</td>";
-		$textAff .= "<td>".$lienCR."</td>";
+		//OpenAlex
+		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
+			$textAff .= "<td><a target='_blank' href='https://api.openalex.org/works?filter=doi:".$doi."&mailto=laurent.jonchere@univ-rennes.fr'><img alt='OpenAlex' src='./img/OA.jpg'></a></td>";
+		}else{
+			$textAff .= "<td>".$lienCR."</td>";
+		}
 		if ($apa == "oui") {
 			if ($bapa) {
 				$textAff .= "<td>AP</td>";
@@ -349,8 +405,15 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 		}
 		$textAff .= "<td>".$corr."</td>";
+		
+		//OpenAlex
+		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
+			if (isset($doi) && $doi != "") {
+				rechMetadoOA($doi, $revOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
+			}
+		}
 
-		//Revue
+		//Revue CR
 		if ($revue == "oui") {
 			if (isset($doi) && $doi != "" && $lienCR != "DOI inconnu de Crossref") {
 				if (isset($arrayHAL["response"]["docs"][$cpt]["journalValid_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalValid_s"] != "VALID" ) {
@@ -380,7 +443,29 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}else{
 				$textAff .= "<td></td>";
 			}
-		} 
+		}
+		
+		if ($revOA == "oui") {//Revue OA
+			if (isset($doi) && $doi != "" && $revOAR != "") {
+				if (isset($arrayHAL["response"]["docs"][$cpt]["journalValid_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalValid_s"] != "VALID" ) {
+					if (isset($arrayHAL["response"]["docs"][$cpt]["journalTitle_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalTitle_s"] != "" ) {
+						$revHAL = $arrayHAL["response"]["docs"][$cpt]["journalTitle_s"];
+					}
+					$why = $revHAL." <> ".$revOAR;
+					$why = str_replace("'", " ", $why);
+					if ($revHAL != $revOAR) {
+						$textAff .= "<td><img alt='".$why."' title='".$why."' src='./img/pasok.jpg'></td>";
+					}else{
+						$textAff .= "<td>&nbsp;</td>";
+					}
+				}else{
+					$textAff .= "<td><img alt='OK' src='./img/ok.jpg'></td>";
+				}
+			}else{
+				$textAff .= "<td></td>";
+			}
+		}
+		
 		//Vol/num/pag
 		if ($vnp == "oui") {
 			$volHAL = "";
@@ -421,6 +506,35 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$deb = "<strong>";$fin = "</strong>";
 				}
 				$textAff .= "<td style='text-align: center; background-color: #eeeeee;'>".$deb.$volCR."(".$numCR.")".$pagCR.$fin."</td>";
+			}else{
+				$textAff .= "<td style='text-align: center; background-color: #eeeeee;'>&nbsp;</td>";
+			}
+		}
+		if ($vnpOA == "oui") {
+			if (isset($arrayHAL["response"]["docs"][$cpt]["volume_s"])) {
+				$volHAL = $arrayHAL["response"]["docs"][$cpt]["volume_s"];
+			}
+			if (isset($arrayHAL["response"]["docs"][$cpt]["issue_s"][0])) {
+				$numHAL = $arrayHAL["response"]["docs"][$cpt]["issue_s"][0];
+			}
+			if (isset($arrayHAL["response"]["docs"][$cpt]["page_s"])) {
+				$pagHAL = $arrayHAL["response"]["docs"][$cpt]["page_s"];
+			}
+			$textAff .= "<td>".$volHAL."(".$numHAL.")".$pagHAL."</td>";
+			
+			$deb = "";
+			$fin = "";
+			if ($volOAR."(".$numOAR.")".$pagOAR != "()") {
+				if ($volHAL == "" && $volOAR != "") {
+					$deb = "<strong>";$fin = "</strong>";        }
+				if ($numHAL == "" && $numOAR != "") {
+					$deb = "<strong>";$fin = "</strong>";
+				}
+				//On complète la pagination HAL par OA sauf si les champs vol et num sont déjà complétés dans HAL
+				if ($pagOAR != "" && $volHAL == "" && $numHAL == "") {
+					$deb = "<strong>";$fin = "</strong>";
+				}
+				$textAff .= "<td style='text-align: center; background-color: #eeeeee;'>".$deb.$volOAR."(".$numOAR.")".$pagOAR.$fin."</td>";
 			}else{
 				$textAff .= "<td style='text-align: center; background-color: #eeeeee;'>&nbsp;</td>";
 			}
@@ -520,7 +634,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			$textAff .= "<td style='text-align : center; background-color: #eeeeee;'>".$deb.$txtAnnCR.$fin."</td>";
 		}
 
-		//Date de mise en ligne
+		//Date de mise en ligne CR
 		if ($mel == "oui") {
 			//var_dump($arrayCR["message"]["created"]);
 			$txtMelCR = "";
@@ -552,13 +666,43 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 		}
 		
+		//Date de mise en ligne OA
+		if ($melOA == "oui") {
+			$txtMelOAR = "";
+			if (isset($arrayHAL["response"]["docs"][$cpt]["ePublicationDate_s"])) {
+				$melHAL = $arrayHAL["response"]["docs"][$cpt]["ePublicationDate_s"];
+			}
+			/*
+			if (isset($arrayCR["message"]["created"]["date-parts"][0]) && $doiCR == "" && isset($doi) && $doi != "") {
+				$melCR = $arrayCR["message"]["created"]["date-parts"][0];
+				foreach ($melCR as $value) {
+					if ($value < 10) {$value = '0'.$value;}
+					$txtMelCR .= $value.'-';
+				}
+				$txtMelCR = substr($txtMelCR, 0, strlen($txtMelCR)-1);
+			}
+			*/
+			$deb = "";
+			$fin = "";
+			if ((substr($melOAR, 0, 4) == substr($melHAL, 0, 4) && (strlen($melOAR) > strlen($melHAL))) || (substr($melHAL, 0, 4) != substr($melOAR, 0, 4) && substr($melOAR, 0, 4) != "" && substr($melHAL, 5, 2) != substr($melOAR, 5, 2) && substr($melOAR, 5, 2) != "" && substr($melHAL, 8, 2) != substr($melOAR, 8, 2) && substr($melOAR, 8, 2) != "" )) {
+				$deb = "<strong>";$fin = "</strong>";
+			}
+			if ($arrayHAL["response"]["docs"][$cpt]["docType_s"] != "COMM") {
+				$textAff .= "<td>".$melHAL."</td>";
+				$textAff .= "<td style='text-align : center; background-color: #eeeeee;'>".$deb.$melOAR.$fin."</td>";
+			}else{//pas de date de mise en ligne pour les COMM
+				$textAff .= "<td>&nbsp;</td>";
+				$textAff .= "<td>&nbsp;</td>";
+			}
+		}
+		
 		//ISTEX
 		if ($absISTEX == "oui" || $lanISTEX == "oui" || $mocISTEX == "oui") {
 			if (isset($doi) && $doi != "") {
 				rechMetadoISTEX($doi, $absIS, $lanIS, $mocIS, $lanmocIS, $dpbIS);
 			}
 		}
-
+		
 		//Mots-clés
 		$txtMocHAL = "";
 		$txtMocHALaff = "";
@@ -768,6 +912,26 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				}
 			}
 		}
+		
+		//Langue OA
+		$txtLanOARaff = "";
+		if ($lanOA == "oui") {
+			if (isset($arrayHAL["response"]["docs"][$cpt]["language_s"][0])) {
+				$lanHAL = $arrayHAL["response"]["docs"][$cpt]["language_s"][0];
+			}
+			if ($lanOAR != "") {$lanOARred = $lanOAR;}else{$lanOARred= "";}
+			
+			if ($lanHAL != $lanOARred && $lanOARred != "") {
+				$why = $lanHAL." <> ".$lanOARred;
+				$txtLanOARaff = "<img alt='".$why."' title='".$why."' src='./img/pasok.png'>";
+			}else{
+				if ($lanOARred != "") {
+					$txtLanOARaff = "<img alt='OK' src='./img/ok.png'>";
+				}else{
+					$txtLanOARaff = "&nbsp;";
+				}
+			}
+		}
 
 		//Affichage de la langue
 		if ($lanPubmed == "oui") {
@@ -779,8 +943,11 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		if ($lanCrossRef == "oui") {
 			$textAff .= "<td>".$txtLanCRaff."</td>";
 		}
+		if ($lanOA == "oui") {
+			$textAff .= "<td>".$txtLanOARaff."</td>";
+		}
 		
-		//Financement
+		//Financement CR
 		if ($financement == "oui") {
 			$txtFinHAL = "";
 			$txtFinHALaff = "";
@@ -810,8 +977,32 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 			$textAff .= "<td style='background-color: #eeeeee;'>".$txtFinCRaff."</td>";
 		}
+		
+		//Financement OA
+		if ($finOA == "oui") {
+			$txtFinHAL = "";
+			$txtFinHALaff = "";
+			$txtFinOAR = "";
+			$txtFinOARaff = "";
+			if (isset($arrayHAL["response"]["docs"][$cpt]["funding_s"][0])) {
+				$finHAL = $arrayHAL["response"]["docs"][$cpt]["funding_s"];
+				foreach ($finHAL as $value) {
+					$txtFinHAL .= $value.'; ';
+				}
+				$txtFinHAL = substr($txtFinHAL, 0, strlen($txtFinHAL)-2);
+				$txtFinHALred = substr($txtFinHAL, 0, 15)." ...";
+				$txtFinHALaff = "<span tabindex='0' class='text-primary' data-toggle='popover' data-trigger='hover' title='' data-content='".$txtFinHAL."' data-original-title=''>".$txtFinHALred."</span>";
+			}
+			$textAff .= "<td>".$txtFinHALaff."</td>";
+			if ($finOAR != '') {
+				$txtFinOAR = $finOAR;
+				$txtFinOARred = substr($txtFinOAR, 0, 15)." ...";
+				$txtFinOARaff = "<span tabindex='0' class='text-primary' data-toggle='popover' data-trigger='hover' title='' data-content='".$txtFinOAR."' data-original-title=''>".$txtFinOARred."</span>";
+			}
+			$textAff .= "<td style='background-color: #eeeeee;'>".$txtFinOARaff."</td>";
+		}
 
-		//ANR
+		//ANR CR
 		if ($anr == "oui") {
 			$txtAnrHAL = "";
 			$txtAnrHALAff = "";
@@ -840,6 +1031,27 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 			$textAff .= "<td>".$txtAnrHALAff."</td>";
 			$textAff .= "<td style='background-color: #eeeeee;'>".$txtAnrCRAff."</td>";
+		}
+		
+		//ANR OA
+		if ($anrOA == "oui") {
+			$txtAnrHAL = "";
+			$txtAnrHALAff = "";
+			$anrOARcorr = $anrOAR;
+			$txtAnrOARAff = "";
+			if (isset($arrayHAL["response"]["docs"][$cpt]["anrProjectReference_s"])){
+				$txtAnrHAL = $arrayHAL["response"]["docs"][$cpt]["anrProjectReference_s"];
+				foreach ($txtAnrHAL as $t) {
+					$txtAnrHALAff .= $t."; ";
+					//Tester si présence projet dans HAL et OA
+					if (strpos($anrOAR, $t) !== false) {$anrOARcorr = str_replace(array($t.'; ', $t), '', $anrOARcorr);}
+				}
+			$txtAnrHALAff = substr($txtAnrHALAff, 0, strlen($txtAnrHALAff)-2);
+			}
+			$txtAnrOARAff = $anrOARcorr;
+			if (substr($txtAnrOARAff, -2) == '; ') {$txtAnrOARAff = substr($txtAnrOARAff, 0, -2);}
+			$textAff .= "<td>".$txtAnrHALAff."</td>";
+			$textAff .= "<td style='background-color: #eeeeee;'>".$txtAnrOARAff."</td>";
 		}
 		
 		//Actions
@@ -964,7 +1176,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 
 		
-		//Si vnp différents
+		//Via CR, si vnp différents
 		if ($vnp == "oui" && ($volCR."(".$numCR.")".$pagCR != "()" && $volHAL."(".$numHAL.")".$pagHAL != $volCR."(".$numCR.")".$pagCR)) {
 		//if ($vnp == "oui" && ($volHAL != $volCR && $volCR != "" || $numHAL != $numCR && $numCR != "" || $pagHAL != $pagCR && $pagCR != "")) {
 		//if ($volHAL != $volCR && $volCR != "" || $arrayHAL["response"]["docs"][$cpt]["halId_s"] == "hal-01509702") {
@@ -1006,7 +1218,46 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 		}
 		
-		//Si financements différents
+		//Via OA, si vnp différents
+		if ($vnpOA == "oui" && ($volOAR."(".$numCR.")".$pagOAR != "()" && $volHAL."(".$numHAL.")".$pagHAL != $volOAR."(".$numOAR.")".$pagOAR)) {
+			//On complète tous les champs HAL vides par OA
+			if ($volHAL == "" && $volOAR != "") {
+				insertNode($xml, $volOAR, "imprint", "date", "biblScope", "unit", "volume", "", "", "iB");
+				$xml->save($Fnm);
+				$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+				include "./CrossHAL_actions.php";
+				$testMaj = "ok";
+				foreach($ACTIONS_LISTE as $tab) {
+					if (in_array($halID, $tab) && in_array("MAJ_VOL",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "volume, ";}
+				}
+				if ($testMaj == "ok") {$actsMAJ .= "MAJ_VOL~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_VOL";}
+				}
+			if ($numHAL == "" && $numOAR != "") {
+				insertNode($xml, $numCR, "imprint", "date", "biblScope", "unit", "issue", "", "", "iB");
+				$xml->save($Fnm);
+				$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+				include "./CrossHAL_actions.php";
+				$testMaj = "ok";
+				foreach($ACTIONS_LISTE as $tab) {
+					if (in_array($halID, $tab) && in_array("MAJ_NUM",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "numéro, ";}
+				}
+				if ($testMaj == "ok") {$actsMAJ .= "MAJ_NUM~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_NUM";}
+			}
+			//On complète la pagination HAL par OA sauf si les champs vol et num sont déjà complétés dans HAL
+			if ($pagOAR != "" && $volHAL == "" && $numHAL == "") {
+				insertNode($xml, $pagOAR, "imprint", "date", "biblScope", "unit", "pp", "", "", "iB");
+				$xml->save($Fnm);
+				$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+				include "./CrossHAL_actions.php";
+				$testMaj = "ok";
+				foreach($ACTIONS_LISTE as $tab) {
+					if (in_array($halID, $tab) && in_array("MAJ_PAG",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "pagination, ";}
+				}
+				if ($testMaj == "ok") {$actsMAJ .= "MAJ_PAG~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_PAG";}
+			}
+		}
+		
+		//Via CR, si financements différents
 		if ($financement == "oui" && $txtFinCR != $txtFinHAL && $txtFinCR != "" && $txtFinHAL == "") {
 			//noeud forcément absent puisque $txtFinHAL = "" > recherche du noeud 'biblFull' pour insérer les nouvelles données au bon emplacement
 			$impr = $xml->getElementsByTagName('biblFull');
@@ -1035,7 +1286,36 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			if ($testMaj == "ok") {$actsMAJ .= "MAJ_FIN~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_FIN";}
 		}
 		
-		//ANR
+		//Via OA, si financements différents
+		if ($finOA == "oui" && $txtFinOAR != $txtFinHAL && $txtFinOAR != "" && $txtFinHAL == "") {
+			//noeud forcément absent puisque $txtFinHAL = "" > recherche du noeud 'biblFull' pour insérer les nouvelles données au bon emplacement
+			$impr = $xml->getElementsByTagName('biblFull');
+			foreach ($impr as $elt) {
+				foreach($elt->childNodes as $item) { 
+					if ($item->nodeName == "titleStmt") {
+						$txtFinOARtab = explode(";", $txtFinOAR);
+						foreach($txtFinOARtab as $f) {
+							$bif = $xml->createElement("funder");
+							$cTn = $xml->createTextNode(trim($f));
+							$bif->appendChild($cTn);
+							$item->appendChild($bif);
+						}
+						break 2;
+					}
+				}
+			}
+			
+			$xml->save($Fnm);
+			$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+			include "./CrossHAL_actions.php";
+			$testMaj = "ok";
+			foreach($ACTIONS_LISTE as $tab) {
+				if (in_array($halID, $tab) && in_array("MAJ_FIN",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "financement, ";}
+			}
+			if ($testMaj == "ok") {$actsMAJ .= "MAJ_FIN~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_FIN";}
+		}
+		
+		//ANR via CR
 		$idANR = "";
 		if ($anr == "oui" && $txtAnrCRAff != $txtAnrHALAff && $txtAnrCRAff != "") {
 			$anrTab = explode(";", $txtAnrCRAff);
@@ -1055,7 +1335,129 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						$annee = $resANR["response"]["docs"][0]["yearDate_s"];
 						$valid = $resANR["response"]["docs"][0]["valid_s"];
 						
-						//SPour vérfier s'il y un noeud 'funder'
+						//Pour vérifier s'il y un noeud 'funder'
+						$nFunder = "non";
+						$funs = $xml->getElementsByTagName("funder");
+						foreach($funs as $fun) {
+							$nFunder = "oui";
+						}
+						
+						//Insertion ANR comme noeud 'funder'
+						if ($nFunder == "oui") {//Il y a au moins un noeud 'funder'
+							insertNode($xml, $ref_s, "titleStmt", "funder", "funder", "ref", "#".$ref, "", "", "aC");
+							$xml->save($Fnm);
+						}else{
+							$nEditor = "non";//Pour vérfier s'il y un noeud 'editor' pour insérer 'funder' juste après
+							$edts = $xml->getElementsByTagName("editor");
+							foreach($edts as $edt) {
+								$nEditor = "oui";
+							}
+							if ($nEditor == "oui") {
+								insertNode($xml, $ref_s, "titleStmt", "editor", "funder", "ref", "#".$ref, "", "", "aC");
+								$xml->save($Fnm);
+							}else{
+								insertNode($xml, $ref_s, "titleStmt", "author", "funder", "ref", "#".$ref, "", "", "aC");
+								$xml->save($Fnm);
+							}
+						}
+						
+						//Y-a-t-il déjà un noeud listOrg pour les projets ?
+						$nListOrg = "non";
+						$orgs = $xml->getElementsByTagName("listOrg");
+						foreach($orgs as $org) {
+							if ($org->hasAttribute("type") && $org->getAttribute("type") == "projects") {
+								$nListOrg = "oui";
+							}
+						}
+						if ($nListOrg == "non") {
+							$bacs = $xml->getElementsByTagName("back");
+							$bimoc = $xml->createElement("listOrg");
+							$bimoc->setAttribute("type", "projects");
+							$bacs->item(0)->appendChild($bimoc);
+							$xml->save($Fnm);
+						}
+						
+						//Positionnement au noeud <listOrg type="projects"> pour ajout des noeuds enfants
+						foreach($orgs as $org) {
+							if ($org->hasAttribute("type") && $org->getAttribute("type") == "projects") {
+								break;
+							}
+						}
+						$bimoc = $xml->createElement("org");
+						$moc = $xml->createTextNode("");
+						$bimoc->setAttribute("type", "anrProject");
+						$bimoc->setAttribute("xml:id", $ref);
+						$bimoc->setAttribute("status", $valid);
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$orgs = $xml->getElementsByTagName("org");
+						foreach($orgs as $org) {
+							if ($org->hasAttribute("xml:id") && $org->getAttribute("xml:id") == $ref) {
+								break;
+							}
+						}
+						$bimoc = $xml->createElement("idno");
+						$moc = $xml->createTextNode($ref_s);
+						$bimoc->setAttribute("type", "anr");
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$bimoc = $xml->createElement("orgName");
+						$moc = $xml->createTextNode($acron);
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$bimoc = $xml->createElement("desc");
+						$moc = $xml->createTextNode($titre);
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						$bimoc = $xml->createElement("date");
+						$moc = $xml->createTextNode($annee);
+						$bimoc->setAttribute("type", "start");
+						$bimoc->appendChild($moc);
+						$org->appendChild($bimoc);
+						$xml->save($Fnm);
+						
+						
+						$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+						include "./CrossHAL_actions.php";
+						$testMaj = "ok";
+						foreach($ACTIONS_LISTE as $tab) {
+							if (in_array($halID, $tab) && in_array("MAJ_APA",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "'projet ANR', ";}
+						}
+						if ($testMaj == "ok") {$actsMAJ .= "MAJ_ANR~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_ANR";}
+					}
+				}
+			}
+		}
+		
+		//ANR via OA
+		$idANR = "";
+		if ($anrOA == "oui" && $txtAnrOARAff != $txtAnrHALAff && $txtAnrOARAff != "") {
+			$anrTab = explode(";", $txtAnrOARAff);
+			foreach ($anrTab as $a) {
+				if (substr($a, 0, 4) == "ANR-" && strpos($a, "IDEX") === false) {
+					$urlANR = "https://api.archives-ouvertes.fr/ref/anrproject/?q=reference_sci:%22".trim($a)."%22&fl=title_s,valid_s,yearDate_s,docid,callTitle_s,acronym_s,reference_s";
+					$contANR = file_get_contents($urlANR);
+					$resANR = json_decode($contANR, true);
+					$numANR = $resANR["response"]["numFound"];
+					//echo 'toto : '.$numANR.' - '.trim($a).'<br>';
+					if ($numANR == 1) {//Projet ANR trouvé
+						$docid = $resANR["response"]["docs"][0]["docid"];
+						$ref = "projanr-".$docid;
+						$titre = $resANR["response"]["docs"][0]["title_s"];
+						$acron = $resANR["response"]["docs"][0]["acronym_s"];
+						$ref_s = $resANR["response"]["docs"][0]["reference_s"];
+						$annee = $resANR["response"]["docs"][0]["yearDate_s"];
+						$valid = $resANR["response"]["docs"][0]["valid_s"];
+						
+						//Pour vérifier s'il y un noeud 'funder'
 						$nFunder = "non";
 						$funs = $xml->getElementsByTagName("funder");
 						foreach($funs as $fun) {
@@ -1199,7 +1601,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 		}
 
-		//Si dates de mise en ligne différentes			
+		//Via CR, si dates de mise en ligne différentes			
 		if ($mel == "oui" && $arrayHAL["response"]["docs"][$cpt]["docType_s"] != "COMM") {
 			//Modification uniquement si la date de publication est postérieure à la date de mise en ligne
 			//echo $annHAL." - ".$melHAL;
@@ -1220,6 +1622,39 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$testMelCR = $melCR[0];
 					if (($testMelCR == substr($melHAL, 0, 4) && (strlen($txtMelCR) > strlen($melHAL))) || (substr($melHAL, 0, 4) != substr($txtMelCR, 0, 4) && substr($txtMelCR, 0, 4) != "" && substr($melHAL, 5, 2) != substr($txtMelCR, 5, 2) && substr($txtMelCR, 5, 2) != "" && substr($melHAL, 8, 2) != substr($txtMelCR, 8, 2) && substr($txtMelCR, 8, 2) != "" )) {
 						insertNode($xml, $txtMelCR, "imprint", "date", "date", "type", "dateEpub", "", "", "aC");
+						$xml->save($Fnm);
+						$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+						include "./CrossHAL_actions.php";
+						$testMaj = "ok";
+						foreach($ACTIONS_LISTE as $tab) {
+							if (in_array($halID, $tab) && in_array("MAJ_MEL",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "date de mise en ligne, ";}
+						}
+						if ($testMaj == "ok") {$actsMAJ .= "MAJ_MEL~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_MEL";}
+					}
+				}
+			}
+		}
+		
+		//Via OA, si dates de mise en ligne différentes			
+		if ($melOA == "oui" && $arrayHAL["response"]["docs"][$cpt]["docType_s"] != "COMM") {
+			//Modification uniquement si la date de publication est postérieure à la date de mise en ligne
+			//echo $annHAL." - ".$melHAL;
+			$testApuHAL = "";
+			$testMelHAL = "";
+			if ($annHAL != "") {
+				if (strlen($annHAL) == 4) {$testApuHAL = mktime(0, 0, 0, 12, 31, $annHAL);}
+				if (strlen($annHAL) == 7) {$testApuHAL = mktime(0, 0, 0, substr($annHAL, 5, 2), 31, substr($annHAL, 0, 4));}
+				if (strlen($annHAL) == 10) {$testApuHAL = mktime(0, 0, 0, substr($annHAL, 5, 2), substr($annHAL, 8, 2), substr($annHAL, 0, 4));}
+			}
+			if ($melHAL != "") {
+				if (strlen($melHAL) == 4) {$testMelHAL = mktime(0, 0, 0, 12, 31, $melHAL);}
+				if (strlen($melHAL) == 7) {$testMelHAL = mktime(0, 0, 0, substr($melHAL, 5, 2), 31, substr($melHAL, 0, 4));}
+				if (strlen($melHAL) == 10) {$testMelHAL = mktime(0, 0, 0, substr($melHAL, 5, 2), substr($melHAL, 8, 2), substr($melHAL, 0, 4));}
+			}
+			if ($testApuHAL != "" && $testApuHAL >= $testMelHAL) {
+				if (isset($melOAR)) {
+					if ((substr($melOAR, 0, 4) == substr($melHAL, 0, 4) && (strlen($melOAR) > strlen($melHAL))) || (substr($melHAL, 0, 4) != substr($melOAR, 0, 4) && substr($melOAR, 0, 4) != "" && substr($melHAL, 5, 2) != substr($melOAR, 5, 2) && substr($melOAR, 5, 2) != "" && substr($melHAL, 8, 2) != substr($melOAR, 8, 2) && substr($melOAR, 8, 2) != "" )) {
+						insertNode($xml, $melOAR, "imprint", "date", "date", "type", "dateEpub", "", "", "aC");
 						$xml->save($Fnm);
 						$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
 						include "./CrossHAL_actions.php";
@@ -1405,6 +1840,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		if ($lanPubmed == "oui") {$lanTest = $lanPM; $lanTestred = $lanPMred;}
 		if ($lanISTEX == "oui") {$lanTest = $lanIS; $lanTestred = $lanISred;}
 		if ($lanCrossRef == "oui") {$lanTest = $lanCR; $lanTestred = $lanCRred;}
+		if ($lanOA == "oui") {$lanTest = $lanOAR; $lanTestred = $lanOARred;}
 		if ($lanTest != "" && $lanTestred != $lanHAL && $lanTestred != "") {
 			if ($lanTest == "eng" || $lanTest == "en") {
 				insertNode($xml, "English", "langUsage", "", "language", "ident", "en", "", "", "aC");
@@ -1418,7 +1854,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				}
 				if ($testMaj == "ok") {$actsMAJ .= "MAJ_LAN~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_LAN";}
 			}else{
-				insertNode($xml, $countries[$lanPM], "langUsage", "", "language", "ident", substr($lanPM,0,2), "", "", "aC");
+				if (strlen($lanTest) == 2) {$lanTest = $countries23[$lanTest];}
+				insertNode($xml, $countries[$lanTest], "langUsage", "", "language", "ident", substr($lanTest,0,2), "", "", "aC");
 				insertNode($xml, "national", "notesStmt", "", "note", "type", "audience", "n", "3", "aC");
 				$xml->save($Fnm);
 				$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
@@ -1609,6 +2046,13 @@ if ($iMax != $numFound) {
 	echo "<input type='hidden' value='".$apa."' name='apa'>";
 	echo "<input type='hidden' value='".$ordinv."' name='ordinv'>";
 	echo "<input type='hidden' value='".$chkall."' name='chkall'>";
+	echo "<input type='hidden' value='".$doiOA."' name='doiOA'>";
+	echo "<input type='hidden' value='".$revOA."' name='revOA'>";
+	echo "<input type='hidden' value='".$vnpOA."' name='vnpOA'>";
+	echo "<input type='hidden' value='".$lanOA."' name='lanOA'>";
+	echo "<input type='hidden' value='".$finOA."' name='finOA'>";
+	echo "<input type='hidden' value='".$anrOA."' name='anrOA'>";
+	echo "<input type='hidden' value='".$melOA."' name='melOA'>";
 	echo "<input type='hidden' value='".$doiCrossRef."' name='doiCrossRef'>";
 	echo "<input type='hidden' value='".$revue."' name='revue'>";
 	echo "<input type='hidden' value='".$vnp."' name='vnp'>";
@@ -1663,6 +2107,13 @@ if ($iMax != $numFound) {
 	echo "<input type='hidden' value='".$apa."' name='apa'>";
 	echo "<input type='hidden' value='".$ordinv."' name='ordinv'>";
 	echo "<input type='hidden' value='".$chkall."' name='chkall'>";
+	echo "<input type='hidden' value='".$doiOA."' name='doiOA'>";
+	echo "<input type='hidden' value='".$revOA."' name='revOA'>";
+	echo "<input type='hidden' value='".$vnpOA."' name='vnpOA'>";
+	echo "<input type='hidden' value='".$lanOA."' name='lanOA'>";
+	echo "<input type='hidden' value='".$finOA."' name='finOA'>";
+	echo "<input type='hidden' value='".$anrOA."' name='anrOA'>";
+	echo "<input type='hidden' value='".$melOA."' name='melOA'>";
 	echo "<input type='hidden' value='".$doiCrossRef."' name='doiCrossRef'>";
 	echo "<input type='hidden' value='".$revue."' name='revue'>";
 	echo "<input type='hidden' value='".$vnp."' name='vnp'>";

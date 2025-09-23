@@ -66,9 +66,11 @@ if ($anneepub == "oui") {
 if ($mel == "oui") {//Date de mise en ligne CR
 	echo "<th colspan='2'><strong>Date de mise en ligne</strong></th>";
 }
+/*
 if ($melOA == "oui") {//Date de mise en ligne OA
 	echo "<th colspan='2'><strong>Date de mise en ligne</strong></th>";
 }
+*/
 if ($mocPubmed == "oui") {//Seulement HAL et PM
 	echo "<th colspan='2'><strong>Mots-clés</strong></th>";
 }else{
@@ -159,10 +161,12 @@ if ($mel == "oui") {//Date de mise en ligne CR
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>CR</strong></th>";
 }
+/*
 if ($melOA == "oui") {//Date de mise en ligne OA
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>OA</strong></th>";
 }
+*/
 if ($mocPubmed == "oui") {//Seulement HAL et PM
 	echo "<th><strong>HAL</strong></th>";
 	echo "<th><strong>Pubmed</strong></th>";
@@ -667,21 +671,12 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		
 		//Date de mise en ligne OA
+		/*
 		if ($melOA == "oui") {
 			$txtMelOAR = "";
 			if (isset($arrayHAL["response"]["docs"][$cpt]["ePublicationDate_s"])) {
 				$melHAL = $arrayHAL["response"]["docs"][$cpt]["ePublicationDate_s"];
 			}
-			/*
-			if (isset($arrayCR["message"]["created"]["date-parts"][0]) && $doiCR == "" && isset($doi) && $doi != "") {
-				$melCR = $arrayCR["message"]["created"]["date-parts"][0];
-				foreach ($melCR as $value) {
-					if ($value < 10) {$value = '0'.$value;}
-					$txtMelCR .= $value.'-';
-				}
-				$txtMelCR = substr($txtMelCR, 0, strlen($txtMelCR)-1);
-			}
-			*/
 			$deb = "";
 			$fin = "";
 			if ((substr($melOAR, 0, 4) == substr($melHAL, 0, 4) && (strlen($melOAR) > strlen($melHAL))) || (substr($melHAL, 0, 4) != substr($melOAR, 0, 4) && substr($melOAR, 0, 4) != "" && substr($melHAL, 5, 2) != substr($melOAR, 5, 2) && substr($melOAR, 5, 2) != "" && substr($melHAL, 8, 2) != substr($melOAR, 8, 2) && substr($melOAR, 8, 2) != "" )) {
@@ -695,6 +690,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				$textAff .= "<td>&nbsp;</td>";
 			}
 		}
+		*/
 		
 		//ISTEX
 		if ($absISTEX == "oui" || $lanISTEX == "oui" || $mocISTEX == "oui") {
@@ -1636,6 +1632,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		
 		//Via OA, si dates de mise en ligne différentes			
+		/*
 		if ($melOA == "oui" && $arrayHAL["response"]["docs"][$cpt]["docType_s"] != "COMM") {
 			//Modification uniquement si la date de publication est postérieure à la date de mise en ligne
 			//echo $annHAL." - ".$melHAL;
@@ -1667,6 +1664,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				}
 			}
 		}
+		*/
 
 		//Ajout de mots-clés
 		$indLim = 90;
@@ -2052,7 +2050,7 @@ if ($iMax != $numFound) {
 	echo "<input type='hidden' value='".$lanOA."' name='lanOA'>";
 	echo "<input type='hidden' value='".$finOA."' name='finOA'>";
 	echo "<input type='hidden' value='".$anrOA."' name='anrOA'>";
-	echo "<input type='hidden' value='".$melOA."' name='melOA'>";
+	//echo "<input type='hidden' value='".$melOA."' name='melOA'>";
 	echo "<input type='hidden' value='".$doiCrossRef."' name='doiCrossRef'>";
 	echo "<input type='hidden' value='".$revue."' name='revue'>";
 	echo "<input type='hidden' value='".$vnp."' name='vnp'>";
@@ -2113,7 +2111,7 @@ if ($iMax != $numFound) {
 	echo "<input type='hidden' value='".$lanOA."' name='lanOA'>";
 	echo "<input type='hidden' value='".$finOA."' name='finOA'>";
 	echo "<input type='hidden' value='".$anrOA."' name='anrOA'>";
-	echo "<input type='hidden' value='".$melOA."' name='melOA'>";
+	//echo "<input type='hidden' value='".$melOA."' name='melOA'>";
 	echo "<input type='hidden' value='".$doiCrossRef."' name='doiCrossRef'>";
 	echo "<input type='hidden' value='".$revue."' name='revue'>";
 	echo "<input type='hidden' value='".$vnp."' name='vnp'>";

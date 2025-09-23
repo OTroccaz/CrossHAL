@@ -147,7 +147,7 @@ function option2() {
 	document.getElementById("chk56").checked = false;
 	document.getElementById("chk57").checked = false;
 	document.getElementById("chk58").checked = false;
-	document.getElementById("chk59").checked = false;
+	//document.getElementById("chk59").checked = false;
   document.getElementById('chk18').onchange = function() {
     document.getElementById("chk36").checked = false;
     for (let ichk = 25; ichk < 60; ichk++) {
@@ -248,7 +248,7 @@ function option3() {
 	document.getElementById("chk56").checked = false;
 	document.getElementById("chk57").checked = false;
 	document.getElementById("chk58").checked = false;
-	document.getElementById("chk59").checked = false;
+	//document.getElementById("chk59").checked = false;
   document.getElementById('chk20').onchange = function() {
     document.getElementById("chk21").checked = false;
 		document.getElementById("chk50").checked = false;
@@ -349,7 +349,7 @@ document.getElementById("chk25").checked = false;
 	document.getElementById("chk56").checked = true;
 	document.getElementById("chk57").checked = true;
 	document.getElementById("chk58").checked = true;
-	document.getElementById("chk59").checked = true;
+	//document.getElementById("chk59").checked = true;
 }
 
 function verif() {

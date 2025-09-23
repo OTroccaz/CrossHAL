@@ -504,6 +504,7 @@
 																						&nbsp;
 																					</div>
 																					
+																					<!--
 																					<div class="form-group col-sm-3">
 																						<div class="custom-control custom-checkbox">
 																							<input type="checkbox" id="chk59" class="custom-control-input" onclick="option1();" name="melOA" value="oui"<?php echo $OAmel;?>>
@@ -512,6 +513,7 @@
 																							</label>
 																						</div>
 																					</div>
+																					-->
 																				</div><!-- .form-group -->
 																				
 																				<h4><span class='badge badge-secondary-lighten'>Via CrossRef (articles) :</span></h4>

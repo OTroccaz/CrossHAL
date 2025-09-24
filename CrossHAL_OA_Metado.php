@@ -8,10 +8,22 @@
  * Fonction de recherche de métadonnées via OpenAlex - OpenAlex metadata search function
  */
  
-function rechMetadoOA($doi, &$revue, &$vol, &$num, &$pag, &$langue, &$financement, &$anr, &$datemel) {
-	//https://api.openalex.org/works?filter=doi:10.1002/chem.202403385&mailto=laurent.jonchere@univ-rennes.fr
-	$urlOA = 'https://api.openalex.org/works?filter=doi:'.$doi.'&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4';
-	//$contents = simplexml_load_file($urlISTEX);
+function rechMetadoOA($doi, $titre, &$doiOAR, &$revue, &$vol, &$num, &$pag, &$langue, &$financement, &$anr, &$datemel) {
+	//Via DOI > https://api.openalex.org/works?filter=doi:10.1002/chem.202403385&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4
+	//Via titre > https://api.openalex.org/works?filter=title.search:%22le%20titre%20en%20question%22&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4
+	
+	//Le DOI est connu et a été renseigné par le script d'appel à la fonction
+	if ($doi != '') {
+		$doiOAR = $doi;
+		$urlOA = 'https://api.openalex.org/works?filter=doi:'.$doi.'&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4';
+	}else{//Recherche via le titre
+		//$titre = urlencode($titre);
+		$titre = str_replace(array(',', ';', '.'), '', $titre);
+		$titre = str_replace(' ', '%20', $titre);
+		$urlOA = 'https://api.openalex.org/works?filter=title.search:%22'.$titre.'%22&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4';
+	}
+	//echo $urlOA.'<br>';
+	//$contents = simplexml_load_file($urlOA);
 	$headers = @get_headers($urlOA);
 	if (preg_match("|200|", $headers[0])) {
 		$contents = file_get_contents($urlOA);
@@ -20,6 +32,11 @@ function rechMetadoOA($doi, &$revue, &$vol, &$num, &$pag, &$langue, &$financemen
 		//var_dump($resOA["results"][0]);
 		
 		if (isset($resOA["results"][0])) {
+			//DOI si non renseigné intialement
+			if ($doi == '') {
+				$doiOAR = (isset($resOA["results"][0]["doi"]) && $resOA["results"][0]["doi"] != NULL) ? str_replace('https://doi.org/', '', $resOA["results"][0]["doi"]) : '';
+			}
+			
 			//Revue
 			$revue = (isset($resOA["results"][0]["primary_location"]["source"]["display_name"]) && $resOA["results"][0]["primary_location"]["source"]["display_name"] != NULL) ? $resOA["results"][0]["primary_location"]["source"]["display_name"] : '';
 			
@@ -85,6 +102,8 @@ function rechMetadoOA($doi, &$revue, &$vol, &$num, &$pag, &$langue, &$financemen
 	}
 }
 //$doi = "10.1038/s41467-025-60401-4";
-//rechMetadoOA($doi, $revue, $vol, $num, $pag, $langue, $financement, $anr, $datemel);
-//echo 'toto : '.$anr;
+//$doi = '';
+//$titre = 'A Scoping Review on Air Quality Monitoring, Policy and Health in West African Cities';
+//rechMetadoOA($doi, $titre, $doiOAR, $revue, $vol, $num, $pag, $langue, $financement, $anr, $datemel);
+//echo 'toto : '.$doiOAR;
 ?>

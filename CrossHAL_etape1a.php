@@ -304,6 +304,12 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$absIS = "";//Résumé ISTEX
 		$lanIS = "";//Langue ISTEX
 		$dpbIS = "";//Date publication ISTEX
+		
+		//OpenAlex
+		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
+			rechMetadoOA($doi, $titre, $doiOAR, $revOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
+		}
+		
 		$textAff .= "<tr>";
 		//if (isset($entry->halId_s)) {
 		if (isset($arrayHAL["response"]["docs"][$cpt]["halId_s"])) {
@@ -389,6 +395,18 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						}
 					//}
 				}
+			}else{
+				//echo $doiOA.' > '.$doi.' > '.$doiOAR;
+				//die();
+				if (isset($doiOA) && $doiOA == "oui") {//DOI via OA
+					if ($doiOAR != "") {
+						$lienDOI = "<a target='_blank' href='https://doi.org/".$doiOAR."'><img alt='DOI' src='./img/doiCR.png'></a>";
+						//$lienOA = "<a target='_blank' href='http://search.crossref.org/?q=".$rechDOI."'><img alt='CrossRef' src='./img/CR.jpg'></a>";
+					}else{
+						$lienOA = "DOI inconnu de OpenAlex";
+						//$doiOA = "inconnu";
+					}
+				}
 			}
 		}
 		$cptTab = $cpt + 1;
@@ -410,13 +428,6 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		$textAff .= "<td>".$corr."</td>";
 		
-		//OpenAlex
-		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
-			if (isset($doi) && $doi != "") {
-				rechMetadoOA($doi, $revOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
-			}
-		}
-
 		//Revue CR
 		if ($revue == "oui") {
 			if (isset($doi) && $doi != "" && $lienCR != "DOI inconnu de Crossref") {
@@ -1079,10 +1090,10 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		
 		corrXML($xml);
 		
-		// Si DOI HAL absent mais trouvé via CrossRef
+		// Si DOI HAL absent mais trouvé via CrossRef ou OA
 		// Si notice de type COMM, la modification du DOI est-elle autorisée ?
 		if ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "ART" || ($arrayHAL["response"]["docs"][$cpt]["docType_s"] == "COMM" && $DOIComm == "oui")) {
-			if (isset($doiCrossRef) && $doiCrossRef == "oui"  && $doiHAL == "inconnu" && $doiCR != "") {
+			if (isset($doiCrossRef) && $doiCrossRef == "oui" && $doiHAL == "inconnu" && $doiCR != "") {
 				$insert = "";
 				$elts = $xml->getElementsByTagName("ref");
 				foreach ($elts as $elt) {
@@ -1105,6 +1116,31 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					if (in_array($halID, $tab) && in_array("MAJ_DOI",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "DOI, "; }
 				}
 				if ($testMaj == "ok") {$actsMAJ .= "MAJ_DOI~"; $lienMAJgrp .= "~A_exclure:".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_DOI";}
+			}else{
+				if (isset($doiOA) && $doiOA == "oui" && $doiHAL == "inconnu" && $doiOAR != "") {//DOI via OA
+					$insert = "";
+					$elts = $xml->getElementsByTagName("ref");
+					foreach ($elts as $elt) {
+						if ($elt->hasAttribute("type")) {
+							$quoi = $elt->getAttribute("type");
+							if ($quoi == "publisher") {
+								insertNode($xml, $doiOAR, "biblStruct", "ref", "idno", "type", "doi", "", "", "iB");
+								$insert = "ok";
+							}
+						}
+					}
+					if ($insert == "") {
+						insertNode($xml, $doiOAR, "biblStruct", "monogr", "idno", "type", "doi", "", "", "aC");
+					}
+					$xml->save($Fnm);
+					$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+					include "./CrossHAL_actions.php";
+					$testMaj = "ok";
+					foreach($ACTIONS_LISTE as $tab) {
+						if (in_array($halID, $tab) && in_array("MAJ_DOI",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "DOI, "; }
+					}
+					if ($testMaj == "ok") {$actsMAJ .= "MAJ_DOI~"; $lienMAJgrp .= "~A_exclure:".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_DOI";}
+				}
 			}
 		}
 		

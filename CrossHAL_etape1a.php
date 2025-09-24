@@ -415,7 +415,13 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$textAff .= "<td>".$lienHAL."</td>";
 		//OpenAlex
 		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
-			$textAff .= "<td><a target='_blank' href='https://api.openalex.org/works?filter=doi:".$doi."&mailto=laurent.jonchere@univ-rennes.fr'><img alt='OpenAlex' src='./img/OA.jpg'></a></td>";
+			if ($doi != '') {
+				$textAff .= "<td><a target='_blank' href='https://api.openalex.org/works?filter=doi:".$doi."&mailto=laurent.jonchere@univ-rennes.fr'><img alt='OpenAlex' src='./img/OA.jpg'></a></td>";
+			}else{
+				$titreOA = str_replace(array(',', ';', '.'), '', $titre);
+				$titreOA = str_replace(' ', '%20', $titreOA);
+				$textAff .= "<td><a target='_blank' href='https://api.openalex.org/works?filter=title.search:%22".$titreOA."%22&mailto=laurent.jonchere@univ-rennes.fr'><img alt='OpenAlex' src='./img/OA.jpg'></a></td>";
+			}
 		}else{
 			$textAff .= "<td>".$lienCR."</td>";
 		}

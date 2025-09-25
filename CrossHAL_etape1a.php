@@ -516,6 +516,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}
 			$deb = "";
 			$fin = "";
+			$pagCRbis = str_replace('-', '–', $pagCR);
 			if ($volCR."(".$numCR.")".$pagCR != "()") {
 				if ($volHAL == "" && $volCR != "") {
 					$deb = "<strong>";$fin = "</strong>";        }
@@ -523,7 +524,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$deb = "<strong>";$fin = "</strong>";
 				}
 				//On complète la pagination HAL par CR sauf si les champs vol et num sont déjà complétés dans HAL
-				if ($pagCR != "" && $volHAL == "" && $numHAL == "") {
+				if ($pagCR != "" && $volHAL == "" && $numHAL == "" && $pagHAL != $pagCR && $pagHAL != $pagCRbis) {
 					$deb = "<strong>";$fin = "</strong>";
 				}
 				$textAff .= "<td style='text-align: center; background-color: #eeeeee;'>".$deb.$volCR."(".$numCR.")".$pagCR.$fin."</td>";
@@ -545,6 +546,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			
 			$deb = "";
 			$fin = "";
+			$pagOARbis = str_replace('-', '–', $pagOAR);
 			if ($volOAR."(".$numOAR.")".$pagOAR != "()") {
 				if ($volHAL == "" && $volOAR != "") {
 					$deb = "<strong>";$fin = "</strong>";        }
@@ -552,7 +554,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					$deb = "<strong>";$fin = "</strong>";
 				}
 				//On complète la pagination HAL par OA sauf si les champs vol et num sont déjà complétés dans HAL
-				if ($pagOAR != "" && $volHAL == "" && $numHAL == "") {
+				if ($pagOAR != "" && $volHAL == "" && $numHAL == "" && $pagHAL != $pagOAR && $pagHAL != $pagOARbis) {
 					$deb = "<strong>";$fin = "</strong>";
 				}
 				$textAff .= "<td style='text-align: center; background-color: #eeeeee;'>".$deb.$volOAR."(".$numOAR.")".$pagOAR.$fin."</td>";
@@ -1243,7 +1245,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				if ($testMaj == "ok") {$actsMAJ .= "MAJ_NUM~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_NUM";}
 			}
 			//On complète la pagination HAL par CR sauf si les champs vol et num sont déjà complétés dans HAL
-			if ($pagCR != "" && $volHAL == "" && $numHAL == "") {
+			$pagCRbis = str_replace('-', '–', $pagCR);
+			if ($pagCR != "" && $volHAL == "" && $numHAL == "" && $pagHAL != $pagCR && $pagHAL != $pagCRbis) {
 				insertNode($xml, $pagCR, "imprint", "date", "biblScope", "unit", "pp", "", "", "iB");
 				$xml->save($Fnm);
 				$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
@@ -1282,7 +1285,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				if ($testMaj == "ok") {$actsMAJ .= "MAJ_NUM~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_NUM";}
 			}
 			//On complète la pagination HAL par OA sauf si les champs vol et num sont déjà complétés dans HAL
-			if ($pagOAR != "" && $volHAL == "" && $numHAL == "") {
+			$pagOARbis = str_replace('-', '–', $pagOAR);
+			if ($pagOAR != "" && $volHAL == "" && $numHAL == "" && $pagHAL != $pagOAR && $pagHAL != $pagOARbis) {
 				insertNode($xml, $pagOAR, "imprint", "date", "biblScope", "unit", "pp", "", "", "iB");
 				$xml->save($Fnm);
 				$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];

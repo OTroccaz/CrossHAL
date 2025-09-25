@@ -251,7 +251,7 @@
 
                                             <div class="form-group row mb-1">
                                                 <label for="idhal" class="col-12 col-md-3 col-form-label font-weight-bold">
-                                                Identifiant alphabétique auteur HAL
+                                                Identifiant auteur IdHAL
                                                 </label>
 																								
 																								<div class="col-12 col-md-9">
@@ -355,11 +355,13 @@
 																<option value="200" <?php echo $dcn;?>>200</option>
 																</select>
 														</div>
+														<!--
 														<div class="col-9">
 																<div class="border border-primary rounded p-2 small d-inline-block">
 																		<span class='text-primary'>-> Cette valeur correspond au pas des requêtes envoyées vers Crossref. Plus elle sera élevée et plus le risque de blocage de votre poste sera important. Par précaution, elle est volontairement forcée à un maximum de 10 pour l'étape 1 (sauf pour l'ajout des auteurs correspondants).</span>
 																</div>
 														</div>
+														-->
 													</div><!-- .form-group -->
 													
 													<div class="form-group row mb-1">

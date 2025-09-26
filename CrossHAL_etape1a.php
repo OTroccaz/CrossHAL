@@ -308,7 +308,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		
 		//OpenAlex
 		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
-			rechMetadoOA($doi, $titre, $doiOAR, $revOAR, $issnOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
+			include ('./config.php');
+			rechMetadoOA($doi, $titre, $apikeyOA, $doiOAR, $revOAR, $issnOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
 		}
 		
 		$textAff .= "<tr>";

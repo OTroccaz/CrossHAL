@@ -15,6 +15,7 @@ function affich_form() {
 
 function option1() {
   document.getElementById("chkall").checked = false;
+  document.getElementById("chkallbis").checked = false;
   //document.getElementById("chk9").checked = false;
   document.getElementById("chk10").checked = false;
   document.getElementById("urlpdf").value = "";
@@ -102,6 +103,7 @@ function option1() {
 
 function option2() {
   document.getElementById("chkall").checked = false;
+  document.getElementById("chkallbis").checked = false;
   document.getElementById("chk0").checked = false;
   document.getElementById("chk1").checked = false;
   document.getElementById("chk2").checked = false;
@@ -204,6 +206,7 @@ function option2() {
 
 function option3() {
   document.getElementById("chkall").checked = false;
+  document.getElementById("chkallbis").checked = false;
   document.getElementById("chk0").checked = false;
   document.getElementById("chk1").checked = false;
   document.getElementById("chk2").checked = false;
@@ -292,6 +295,7 @@ function option3() {
 }
 
 function chkall1() {
+  document.getElementById("chkallbis").checked = false;
   document.getElementById("chk0").checked = false;
   document.getElementById("chk1").checked = false;
   document.getElementById("chk2").checked = false;
@@ -349,6 +353,68 @@ document.getElementById("chk25").checked = false;
 	document.getElementById("chk56").checked = true;
 	document.getElementById("chk57").checked = true;
 	document.getElementById("chk58").checked = true;
+	//document.getElementById("chk59").checked = true;
+}
+
+function chkall2() {
+  document.getElementById("chkall").checked = false;
+  document.getElementById("chk0").checked = true;
+  document.getElementById("chk1").checked = true;
+  document.getElementById("chk2").checked = true;
+  document.getElementById("chk3").checked = true;
+  document.getElementById("chk4").checked = true;
+  document.getElementById("chk5").checked = false;
+  //document.getElementById("chk6").checked = true;
+  document.getElementById("chk7").checked = true;
+  //document.getElementById("chk8").checked = false;
+  //document.getElementById("chk9").checked = false;
+  document.getElementById("chk10").checked = false;
+  document.getElementById("chk11").checked = true;
+  document.getElementById("chk12").checked = true;
+  document.getElementById("chk13").checked = true;
+  document.getElementById("chk14").checked = false;
+  document.getElementById("chk15").checked = false;
+  document.getElementById("chk16").checked = false;
+  document.getElementById("chk17").checked = true;
+  document.getElementById("chk18").checked = false;
+  document.getElementById("chk19").checked = false;
+  document.getElementById("chk20").checked = false;
+  document.getElementById("chk21").checked = false;
+  document.getElementById("chk22").checked = false;
+  document.getElementById("chk23").checked = false;
+  document.getElementById("chk24").checked = true;
+document.getElementById("chk25").checked = false;
+  document.getElementById("chk26").checked = false;
+  document.getElementById("chk27").checked = false;
+  document.getElementById("chk28").checked = false;
+  document.getElementById("chk29").checked = false;
+  document.getElementById("chk30").checked = false;
+  document.getElementById("chk31").checked = false;
+  document.getElementById("chk32").checked = false;
+  document.getElementById("chk33").checked = false;
+  document.getElementById("chk34").checked = false;
+  document.getElementById("chk35").checked = false;
+	document.getElementById("chk36").checked = false;
+	document.getElementById("chk38").checked = true;
+	document.getElementById("chk39").checked = false;
+	document.getElementById("chk40").checked = false;
+	document.getElementById("chk41").checked = false;
+	document.getElementById("chk42").checked = false;
+	document.getElementById("chk43").checked = false;
+	document.getElementById("chk44").checked = false;
+	document.getElementById("chk45").checked = false;
+	document.getElementById("chk46").checked = false;
+	document.getElementById("chk47").checked = false;
+	document.getElementById("chk49").checked = true;
+	document.getElementById("chk50").checked = false;
+	document.getElementById("chk51").checked = false;
+	document.getElementById("chk52").checked = false;
+	document.getElementById("chk53").checked = false;
+	document.getElementById("chk54").checked = false;
+	document.getElementById("chk55").checked = false;
+	document.getElementById("chk56").checked = false;
+	document.getElementById("chk57").checked = false;
+	document.getElementById("chk58").checked = false;
 	//document.getElementById("chk59").checked = true;
 }
 

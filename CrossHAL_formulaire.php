@@ -25,6 +25,7 @@
 													$opt3 = "non";
 													//option 1
 													if (isset($_POST["chkall"]) && $_POST["chkall"] == "oui") {$chkall = htmlspecialchars($_POST["chkall"]);$opt1 = "oui";}else{$chkall = "non";}
+													if (isset($_POST["chkallbis"]) && $_POST["chkallbis"] == "oui") {$chkallbis = htmlspecialchars($_POST["chkallbis"]);$opt1 = "oui";}else{$chkallbis = "non";}
 													
 													if (isset($_POST["doiOA"]) && $_POST["doiOA"] == "oui") {$doiOA = htmlspecialchars($_POST["doiOA"]);$opt1 = "oui";}else{$doiOA = "non";}
 													if (isset($_POST["revOA"]) && $_POST["revOA"] == "oui") {$revOA = htmlspecialchars($_POST["revOA"]);$opt1 = "oui";}else{$revOA = "non";}
@@ -146,6 +147,7 @@
 															$opt3 = "non";
 															//option 1
 															if (isset($_POST["chkall"]) && $_POST["chkall"] == "oui") {$chkall = htmlspecialchars($_POST["chkall"]);$opt1 = "oui";}else{$chkall = "non";}
+															if (isset($_POST["chkallbis"]) && $_POST["chkallbis"] == "oui") {$chkallbis = htmlspecialchars($_POST["chkallbis"]);$opt1 = "oui";}else{$chkallbis = "non";}
 															
 															if (isset($_POST["doiOA"]) && $_POST["doiOA"] == "oui") {$doiOA = htmlspecialchars($_POST["doiOA"]);$opt1 = "oui";}else{$doiOA = "non";}
 															if (isset($_POST["revOA"]) && $_POST["revOA"] == "oui") {$revOA = htmlspecialchars($_POST["revOA"]);$opt1 = "oui";}else{$revOA = "non";}
@@ -517,6 +519,20 @@
 																					</div>
 																					-->
 																				</div><!-- .form-group -->
+																				
+																				<div class="form-group row mb-1">
+																					<?php
+																					if (isset($chkallbis) && $chkallbis == "oui") {$ckab = " checked";}else{$ckab = "";}
+																					?>
+																					<div class="form-group col-sm-12">
+																						<div class="custom-control custom-checkbox">
+																							<input type="checkbox" id="chkallbis" class="custom-control-input" onclick="chkall2()" name="chkallbis" value="oui"<?php echo $ckab;?>>
+																							<label for="chkallbis" class="custom-control-label">
+																							Cocher tout (Articles - CrossRef et Pubmed)
+																							</label>
+																						</div>
+																					</div>
+																				</div>
 																				
 																				<h4><span class='badge badge-secondary-lighten'>Via CrossRef (articles) :</span></h4>
 																				<div class="form-group row mb-1">

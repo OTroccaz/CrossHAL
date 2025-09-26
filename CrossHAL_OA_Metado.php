@@ -11,8 +11,8 @@
 include ('./config.php');
 
 function rechMetadoOA($doi, $titre, $apikeyOA, &$doiOAR, &$revue, &$issn, &$vol, &$num, &$pag, &$langue, &$financement, &$anr, &$datemel) {
-	//Via DOI > https://api.openalex.org/works?filter=doi:10.1002/chem.202403385&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4
-	//Via titre > https://api.openalex.org/works?filter=title.search:%22le%20titre%20en%20question%22&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4
+	//Via DOI > https://api.openalex.org/works?filter=doi:10.1002/chem.202403385&mailto=laurent.jonchere@univ-rennes.fr&api_key=$apikeyOA
+	//Via titre > https://api.openalex.org/works?filter=title.search:%22le%20titre%20en%20question%22&mailto=laurent.jonchere@univ-rennes.fr&api_key=$apikeyOA
 	
 	//Le DOI est connu et a été renseigné par le script d'appel à la fonction
 	if ($doi != '') {
@@ -22,7 +22,7 @@ function rechMetadoOA($doi, $titre, $apikeyOA, &$doiOAR, &$revue, &$issn, &$vol,
 		//$titre = urlencode($titre);
 		$titre = str_replace(array(',', ';', '.'), '', $titre);
 		$titre = str_replace(' ', '%20', $titre);
-		$urlOA = 'https://api.openalex.org/works?filter=title.search:%22'.$titre.'%22&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4';
+		$urlOA = 'https://api.openalex.org/works?filter=title.search:%22'.$titre.'%22&mailto=laurent.jonchere@univ-rennes.fr&api_key='.$apikeyOA;
 	}
 	//echo $urlOA.'<br>';
 	//$contents = simplexml_load_file($urlOA);

@@ -8,7 +8,7 @@
  * Fonction de recherche de métadonnées via OpenAlex - OpenAlex metadata search function
  */
  
-function rechMetadoOA($doi, $titre, &$doiOAR, &$revue, &$vol, &$num, &$pag, &$langue, &$financement, &$anr, &$datemel) {
+function rechMetadoOA($doi, $titre, &$doiOAR, &$revue, &$issn, &$vol, &$num, &$pag, &$langue, &$financement, &$anr, &$datemel) {
 	//Via DOI > https://api.openalex.org/works?filter=doi:10.1002/chem.202403385&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4
 	//Via titre > https://api.openalex.org/works?filter=title.search:%22le%20titre%20en%20question%22&mailto=laurent.jonchere@univ-rennes.fr&api_key=R7TkFjPwSMVEFT7d6t5Dt4
 	
@@ -39,6 +39,9 @@ function rechMetadoOA($doi, $titre, &$doiOAR, &$revue, &$vol, &$num, &$pag, &$la
 			
 			//Revue
 			$revue = (isset($resOA["results"][0]["primary_location"]["source"]["display_name"]) && $resOA["results"][0]["primary_location"]["source"]["display_name"] != NULL) ? $resOA["results"][0]["primary_location"]["source"]["display_name"] : '';
+			
+			//ISSN
+			$issn = (isset($resOA["results"][0]["primary_location"]["source"]["issn_l"]) && $resOA["results"][0]["primary_location"]["source"]["issn_l"] != NULL) ? $resOA["results"][0]["primary_location"]["source"]["issn_l"] : '';
 			
 			//Vol/num/pag
 			$vnp = '';
@@ -104,6 +107,6 @@ function rechMetadoOA($doi, $titre, &$doiOAR, &$revue, &$vol, &$num, &$pag, &$la
 //$doi = "10.1038/s41467-025-60401-4";
 //$doi = '';
 //$titre = 'A Scoping Review on Air Quality Monitoring, Policy and Health in West African Cities';
-//rechMetadoOA($doi, $titre, $doiOAR, $revue, $vol, $num, $pag, $langue, $financement, $anr, $datemel);
+//rechMetadoOA($doi, $titre, $doiOAR, $revue, $issn, $vol, $num, $pag, $langue, $financement, $anr, $datemel);
 //echo 'toto : '.$doiOAR;
 ?>

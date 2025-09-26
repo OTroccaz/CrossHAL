@@ -250,6 +250,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$prenomHAL = "";//Prénom du 1er auteur HAL
 		$nomHAL = "";//Nom du 1er auteur HAL
 		$doiOAR = "";//DOI OpenAlex
+		$docidOAR = "";//Docid revue OpenAlex
 		$revOAR = "";//Revue OpenAlex
 		$volOAR = "";//Vol OpenAlex
 		$numOAR = "";//Num OpenAlex
@@ -307,7 +308,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		
 		//OpenAlex
 		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
-			rechMetadoOA($doi, $titre, $doiOAR, $revOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
+			rechMetadoOA($doi, $titre, $doiOAR, $revOAR, $issnOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
 		}
 		
 		$textAff .= "<tr>";
@@ -467,14 +468,44 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		
 		if ($revOA == "oui") {//Revue OA
-			if (isset($doi) && $doi != "" && $revOAR != "") {
+			//if (isset($doi) && $doi != "" && $revOAR != "") {
+				if (isset($doi) && $doi != "") {
 				if (isset($arrayHAL["response"]["docs"][$cpt]["journalValid_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalValid_s"] != "VALID" ) {
 					if (isset($arrayHAL["response"]["docs"][$cpt]["journalTitle_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalTitle_s"] != "" ) {
 						$revHAL = $arrayHAL["response"]["docs"][$cpt]["journalTitle_s"];
 					}
-					$why = $revHAL." <> ".$revOAR;
+					if (isset($arrayHAL["response"]["docs"][$cpt]["docid"]) && $arrayHAL["response"]["docs"][$cpt]["docid"] != "" ) {
+						$docidHAL = $arrayHAL["response"]["docs"][$cpt]["docid"];
+					}
+					if (isset($arrayHAL["response"]["docs"][$cpt]["journalIssn_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalIssn_s"] != "" ) {
+						$issnHAL = $arrayHAL["response"]["docs"][$cpt]["journalIssn_s"];
+					}
+					if (isset($arrayHAL["response"]["docs"][$cpt]["journalEissn_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalEissn_s"] != "" ) {
+						$eissnHAL = $arrayHAL["response"]["docs"][$cpt]["journalEissn_s"];
+					}
+					
+					//Recherche revue
+					
+					if ($issnOAR != "") {
+						$urlHALIH = "https://api.archives-ouvertes.fr/ref/journal/?q=issn_s:".$issnOAR."&fl=title_s,valid_s,label_s,docid,code_s";
+						askCurl($urlHALIH, $arrayHALIH);
+						
+						//var_dump($arrayHAL["response"]["docs"]);
+						
+						$docsIH = $arrayHALIH["response"]["docs"];
+						
+						foreach ($docsIH as $resIH) {
+							if ($resIH["valid_s"] == "VALID") {
+								$docidOAR = $resIH["docid"];
+								$revOAR = $resIH["title_s"];
+								break;
+							}
+						}
+					}
+					
+					$why = $arrayHAL["response"]["docs"][$cpt]["journalValid_s"]." <> ".$docidOAR;
 					$why = str_replace("'", " ", $why);
-					if ($revHAL != $revOAR) {
+					if ($docidOAR != '') {
 						$textAff .= "<td><img alt='".$why."' title='".$why."' src='./img/pasok.jpg'></td>";
 					}else{
 						$textAff .= "<td>&nbsp;</td>";
@@ -1166,7 +1197,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			if ($testMaj == "ok") {$actsMAJ .= "MAJ_POP~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_POP";}
 		}
 
-		//Si revue VALID trouvée alors qu'INCOMING à la base dans la notice
+		//Via CR, si revue VALID trouvée alors qu'INCOMING à la base dans la notice
 		if ($revue == "oui" && ($docidCRIH != $docidHAL && $docidCRIH != "")) {
 			//docid
 			$docid = $docidCRIH;
@@ -1198,6 +1229,55 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			$eissn = "";
 			if ($eissnCRIH != "") {
 				$eissn = $eissnCRIH;
+			}else{
+				if ($eissnHAL != "") {
+					$eissn = $eissnHAL;
+				}
+			}
+			insertNode($xml, $eissn, "monogr", "title", "idno", "type", "eissn", "", "", "iB");
+
+			$xml->save($Fnm);
+			$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];
+			include "./CrossHAL_actions.php";
+			$testMaj = "ok";
+			foreach($ACTIONS_LISTE as $tab) {
+				if (in_array($halID, $tab) && in_array("MAJ_REV",$tab)) {$actMaj = "no"; $testMaj = "no"; $raisons .= "revue, ";}
+			}
+			if ($testMaj == "ok") {$actsMAJ .= "MAJ_REV~"; $lienMAJgrp .= "~".$arrayHAL["response"]["docs"][$cpt]["halId_s"]; $actsMAJgrp .= "~MAJ_REV";}
+		}
+		
+		//Via OA, si revue VALID trouvée alors qu'INCOMING à la base dans la notice
+		if ($revOA == "oui" && ($docidOAR != $docidHAL && $docidOAR != "")) {
+			//docid
+			$docid = $docidOAR;
+			insertNode($xml, $docid, "monogr", "title", "idno", "type", "halJournalId", "status", "VALID", "iB");
+
+			//nom revue
+			$rev = "";
+			if ($revOAR != "") {
+				$rev = $revOAR;
+			}else{
+				if ($revHAL != "") {
+					$rev = $revHAL;
+				}
+			}
+			insertNode($xml, $rev, "monogr", "title", "title", "level", "j", "", "", "iB");
+
+			//issn
+			$issn = "";
+			if ($issnOAR != "") {
+				$issn = $issnOAR;
+			}else{
+				if ($issnHAL != "") {
+					$issn = $issnHAL;
+				}
+			}
+			insertNode($xml, $issn, "monogr", "title", "idno", "type", "issn", "", "", "iB");
+			
+			//eissn
+			$eissn = "";
+			if ($eissnOAR != "") {
+				$eissn = $eissnOAR;
 			}else{
 				if ($eissnHAL != "") {
 					$eissn = $eissnHAL;

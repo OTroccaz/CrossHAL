@@ -503,6 +503,23 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						}
 					}
 					
+					$eissnOAR = $issnOAR;
+					if ($eissnOAR != "" && $docidOAR == "") {
+						$urlHALIH = "https://api.archives-ouvertes.fr/ref/journal/?q=eissn_s:".$eissnOAR."&fl=title_s,valid_s,label_s,docid,code_s";
+						askCurl($urlHALIH, $arrayHALIH);
+						
+						$docsIH = $arrayHALIH["response"]["docs"];
+						
+						foreach ($docsIH as $resIH) {
+							if ($resIH["valid_s"] == "VALID") {
+								$docidOAR = $resIH["docid"];
+								$revOAR = $resIH["title_s"];
+								break;
+							}
+						}
+
+					}
+					
 					$why = $arrayHAL["response"]["docs"][$cpt]["journalValid_s"]." <> ".$docidOAR;
 					$why = str_replace("'", " ", $why);
 					if ($docidOAR != '') {

@@ -223,7 +223,8 @@ include("./Glob_normalize.php");
                                     <div class="page-title-right">
                                         <nav aria-label="breadcrumb">
                                             <ol class="breadcrumb bg-light-lighten p-2">
-																								<li><a href="https://halur.univ-rennes.fr/CrossHAL.php?logout="><i class="uil-power"></i> Déconnexion CAS CCSD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+																								<!-- <li><a href="https://halur.univ-rennes.fr/CrossHAL.php?logout="><i class="uil-power"></i> Déconnexion CAS CCSD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li> -->
+																								<li><a href="https://cas.ccsd.cnrs.fr/cas/login?service=https%3A%2F%2Fccsdrennesvip.ccsd.cnrs.fr%2FCrossHAL.php"><i class="uil-power"></i> Déconnexion CAS CCSD</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                                                 <li class="breadcrumb-item"><a href="index.php"><i class="uil-home-alt"></i> Accueil HALUR</a></li>
                                                 <li class="breadcrumb-item active" aria-current="page">Cross<span class="font-weight-bold">HAL</span></li>
                                             </ol>

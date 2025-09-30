@@ -469,8 +469,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		
 		if ($revOA == "oui") {//Revue OA
-			//if (isset($doi) && $doi != "" && $revOAR != "") {
-				if (isset($doi) && $doi != "") {
+			if (isset($doi) && $doi != "" && $revOAR != "") {
 				if (isset($arrayHAL["response"]["docs"][$cpt]["journalValid_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalValid_s"] != "VALID" ) {
 					if (isset($arrayHAL["response"]["docs"][$cpt]["journalTitle_s"]) && $arrayHAL["response"]["docs"][$cpt]["journalTitle_s"] != "" ) {
 						$revHAL = $arrayHAL["response"]["docs"][$cpt]["journalTitle_s"];
@@ -498,7 +497,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						foreach ($docsIH as $resIH) {
 							if ($resIH["valid_s"] == "VALID") {
 								$docidOAR = $resIH["docid"];
-								$revOAR = $resIH["title_s"];
+								$titOAR = $resIH["title_s"];
 								break;
 							}
 						}
@@ -514,7 +513,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 						foreach ($docsIH as $resIH) {
 							if ($resIH["valid_s"] == "VALID") {
 								$docidOAR = $resIH["docid"];
-								$revOAR = $resIH["title_s"];
+								$titOAR = $resIH["title_s"];
 								break;
 							}
 						}
@@ -1265,7 +1264,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		
 		//Via OA, si revue VALID trouvée alors qu'INCOMING à la base dans la notice
-		if ($revOA == "oui" && ($docidOAR != $docidHAL && $docidOAR != "")) {
+		if ($revOA == "oui" && ($docidOAR != $docidHAL && $docidOAR != "") && $revOAR != "") {
 			//docid
 			$docid = $docidOAR;
 			insertNode($xml, $docid, "monogr", "title", "idno", "type", "halJournalId", "status", "VALID", "iB");

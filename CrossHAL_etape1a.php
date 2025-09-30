@@ -241,6 +241,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$textAff = "";//Texte de la ligne du tableau
 		$titre = $arrayHAL["response"]["docs"][$cpt]["title_s"][0];//Titre de la notice
 		$doi = "";//DOI de la notice
+		if (isset($arrayHAL["response"]["docs"][$cpt]["doiId_s"]) && $arrayHAL["response"]["docs"][$cpt]["doiId_s"] != '') {$doi = $arrayHAL["response"]["docs"][$cpt]["doiId_s"];}
 		$halID = "";//HalId de la notice
 		$doiCR = "";//DOI CR
 		$lienHAL = "";//Lien renvoyant vers la notice HAL
@@ -308,7 +309,6 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		
 		//OpenAlex
 		if ($doiOA == "oui" || $revOA == "oui" || $vnpOA == "oui" || $lanOA == "oui" || $finOA == "oui" || $anrOA == "oui" || $melOA == "oui") {
-			include ('./config.php');
 			rechMetadoOA($doi, $titre, $apikeyOA, $doiOAR, $revOAR, $issnOAR, $volOAR, $numOAR, $pagOAR, $lanOAR, $finOAR, $anrOAR, $melOAR);//OAR = OpenAlexResults
 		}
 		

@@ -22,7 +22,7 @@ function rechMetadoOA($doi, $titre, $apikeyOA, &$doiOAR, &$revue, &$issn, &$vol,
 		//$titre = urlencode($titre);
 		$titre = str_replace(array(',', ';', '.'), '', $titre);
 		$titre = str_replace(' ', '%20', $titre);
-		$titre = str_replace("'", "\'", $titre);
+		$titre = str_replace("'", "&#39;", $titre);
 		$urlOA = 'https://api.openalex.org/works?filter=title.search:%22'.$titre.'%22&mailto=laurent.jonchere@univ-rennes.fr&api_key='.$apikeyOA;
 	}
 	//echo $urlOA.'<br>';

@@ -422,6 +422,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			}else{
 				$titreOA = str_replace(array(',', ';', '.'), '', $titre);
 				$titreOA = str_replace(' ', '%20', $titreOA);
+				$titreOA = str_replace("'", "&#39;", $titreOA);
 				$textAff .= "<td><a target='_blank' href='https://api.openalex.org/works?filter=title.search:%22".$titreOA."%22&mailto=laurent.jonchere@univ-rennes.fr'><img alt='OpenAlex' src='./img/OA.jpg'></a></td>";
 			}
 		}else{
@@ -2121,17 +2122,19 @@ if ($lienMAJgrpTot != "") {
 		for ($i=0; $i<count($tabHalId); $i++) {
 			if (strpos($tabHalId[$i], "A_exclure:") !== false) {
 				$halId = str_replace("A_exclure:", "", $tabHalId[$i]);
-				$lienMAJgrpTot = str_replace(array("~A_exclure:".$halId, "~".$halId), "", $lienMAJgrpTot);
+				//$lienMAJgrpTot = str_replace(array("~A_exclure:".$halId, "~".$halId), "", $lienMAJgrpTot);
+				$lienMAJgrpTot = str_replace(array("~A_exclure:".$halId), "", $lienMAJgrpTot);
 				$tabActId[$i] = "";
 			}
 		}
 		$actsMAJgrpTot = "";
 		for ($i=0; $i<count($tabActId); $i++) {
-			$actsMAJgrpTot .= $tabActId[$i];
+			$actsMAJgrpTot .= $tabActId[$i].'~';
 		}
+		$actsMAJgrpTot = trim($actsMAJgrpTot, "~");
 	}
 	$lienMAJgrpTot = substr($lienMAJgrpTot, 1, strlen($lienMAJgrpTot));
-	$actsMAJgrpTot = substr($actsMAJgrpTot, 1, strlen($actsMAJgrpTot));
+	//$actsMAJgrpTot = substr($actsMAJgrpTot, 1, strlen($actsMAJgrpTot));
 	$tabHalId = explode("~", $lienMAJgrpTot);
 	$tabActId = explode("~", $actsMAJgrpTot);
 	$lienMAJgrpTot = "";

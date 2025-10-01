@@ -22,6 +22,7 @@ function rechMetadoOA($doi, $titre, $apikeyOA, &$doiOAR, &$revue, &$issn, &$vol,
 		//$titre = urlencode($titre);
 		$titre = str_replace(array(',', ';', '.'), '', $titre);
 		$titre = str_replace(' ', '%20', $titre);
+		$titre = str_replace("'", "\'", $titre);
 		$urlOA = 'https://api.openalex.org/works?filter=title.search:%22'.$titre.'%22&mailto=laurent.jonchere@univ-rennes.fr&api_key='.$apikeyOA;
 	}
 	//echo $urlOA.'<br>';
@@ -34,7 +35,7 @@ function rechMetadoOA($doi, $titre, $apikeyOA, &$doiOAR, &$revue, &$issn, &$vol,
 		//var_dump($resOA["results"][0]);
 		
 		if (isset($resOA["results"][0])) {
-			//DOI si non renseigné intialement
+			//DOI si non renseigné intiialement
 			if ($doi == '') {
 				$doiOAR = (isset($resOA["results"][0]["doi"]) && $resOA["results"][0]["doi"] != NULL) ? str_replace('https://doi.org/', '', $resOA["results"][0]["doi"]) : '';
 			}
@@ -49,7 +50,14 @@ function rechMetadoOA($doi, $titre, $apikeyOA, &$doiOAR, &$revue, &$issn, &$vol,
 			$vnp = '';
 			$vol = (isset($resOA["results"][0]["biblio"]["volume"]) && $resOA["results"][0]["biblio"]["volume"] != NULL) ? $resOA["results"][0]["biblio"]["volume"] : '';
 			$num = (isset($resOA["results"][0]["biblio"]["issue"]) && $resOA["results"][0]["biblio"]["issue"] != NULL) ? $resOA["results"][0]["biblio"]["issue"] : '';
-			$pag = (isset($resOA["results"][0]["biblio"]["first_page"]) && $resOA["results"][0]["biblio"]["first_page"] != NULL && isset($resOA["results"][0]["biblio"]["last_page"]) && $resOA["results"][0]["biblio"]["last_page"] != NULL) ? $resOA["results"][0]["biblio"]["first_page"] . '-' . $resOA["results"][0]["biblio"]["last_page"] : '';
+			//Est-ce que 'first_page' = 'last_page' ? Si oui, ne remonter que first_page
+			if (isset($resOA["results"][0]["biblio"]["first_page"]) && isset($resOA["results"][0]["biblio"]["last_page"])) {
+				if ($resOA["results"][0]["biblio"]["first_page"] != $resOA["results"][0]["biblio"]["last_page"]) {
+					$pag = ($resOA["results"][0]["biblio"]["first_page"] != NULL && $resOA["results"][0]["biblio"]["last_page"] != NULL) ? $resOA["results"][0]["biblio"]["first_page"] . '-' . $resOA["results"][0]["biblio"]["last_page"] : '';
+				}else{
+					$pag = ($resOA["results"][0]["biblio"]["first_page"] != NULL) ? $resOA["results"][0]["biblio"]["first_page"] : '';
+				}
+			}
 			$vnp = $vol . '(' . $num .')' . $pag;//Si différents éléments NULL, retournera ()
 			$vnp = ($vnp != '()') ? $vnp : '';
 			
@@ -106,9 +114,9 @@ function rechMetadoOA($doi, $titre, $apikeyOA, &$doiOAR, &$revue, &$issn, &$vol,
 		}
 	}
 }
-//$doi = "10.1038/s41467-025-60401-4";
+//$doi = "10.1007/s10686-025-09985-9";
 //$doi = '';
-//$titre = 'A Scoping Review on Air Quality Monitoring, Policy and Health in West African Cities';
-//rechMetadoOA($doi, $titre, $doiOAR, $revue, $issn, $vol, $num, $pag, $langue, $financement, $anr, $datemel);
+//$titre = 'Evaluation of the static and dynamic assistive torque of a passive upper-limb occupational exoskeleton';
+//rechMetadoOA($doi, $titre, $apikeyOA, $doiOAR, $revue, $issn, $vol, $num, $pag, $langue, $financement, $anr, $datemel);
 //echo 'toto : '.$doiOAR;
 ?>

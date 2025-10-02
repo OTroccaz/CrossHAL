@@ -626,9 +626,12 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				askCurl($urlNCBI, $arrayNCBI);
 				$numNCBI = $arrayNCBI["esearchresult"]["count"];
 
-				if (isset($arrayNCBI["esearchresult"]["idlist"][0])) {
-					$pmiPM = $arrayNCBI["esearchresult"]["idlist"][0];
-					rechMetadoPMID($pmiPM, $absPM, $mcMESH, $lanPM, $mocPM, $dpbPM);
+				//Ne pas remonter de PMID s'il y a plusieurs résultats en json (idlist)
+				if ($numNCBI == 1) {
+					if (isset($arrayNCBI["esearchresult"]["idlist"][0])) {
+						$pmiPM = $arrayNCBI["esearchresult"]["idlist"][0];
+						rechMetadoPMID($pmiPM, $absPM, $mcMESH, $lanPM, $mocPM, $dpbPM);
+					}
 				}
 				$deb = "";
 				$fin = "";

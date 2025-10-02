@@ -634,7 +634,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				$fin = "";
 				if ($pmiHAL != $pmiPM) {$deb = "<strong>";$fin = "</strong>";}
 				$textAff .= "<td>".$pmiHAL."</td>";
-				$textAff .= "<td style='text-align : center; background-color: #eeeeee;'>".$deb.$pmiPM.$fin."</td>";
+				$textAff .= "<td style='text-align : center; background-color: #eeeeee;'><a target='_blank' href='https://pubmed.ncbi.nlm.nih.gov/".$pmiPM."/'>".$deb.$pmiPM.$fin."</a></td>";
 			}else{
 				$textAff .= "<td></td>";
 				$textAff .= "<td></td>";

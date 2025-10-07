@@ -372,6 +372,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			
 		}else{//Pas de DOI trouvé dans HAL > on va essayer de le retrouver grâce au titre et l'API CR si la recherche a bien été demandée initialement
 			$doiHAL = "inconnu";
+			$doiCROA_abmcPM = "non";//Variable test (oui/non) pour désactiver l'ajout du résumé Pubmed et mots-clés Pubmed quand CrossHAL remonte une proposition d'ajout de DOI (d'OpenAlex ou de CrossRef) 
 			if (isset($doiCrossRef) && $doiCrossRef == "oui") {
 				$titreTest = $arrayHAL["response"]["docs"][$cpt]["title_s"][0];
 				$urlCR = "https://api.crossref.org/works?query.title=".urlencode($titreTest);
@@ -394,6 +395,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 							$doi = $doiCR;
 							$lienDOI = "<a target='_blank' href='https://doi.org/".$doiCR."'><img alt='CrossRef' src='./img/doiCR.png'></a>";
 							$lienCR = "<a target='_blank' href='http://search.crossref.org/?q=".$doiCR."'><img alt='CrossRef' src='./img/CR.jpg'></a>";
+							$doiCROA_abmcPM = "oui";
 						}
 					//}
 				}
@@ -404,6 +406,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 					if ($doiOAR != "") {
 						$lienDOI = "<a target='_blank' href='https://doi.org/".$doiOAR."'><img alt='DOI' src='./img/doiCR.png'></a>";
 						//$lienOA = "<a target='_blank' href='http://search.crossref.org/?q=".$rechDOI."'><img alt='CrossRef' src='./img/CR.jpg'></a>";
+						$doiCROA_abmcPM = "oui";
 					}else{
 						$lienOA = "DOI inconnu de OpenAlex";
 						//$doiOA = "inconnu";
@@ -810,9 +813,14 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				if ($mocPM != "") {$mocPMred = strtolower(substr($mocPM, 0, 250));}else{$mocPMred= "";}
 
 				if ($mocHALred != $mocPMred) {
-					$pcMocPM = (250-levenshtein_utf8($mocHALred, $mocPMred))*100/250;
-					$why = 'Indice de similarité : '.$pcMocPM.' %';
-					$txtMocPMaff = "<img alt='".$why."' title='".$why."' src='./img/pasok.png'>";
+					//$doiCROA_abmcPM > variable test (oui/non) pour désactiver l'ajout du résumé Pubmed et mots-clés Pubmed quand CrossHAL remonte une proposition d'ajout de DOI (d'OpenAlex ou de CrossRef)
+					if ($doiCROA_abmcPM == "non") {
+						$pcMocPM = (250-levenshtein_utf8($mocHALred, $mocPMred))*100/250;
+						$why = 'Indice de similarité : '.$pcMocPM.' %';
+						$txtMocPMaff = "<img alt='".$why."' title='".$why."' src='./img/pasok.png'>";
+					}else{
+						$txtMocPMaff = "";
+					}
 				}else{
 					$txtMocPMaff = "<img alt='OK' src='./img/ok.png'>";
 				}
@@ -875,8 +883,13 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 			if ($absHAL != "" && $absPM != "") {
 				//if ($absHALred != $absPMred) {
 				if ($pc < $indLimAbs) {
-					$why = 'Indice de similarité : '.$pc.' %';
-					$txtAbsPMaff = "<img alt='".$why."' title='".$why."' src='./img/pasok.png'>";
+					//$doiCROA_abmcPM > variable test (oui/non) pour désactiver l'ajout du résumé Pubmed et mots-clés Pubmed quand CrossHAL remonte une proposition d'ajout de DOI (d'OpenAlex ou de CrossRef)
+					if ($doiCROA_abmcPM == "non") {
+						$why = 'Indice de similarité : '.$pc.' %';
+						$txtAbsPMaff = "<img alt='".$why."' title='".$why."' src='./img/pasok.png'>";
+					}else{
+						$txtAbsPMaff = "";
+					}
 				}else{
 					$txtAbsPMaff = "<img alt='OK' src='./img/ok.png'>";
 				}
@@ -1817,7 +1830,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		$indLim = 90;
 		
 		//PM
-		if ($mocPubmed == "oui") {
+		//$doiCROA_abmcPM > variable test (oui/non) pour désactiver l'ajout du résumé Pubmed et mots-clés Pubmed quand CrossHAL remonte une proposition d'ajout de DOI (d'OpenAlex ou de CrossRef)
+		if ($mocPubmed == "oui" && $doiCROA_abmcPM == "non") {
 			//if ($pcMocPM < $indLim && $mocPM != "") {
 			if (empty($mocHAL) && $mocPM != "") {
 				//si noeud présent
@@ -1955,7 +1969,8 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 		}
 		//echo 'HAL : '.$absHAL.'<br><br>'.'PM : '.$absPM.'<br>'.$pcPM.'<br>';
 		//echo 'HAL : '.$absHALred.'<br><br>'.'PM : '.$absPMred.'<br>'.$pcPM.'<br>';
-		if ($absPubmed == "oui" && $absPM != $absHAL && $absPM != "" && $pcPM < $indLimAbs) {
+		//$doiCROA_abmcPM > variable test (oui/non) pour désactiver l'ajout du résumé Pubmed et mots-clés Pubmed quand CrossHAL remonte une proposition d'ajout de DOI (d'OpenAlex ou de CrossRef)
+		if ($absPubmed == "oui" && $absPM != $absHAL && $absPM != "" && $pcPM < $indLimAbs && $doiCROA_abmcPM == "non") {
 			insertNode($xml, $absPM, "profileDesc", "", "abstract", "xml:lang", "en", "", "", "aC");
 			$xml->save($Fnm);
 			$lienMAJ = "./CrossHAL_Modif.php?action=MAJ&etp=1&Id=".$arrayHAL["response"]["docs"][$cpt]["halId_s"];

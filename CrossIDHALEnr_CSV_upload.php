@@ -137,7 +137,7 @@ if (isset($_FILES['CSV_OCDHAL']['name']) && $_FILES['CSV_OCDHAL']['name'] != "")
 	if ($handle) {
 		$ligne = 0;
 		$total = count(file($temp));
-		while($tab = fgetcsv($handle, 0, ';')) {
+		while($tab = fgetcsv($handle, 0, ';', '"', "")) {
 			if ($ligne != 0) {//Exclure les noms des colonnes
 				//Unicité des lignes
 				$cmp = trim($tab[0]).trim($tab[1]).trim($tab[2]).trim($tab[5]).trim($tab[10]).str_replace('"', '’', trim($tab[6])).' - '.str_replace('"', '’', trim($tab[9]));

@@ -119,7 +119,7 @@ function testOALic($url, $vol, $iss, $pag, $dat, $pdfCR, $halID, &$evd, &$testDO
 	}
   $json = curl_exec($ch);
   //echo $json;
-  curl_close($ch);
+  //curl_close($ch);
   $parsed_json = json_decode($json);
   //var_dump($parsed_json);
 	$testDOI = $parsed_json->{'doi'};

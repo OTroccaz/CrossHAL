@@ -216,7 +216,7 @@ try {
   return ("ERREUR : Erreur Web service  : ".$e->getMessage()."\n");
 }
 
-curl_close($ch); 
+//curl_close($ch); 
 ?>
 </body>
 </html>

@@ -51,6 +51,7 @@ echo "<div id='cpt'></div>";
 echo "<table class='table table-responsive table-striped table-bordered table-centered table-sm text-center small'>";
 echo "<thead class='thead-dark'><tr>";
 echo "<th><strong>ID</strong></th>";
+echo "<th><strong>docid</strong></th>";
 echo "<th><strong>DOI</strong></th>";
 echo "<th><strong>HAL</strong></th>";
 echo "<th><strong>Année pub.</strong></th>";
@@ -254,6 +255,7 @@ for($cpt = $iMinTab; $cpt < $iMax; $cpt++) {
 				$lienDOI = "<a target='_blank' href='https://doi.org/".$doi."'><img alt='DOI' src='./img/doi.jpg'></a>";
 			}
 			$textAff .= "<tr><td>".$cptTab."</td>";
+			$textAff .= "<td>".$arrayHAL["response"]["docs"][$cpt]["halId_s"]."</td>";
 			$textAff .= "<td>".$lienDOI."</td>";
 			$textAff .= "<td>".$lienHAL."</td>";
 			$textAff .= "<td>".$arrayHAL["response"]["docs"][$cpt]["producedDateY_i"]."</td>";

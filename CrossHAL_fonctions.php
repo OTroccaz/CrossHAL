@@ -102,7 +102,7 @@ function askCurl($url, &$arrayCurl) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	}
   $json = curl_exec($ch);
-  curl_close($ch);
+  //curl_close($ch);
 
   $memory = intval(ini_get('memory_limit')) * 1024 * 1024;
   $limite = strlen($json)*1;
@@ -486,7 +486,7 @@ function testURL($url) {
   curl_exec ($resURL);
   $intReturnCode = curl_getinfo($resURL, CURLINFO_HTTP_CODE);
   //echo $intReturnCode;
-  curl_close ($resURL);
+  //curl_close ($resURL);
   //if ($intReturnCode != 200 && $intReturnCode != 302 && $intReturnCode != 304) {
   if ($intReturnCode != 200 && $intReturnCode != 304) {
     return false;
